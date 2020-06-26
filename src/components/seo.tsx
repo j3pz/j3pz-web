@@ -36,6 +36,7 @@ function SEO({
             }}
             title={title}
             titleTemplate={`%s | ${site.siteMetadata.title}`}
+            script={[{ src: 'https://kit.fontawesome.com/2f45df1ed1.js', type: 'text/javascript', crossorigin: 'anonymous' }]}
             meta={[
                 {
                     name: 'description',

@@ -1,5 +1,5 @@
 .header {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
@@ -19,21 +19,20 @@
 }
 
 .logo {
-    height: 48px;
-    margin-right: 24px;
+    height: 36px;
+    margin-right: 12px;
 }
 .logo > img {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
 }
 
 .title {
     margin: 0;
-    font-size: 28px;
-    font-weight: 700;
-    font-family: "Microsoft YaHei", "Hiragino Sans GB";
-    color: black;
-    text-decoration: none;
+    height: 32px;
+}
+.title > img {
+    height: 32px;
 }
 
 .link {
@@ -42,18 +41,4 @@
     color: black;
     font-family: "Microsoft YaHei", "Hiragino Sans GB";
     text-decoration: none;
-}
-
-.get-started {
-    margin: 0 0 0 12px;
-    font-size: 20px;
-    text-decoration: none;
-    color: white;
-    font-family: "Microsoft YaHei", "Hiragino Sans GB";
-    line-height: 36px;
-    display: inline-block;
-    background-color: #E69232;
-    padding: 0 12px;
-    border-radius: 4px;
-    height: 36px;
 }

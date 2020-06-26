@@ -1,0 +1,122 @@
+.banner-img {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+}
+
+.simple-intro {
+    border: none;
+    box-shadow: 0 -5px 8px 0 rgba(0, 0, 0, 0.08);
+    margin: auto;
+    width: 960px;
+    position: relative;
+    top: -60px;
+    height: 250px;
+    padding: 48px;
+    background: rgba(255,255,255, 0.3);
+    background: -moz-linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3) 95%, rgba(255,255,255,0.3) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3) 95%, rgba(255,255,255,0.3) 100%);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3) 95%, rgba(255,255,255,0.3) 100%);
+}
+
+.intro-title {
+    font-size: 48px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+}
+.intro-text {
+    font-size: 22px;
+    margin-top: 48px;
+}
+
+.guide {
+    width: 100%;
+    background-color: #BB3041;
+    padding: 96px 0 128px 0;
+    clip-path: polygon(0 0, 100% 120px, 100% 100%, 0% calc(100% - 120px));
+}
+.content {
+    width: 1080px;
+    color: #FFFFFF;
+    margin: auto;
+
+    &.black {
+        color: #000000;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .title {
+        margin: 24px 0;
+        font-size: 48px;
+        height: 60px;
+        line-height: 60px;
+    }
+}
+
+.tools {
+    position: relative;
+    .content {
+        position: relative;
+        z-index: 100;
+        top: -48px;
+    }
+}
+
+.tools-row {
+    position: relative;
+    z-index: 100;
+    width: 1080px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
+    .tools-item {
+        width: 128px;
+        height: 128px;
+        cursor: pointer;
+        .icon {
+            font-size: 64px;
+            margin: 12px auto;
+            width: 112px;
+            text-align: center;
+        }
+        .text {
+            text-align: center;
+        }
+        &:hover {
+            color: #BB3041;
+        }
+    }
+}
+
+.getstart {
+    margin-top: 200px;
+    position: relative;
+    .content {
+        position: relative;
+        z-index: 10;
+    }
+    .getstart-img {
+        position: relative;
+        z-index: 0;
+        clip-path: polygon(0 120px, 100% 0, 100% 100%, 0% 100%);
+        top: -240px;
+    }
+    .getstart-btn {
+        margin: 0 auto;
+        font-size: 36px;
+        height: 72px;
+        line-height: 70px;
+        padding: 0 24px;
+        display: block;
+        width: 480px;
+        text-align: center;
+    }
+}
+
