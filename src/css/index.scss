@@ -99,8 +99,12 @@
     margin-top: 200px;
     position: relative;
     .content {
+        top: 60px;
         position: relative;
         z-index: 10;
+        .title {
+            text-shadow: 0px 0px 10px #f3b949;
+        }
     }
     .getstart-img {
         position: relative;
@@ -117,6 +121,16 @@
         display: block;
         width: 480px;
         text-align: center;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        background-color: rgba(243, 185, 73, 0.3);
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba(186, 141, 58, 0.3);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+        }
     }
 }
 
