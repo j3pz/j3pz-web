@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -59,10 +59,12 @@ const IndexPage = () => {
                     <div className="title">小工具</div>
                 </div>
                 <div className="tools-row">
-                    <Card className="tools-item">
-                        <div className="icon fad fa-tachometer-alt" />
-                        <div className="text">加速宝典</div>
-                    </Card>
+                    <Link to="/tools/haste">
+                        <Card className="tools-item">
+                            <div className="icon fad fa-tachometer-alt" />
+                            <div className="text">加速宝典</div>
+                        </Card>
+                    </Link>
                     <Card className="tools-item">
                         <div className="icon fad fa-gem" />
                         <div className="text">瑰石列表</div>

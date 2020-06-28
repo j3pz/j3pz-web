@@ -22,9 +22,13 @@ const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
             <Header title={data.site.siteMetadata.title} />
             <div
                 style={{
-                    position: 'relative',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
                     margin: 0,
                     padding: 0,
+                    minHeight: '100%',
                 }}
             >
                 <main>{children}</main>
