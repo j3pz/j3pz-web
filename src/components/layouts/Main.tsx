@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import Header from './header/Header';
-import './layout.css';
+import Header from '../header/Header';
+import './main.css';
 
 interface LayoutProps {}
 

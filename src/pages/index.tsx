@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
-import Layout from '../components/layout';
+import Main from '../components/layouts/Main';
 import SEO from '../components/seo';
 import Card from '../components/ui/Card';
 import '../css/index.scss';
@@ -29,7 +29,7 @@ const IndexPage = () => {
         }
     `);
     return (
-        <Layout>
+        <Main>
             <SEO title="剑网3配装器 | 首页" />
             <Img fluid={data.titleImage.childImageSharp.fluid} alt="" className="banner-img" />
             <Card className="simple-intro">
@@ -87,7 +87,7 @@ const IndexPage = () => {
                 <Img fluid={data.getstart.childImageSharp.fluid} alt="" className="getstart-img" />
             </div>
             <Footer />
-        </Layout>
+        </Main>
     );
 };
 
