@@ -1,0 +1,23 @@
+@import '../../css/global.scss';
+
+.button {
+    margin: 0 0 0 12px;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    border: 1px solid $secondary_color;
+    font-family: "Microsoft YaHei", "Hiragino Sans GB";
+    line-height: 34px;
+    display: inline-block;
+    background-color: $primary_color;
+    padding: 0 12px;
+    border-radius: 4px;
+    height: 36px;
+
+    &:hover {
+        background: darken($color: $primary_color, $amount: 10);
+    }
+    &:active {
+        background: darken($color: $primary_color, $amount: 20);
+    }
+}

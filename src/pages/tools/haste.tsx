@@ -1,12 +1,12 @@
 import React from 'react';
-import Main from '../../components/layouts/Main';
+import Tools from '../../components/layouts/Tools';
 import SEO from '../../components/seo';
 import Footer from '../../components/footer/Footer';
 
 const HastePage = () => (
-    <Main>
+    <Tools>
         <SEO title="剑网3配装器 | 加速宝典" />
         <Footer />
-    </Main>
+    </Tools>
 );
 export default HastePage;

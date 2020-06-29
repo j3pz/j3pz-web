@@ -1,9 +1,13 @@
 import React from 'react';
 import './footer.scss';
 
-function Footer() {
+interface FooterProps {
+    background?: string;
+}
+
+function Footer({ background = '#FAFAFA' }: FooterProps) {
     return (
-        <footer className="footer">
+        <footer className="footer" style={{ background }}>
             <div className="links-row content black">
                 <div className="logo">
                     <img src="https://images.j3pz.com/imgs/icon.png" alt="Logo" />

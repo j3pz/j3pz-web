@@ -1,40 +1,25 @@
 import React, { PropsWithChildren } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-
 import Header from '../header/Header';
 import './main.css';
 
-interface LayoutProps {}
+interface MainProps {}
 
-const Layout = ({ children }: PropsWithChildren<LayoutProps>) => {
-    const data = useStaticQuery(graphql`
-        query SiteTitleQuery {
-            site {
-                siteMetadata {
-                    title
-                }
-            }
-        }
-    `);
+const Main = ({ children }: PropsWithChildren<MainProps>) => (
+    <>
+        <Header />
+        <div
+            style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                margin: 0,
+                padding: 0,
+            }}
+        >
+            <main>{children}</main>
+        </div>
+    </>
+);
 
-    return (
-        <>
-            <Header title={data.site.siteMetadata.title} />
-            <div
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    margin: 0,
-                    padding: 0,
-                    minHeight: '100%',
-                }}
-            >
-                <main>{children}</main>
-            </div>
-        </>
-    );
-};
-
-export default Layout;
+export default Main;

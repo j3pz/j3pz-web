@@ -1,3 +1,5 @@
+@import '../css/global.scss';
+
 .banner-img {
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
 }
@@ -30,7 +32,7 @@
 
 .guide {
     width: 100%;
-    background-color: #BB3041;
+    background-color: $primary_color;
     padding: 96px 0 128px 0;
     clip-path: polygon(0 0, 100% 120px, 100% 100%, 0% calc(100% - 120px));
 }
@@ -92,7 +94,7 @@
             text-align: center;
         }
         &:hover {
-            color: #BB3041;
+            color: $primary_color;
         }
     }
 }
@@ -105,7 +107,7 @@
         position: relative;
         z-index: 10;
         .title {
-            text-shadow: 0px 0px 10px #f3b949;
+            text-shadow: 0px 0px 10px $primary_color;
         }
     }
     .getstart-img {
@@ -125,11 +127,16 @@
         text-align: center;
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
-        background-color: rgba(243, 185, 73, 0.3);
+        background-color: transparentize($color: $primary_color, $amount: 0.5);
         cursor: pointer;
 
         &:hover {
-            background-color: rgba(186, 141, 58, 0.3);
+            background-color: transparentize($color: darken($color: $primary_color, $amount: 10), $amount: 0.5);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+        }
+        &:active {
+            background-color: transparentize($color: darken($color: $primary_color, $amount: 20), $amount: 0.5);
             -webkit-backdrop-filter: blur(15px);
             backdrop-filter: blur(15px);
         }

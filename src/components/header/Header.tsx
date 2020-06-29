@@ -3,10 +3,6 @@ import React from 'react';
 import './Header.css';
 import Button from '../ui/Button';
 
-interface HeaderProps {
-    title: string;
-}
-
 const Header = () => (
     <header className="header">
         <Link to="/" className="logo">
@@ -22,9 +18,5 @@ const Header = () => (
         <Link to="/"><Button>开始使用</Button></Link>
     </header>
 );
-
-Header.defaultProps = {
-    title: '',
-};
 
 export default Header;
