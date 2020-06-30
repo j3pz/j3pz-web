@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import Header from '../header/Header';
-import './main.css';
+import '../base';
 
 interface MainProps {}
 

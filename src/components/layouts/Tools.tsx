@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import Header from '../header/Header';
 import ToolsSidebar from '../tools_sidebar/ToolsSidebar';
+import '../base';
 
 interface ToolsProps {
 }

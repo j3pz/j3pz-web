@@ -1,2 +1,12 @@
+@import "~normalize.css";
+@import "~@blueprintjs/core/lib/css/blueprint.css";
+
 $primary_color: #BB3041;
 $secondary_color: #f8e698;
+
+$pt-font-family: PingFang SC,Helvetica Neue,Helvetica,Tahoma,Arial,Microsoft YaHei,STHeiTi,Source Han Sans CN,sans-serif;
+$pt-intent-primary: $primary-color;
+
+body {
+    font-family: $pt-font-family;
+}
