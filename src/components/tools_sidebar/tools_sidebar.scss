@@ -20,8 +20,11 @@
     z-index: 10;
     padding: 12px;
     .tool-item {
+        &:first-child {
+            margin-top: 24px;
+        }
         display: block;
-        margin: 12px 0;
+        margin: 60px 0;
         line-height: 36px;
         width: 36px;
         height: 36px;
@@ -40,4 +43,6 @@
     position: relative;
     width: calc(100% - 60px);
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }

@@ -29,7 +29,7 @@ const IndexPage = () => {
         }
     `);
     return (
-        <Main>
+        <Main className="main-content">
             <SEO title="剑网3配装器 | 首页" />
             <Img fluid={data.titleImage.childImageSharp.fluid} alt="" className="banner-img" />
             <Card className="simple-intro">

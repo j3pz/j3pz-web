@@ -1,9 +1,7 @@
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 48px;
+    width: 100%;
+    padding: 48px 0;
+    margin-top: auto;
 
     .links-row {
         display: flex;

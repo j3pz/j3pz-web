@@ -2,9 +2,11 @@ import React, { PropsWithChildren } from 'react';
 import Header from '../header/Header';
 import '../base';
 
-interface MainProps {}
+interface MainProps {
+    className?: string;
+}
 
-const Main = ({ children }: PropsWithChildren<MainProps>) => (
+const Main = ({ children, className }: PropsWithChildren<MainProps>) => (
     <>
         <Header />
         <div
@@ -17,7 +19,7 @@ const Main = ({ children }: PropsWithChildren<MainProps>) => (
                 padding: 0,
             }}
         >
-            <main>{children}</main>
+            <main className={className}>{children}</main>
         </div>
     </>
 );

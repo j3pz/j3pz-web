@@ -1,12 +1,19 @@
 @import "~normalize.css";
-@import "~@blueprintjs/core/lib/css/blueprint.css";
 
 $primary_color: #BB3041;
 $secondary_color: #f8e698;
-
 $pt-font-family: PingFang SC,Helvetica Neue,Helvetica,Tahoma,Arial,Microsoft YaHei,STHeiTi,Source Han Sans CN,sans-serif;
-$pt-intent-primary: $primary-color;
+
+$blue1: darken($color: $primary_color, $amount: 10);
+$blue2: darken($color: $primary_color, $amount: 5);
+$blue3: $primary-color;
+$blue4: lighten($color: $primary-color, $amount: 5);
+$blue5: lighten($color: $primary-color, $amount: 10);
+@import "~@blueprintjs/core/src/blueprint.scss";
 
 body {
     font-family: $pt-font-family;
+}
+a:hover {
+    text-decoration: none;
 }
