@@ -5,7 +5,6 @@ import {
 import { Container, Row, Col } from 'react-grid-system';
 import Tools from '../../components/layouts/Tools';
 import SEO from '../../components/seo';
-import Footer from '../../components/footer/Footer';
 import '../../css/haste.scss';
 
 interface HastePageState {
@@ -153,7 +152,6 @@ export default class HastePage extends Component<{}, HastePageState> {
                         </Col>
                     </Row>
                 </Container>
-                <Footer />
             </Tools>
         );
     }

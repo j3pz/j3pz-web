@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import './tools_sidebar.scss';
 import { Link } from 'gatsby';
+import Footer from '../footer/Footer';
 
 interface ToolsSidebarProps {
     header?: number;
@@ -28,7 +29,11 @@ function ToolsSidebar({ children, header = 0 } : PropsWithChildren<ToolsSidebarP
                     </Link>
                 </nav>
             </aside>
-            <main className="tools-content">{children}</main>
+            <main className="tools-content">
+                {children}
+                <div style={{ margin: 12 }} />
+                <Footer />
+            </main>
         </div>
     );
 }

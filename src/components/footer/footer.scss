@@ -2,19 +2,16 @@
     width: 100%;
     padding: 48px 0;
     margin-top: auto;
-    min-width: 900px;
 
     .links-row {
         display: flex;
         justify-content: space-between;
     }
     .logo {
-        width: 20%;
         text-align: center;
     }
 
     .link-list {
-        width: 20%;
         .list-header {
             font-size: 16px;
             font-weight: 700;
