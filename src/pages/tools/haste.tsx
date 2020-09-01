@@ -1,11 +1,12 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component } from 'react';
 import {
-    Card, Elevation, FormGroup, NumericInput, RadioGroup, Radio, HTMLTable,
-} from '@blueprintjs/core';
+    Radio, RadioGroup, InputNumber, List, FlexboxGrid, Form, ControlLabel, HelpBlock,
+} from 'rsuite';
 import { Container, Row, Col } from 'react-grid-system';
 import Tools from '../../components/layouts/Tools';
 import SEO from '../../components/seo';
 import '../../css/haste.scss';
+import Card from '../../components/ui/Card';
 
 interface HastePageState {
     skillTime: number;
@@ -29,16 +30,16 @@ export default class HastePage extends Component<{}, HastePageState> {
         };
     }
 
-    private handleSkillTimeChange = (value: number) => {
-        this.setState({ skillTime: value });
+    private handleSkillTimeChange = (value: number | string) => {
+        this.setState({ skillTime: +value });
     };
 
-    private handleHitTimesChange = (value: number) => {
-        this.setState({ hitTimes: value });
+    private handleHitTimesChange = (value: number | string) => {
+        this.setState({ hitTimes: +value });
     };
 
-    private handleExtraChange = (event: FormEvent<HTMLInputElement>) => {
-        this.setState({ extra: parseInt(event.currentTarget.value, 10) });
+    private handleExtraChange = (value: number) => {
+        this.setState({ extra: value });
     };
 
     private getHaste = (): HasteResult[] => {
@@ -79,75 +80,79 @@ export default class HastePage extends Component<{}, HastePageState> {
         return (
             <Tools>
                 <SEO title="剑网3配装器 | 加速宝典" />
-                <Container fluid>
+                <Container fluid style={{ margin: 0 }}>
                     <Row>
                         <Col lg={4} md={6} sm={12} style={{ paddingTop: 24 }}>
-                            <Card elevation={Elevation.TWO}>
-                                <h4 className="label">技能设定</h4>
-                                <FormGroup
-                                    helperText="表示技能正读条时间，或持续性伤害技能的每跳时间，或引导读条的每跳时间"
-                                    label="技能时间(秒)"
-                                    labelFor="skill-time"
-                                >
-                                    <NumericInput
+                            <Card>
+                                <Form fluid>
+                                    <h4 className="label">技能设定</h4>
+                                    <ControlLabel htmlFor="skill-time">技能时间(秒)</ControlLabel>
+                                    <InputNumber
                                         id="skill-time"
                                         value={skillTime}
-                                        onValueChange={this.handleSkillTimeChange}
-                                        stepSize={0.5}
-                                        majorStepSize={1}
+                                        onChange={this.handleSkillTimeChange}
+                                        step={0.5}
+                                        min={0.5}
                                     />
-                                </FormGroup>
-                                <FormGroup
-                                    helperText="表示相应技能跳数，正读条为 1 跳，引导读条为造成伤害的次数。"
-                                    label="跳数"
-                                    labelFor="hit-times"
-                                >
-                                    <NumericInput
+                                    <HelpBlock>表示技能正读条时间，或持续性伤害技能的每跳时间，或引导读条的每跳时间</HelpBlock>
+                                    <ControlLabel htmlFor="hit-times">跳数</ControlLabel>
+                                    <InputNumber
                                         id="hit-times"
                                         value={hitTimes}
-                                        onValueChange={this.handleHitTimesChange}
-                                        majorStepSize={5}
+                                        onChange={this.handleHitTimesChange}
+                                        step={1}
+                                        min={1}
                                     />
-                                </FormGroup>
+                                    <HelpBlock>表示相应技能跳数，正读条为 1 跳，引导读条为造成伤害的次数。</HelpBlock>
+                                </Form>
                             </Card>
-                            <Card elevation={Elevation.TWO} style={{ marginTop: 24 }}>
+                            <Card style={{ marginTop: 24 }}>
                                 <h4 className="label">额外加速奇穴</h4>
                                 <RadioGroup
-                                    label="选择可以额外提供加速的奇穴"
+                                    name="extra"
                                     onChange={this.handleExtraChange}
-                                    selectedValue={extra}
+                                    value={extra}
                                 >
-                                    <Radio label="无" value={0} />
-                                    <Radio label="心剑两忘【纯阳】" value={31 * 3} />
-                                    <Radio label="梦歌【万花】" value={30 * 2} />
-                                    <Radio label="枕上【七秀】" value={10 * 5} />
-                                    <Radio label="妙镜惊寂【明教】" value={21 * 5} />
-                                    <Radio label="凝绝【长歌】" value={51} />
-                                    <Radio label="如风【藏剑】" value={82} />
+                                    <ControlLabel htmlFor="skill-time">选择可以额外提供加速的奇穴</ControlLabel>
+                                    <Radio value={0}>无</Radio>
+                                    <Radio value={31 * 3}>心剑两忘【纯阳】</Radio>
+                                    <Radio value={30 * 2}>梦歌【万花】</Radio>
+                                    <Radio value={10 * 5}>枕上【七秀】</Radio>
+                                    <Radio value={21 * 5}>妙镜惊寂【明教】</Radio>
+                                    <Radio value={51}>凝绝【长歌】</Radio>
+                                    <Radio value={82}>如风【藏剑】</Radio>
                                 </RadioGroup>
                             </Card>
                         </Col>
                         <Col lg={8} md={6} sm={12} style={{ paddingTop: 24 }}>
-                            <Card elevation={Elevation.TWO}>
+                            <Card>
                                 <h4 className="label">计算结果</h4>
-                                <HTMLTable interactive>
-                                    <thead>
-                                        <tr>
-                                            <td>实际读条时间(秒)</td>
-                                            <td>所需加速率</td>
-                                            <td>所需加速等级</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {results.map((step) => (
-                                            <tr key={step.duration}>
-                                                <td>{step.duration}</td>
-                                                <td>{step.percentage}</td>
-                                                <td>{step.level}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </HTMLTable>
+                                <List hover style={{ marginTop: 12 }}>
+                                    <List.Item>
+                                        <FlexboxGrid style={{ fontWeight: 700 }}>
+                                            <FlexboxGrid.Item colspan={8}>读条时间(秒)</FlexboxGrid.Item>
+                                            <FlexboxGrid.Item colspan={8}>所需加速率</FlexboxGrid.Item>
+                                            <FlexboxGrid.Item colspan={8} style={{ textAlign: 'right' }}>
+                                                所需加速等级
+                                            </FlexboxGrid.Item>
+                                        </FlexboxGrid>
+                                    </List.Item>
+                                    {results.map((step) => (
+                                        <List.Item key={step.duration}>
+                                            <FlexboxGrid>
+                                                <FlexboxGrid.Item colspan={8}>
+                                                    {step.duration}
+                                                </FlexboxGrid.Item>
+                                                <FlexboxGrid.Item colspan={8}>
+                                                    {step.percentage}
+                                                </FlexboxGrid.Item>
+                                                <FlexboxGrid.Item colspan={8} style={{ textAlign: 'right' }}>
+                                                    {step.level}
+                                                </FlexboxGrid.Item>
+                                            </FlexboxGrid>
+                                        </List.Item>
+                                    ))}
+                                </List>
                             </Card>
                         </Col>
                     </Row>

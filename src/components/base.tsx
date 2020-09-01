@@ -1,3 +1,3 @@
-import { FocusStyleManager } from '@blueprintjs/core';
+// import { FocusStyleManager } from '@blueprintjs/core';
 
-FocusStyleManager.onlyShowFocusOnTabs();
+// FocusStyleManager.onlyShowFocusOnTabs();
