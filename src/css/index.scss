@@ -39,6 +39,7 @@
     background-color: $primary_color;
     padding: 96px 0 128px 0;
     clip-path: polygon(0 0, 100% 120px, 100% 100%, 0% calc(100% - 120px));
+    min-width: 1080px;
 }
 .content {
     width: 1080px;
@@ -106,6 +107,7 @@
 
 .getstart {
     position: relative;
+    min-width: 1080px;
     .content {
         position: absolute;
         left: 0;

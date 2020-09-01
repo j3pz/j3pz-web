@@ -1,10 +1,7 @@
 @import '../../css/global.scss';
 
 .sidebar-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     margin: 0;
     padding: 0;
     min-height: 100%;
@@ -14,12 +11,12 @@
 }
 
 .tools-sidebar {
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
     border-right: 1px solid #E2E2E2;
     width: 60px;
     z-index: 10;
     padding: 12px;
+    background: #FFFFFF;
+
     .tool-item {
         &:first-child {
             margin-top: 24px;
@@ -40,7 +37,6 @@
 }
 
 .tools-content {
-    min-width: 1020px;
     position: relative;
     width: calc(100% - 60px);
     overflow: auto;
