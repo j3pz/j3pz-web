@@ -5,7 +5,7 @@ import {
 import { Container, Row, Col } from 'react-grid-system';
 import Tools from '../../components/layouts/Tools';
 import SEO from '../../components/seo';
-import '../../css/haste.scss';
+import '../../css/haste.less';
 import Card from '../../components/ui/Card';
 
 interface HastePageState {

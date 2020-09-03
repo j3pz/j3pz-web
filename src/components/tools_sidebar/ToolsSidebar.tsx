@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import './tools_sidebar.scss';
+import './tools_sidebar.less';
 import { Link } from 'gatsby';
 import Footer from '../footer/Footer';
 

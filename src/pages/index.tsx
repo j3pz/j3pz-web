@@ -5,9 +5,9 @@ import Img from 'gatsby-image';
 import Main from '../components/layouts/Main';
 import SEO from '../components/seo';
 import Card from '../components/ui/Card';
-import '../css/index.scss';
+import '../css/index.less';
 import Footer from '../components/footer/Footer';
-import Button from '../components/ui/Button';
+import { Button } from 'rsuite';
 
 const IndexPage = () => {
     const data = useStaticQuery(graphql`
@@ -88,7 +88,7 @@ const IndexPage = () => {
             <div className="getstart">
                 <div className="content">
                     <div className="title center">由玩家设计，为玩家创造</div>
-                    <Button className="getstart-btn">江湖必备，点此开始</Button>
+                    <Button className="getstart-btn" appearance="primary">江湖必备，点此开始</Button>
                 </div>
                 <Img fluid={data.getstart.childImageSharp.fluid} alt="" className="getstart-img" />
             </div>

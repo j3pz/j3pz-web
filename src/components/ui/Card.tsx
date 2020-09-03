@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, CSSProperties } from 'react';
-import './card.scss';
+import './card.less';
 
 interface CardProps {
     style?: CSSProperties;

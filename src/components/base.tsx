@@ -1,3 +1,1 @@
-// import { FocusStyleManager } from '@blueprintjs/core';
-
-// FocusStyleManager.onlyShowFocusOnTabs();
+import '../css/global.less';

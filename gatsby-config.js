@@ -14,7 +14,14 @@ module.exports = {
             },
         },
         'gatsby-transformer-sharp',
-        'gatsby-plugin-sass',
+        {
+            resolve: 'gatsby-plugin-less',
+            options: {
+                lessOptions: {
+                    javascriptEnabled: true,
+                },
+            },
+        },
         'gatsby-plugin-typescript',
         'gatsby-plugin-sharp',
         {

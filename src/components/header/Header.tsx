@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import './Header.css';
-import Button from '../ui/Button';
+import { Button } from 'rsuite';
 
 const Header = () => (
     <header className="header">
@@ -14,8 +14,8 @@ const Header = () => (
         <div style={{ margin: 'auto' }} />
         <Link to="/intro" className="link">使用说明</Link>
         <Link to="/changelog" className="link">更新记录</Link>
-        <Link to="https://support.qq.com/products/105376" className="link">反馈</Link>
-        <Link to="/"><Button>开始使用</Button></Link>
+        <a href="https://support.qq.com/products/105376" className="link" target="_blank" rel="noopener noreferrer">反馈</a>
+        <Link to="/"><Button appearance="ghost" className="header-button">开始使用</Button></Link>
     </header>
 );
 

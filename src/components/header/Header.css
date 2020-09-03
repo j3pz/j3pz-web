@@ -44,3 +44,7 @@
     font-family: "Microsoft YaHei", "Hiragino Sans GB";
     text-decoration: none;
 }
+
+.header-button {
+    height: 36px;
+}

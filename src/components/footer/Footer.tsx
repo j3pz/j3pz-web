@@ -1,8 +1,9 @@
 import React from 'react';
-import './footer.scss';
+import './footer.less';
 import {
     Container, Row, Col, ScreenClassRender,
 } from 'react-grid-system';
+import { Link } from 'gatsby';
 
 interface FooterProps {
     background?: string;
@@ -21,9 +22,9 @@ function Footer({ background = '#FAFAFA' }: FooterProps) {
                             <Row nogutter style={screenClass === 'xs' ? { marginTop: 24, textAlign: 'center' } : {}}>
                                 <Col className="link-list" xs={4}>
                                     <div className="list-header">关于</div>
-                                    <div className="list-item">这是什么</div>
-                                    <div className="list-item">更新记录</div>
-                                    <div className="list-item">致谢</div>
+                                    <Link to="about" className="list-item">这是什么</Link>
+                                    <Link to="changelog" className="list-item">更新记录</Link>
+                                    <Link to="credit" className="list-item">致谢</Link>
                                 </Col>
                                 <Col className="link-list" xs={4}>
                                     <div className="list-header">产品</div>

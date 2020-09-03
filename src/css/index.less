@@ -1,4 +1,4 @@
-@import './global.scss';
+@import './global.less';
 
 .main-content {
     min-width: 1080px;
@@ -36,7 +36,7 @@
 
 .guide {
     width: 100%;
-    background-color: $primary_color;
+    background-color: @primary-color;
     padding: 96px 0 128px 0;
     clip-path: polygon(0 0, 100% 120px, 100% 100%, 0% calc(100% - 120px));
     min-width: 1080px;
@@ -101,7 +101,7 @@
             text-align: center;
         }
         &:hover {
-            color: $primary_color;
+            color: @primary-color;
         }
     }
 }
@@ -116,7 +116,7 @@
         top: calc(50% - 90px);
         z-index: 10;
         .title {
-            text-shadow: 0px 0px 10px $primary_color;
+            text-shadow: 0px 0px 10px @primary-color;
         }
     }
     .getstart-img {
@@ -135,16 +135,17 @@
         text-align: center;
         -webkit-backdrop-filter: blur(5px);
         backdrop-filter: blur(5px);
-        background-color: transparentize($color: $primary_color, $amount: 0.5);
+        background-color: fade(@primary-color, 50%);
+        border: 1px solid @secondary-color;
         cursor: pointer;
 
         &:hover {
-            background-color: transparentize($color: darken($color: $primary_color, $amount: 10), $amount: 0.5);
+            background-color: fade(darken(@primary-color, 10%), 50%) !important;
             -webkit-backdrop-filter: blur(15px);
             backdrop-filter: blur(15px);
         }
         &:active {
-            background-color: transparentize($color: darken($color: $primary_color, $amount: 20), $amount: 0.5);
+            background-color: fade(darken(@primary-color, 20%), 50%) !important;
             -webkit-backdrop-filter: blur(15px);
             backdrop-filter: blur(15px);
         }
