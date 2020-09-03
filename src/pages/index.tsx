@@ -65,18 +65,24 @@ const IndexPage = () => {
                             <div className="text">加速宝典</div>
                         </Card>
                     </Link>
-                    <Card className="tools-item">
-                        <div className="icon fad fa-gem" />
-                        <div className="text">瑰石列表</div>
-                    </Card>
-                    <Card className="tools-item">
-                        <div className="icon fad fa-couch" />
-                        <div className="text">家具图鉴</div>
-                    </Card>
-                    <Card className="tools-item">
-                        <div className="icon fad fa-ribbon" />
-                        <div className="text">成就百科</div>
-                    </Card>
+                    <Link to="/tools/prediction">
+                        <Card className="tools-item">
+                            <div className="icon fad fa-gem" />
+                            <div className="text">瑰石列表</div>
+                        </Card>
+                    </Link>
+                    <Link to="/tools/furniture">
+                        <Card className="tools-item">
+                            <div className="icon fad fa-couch" />
+                            <div className="text">家具图鉴</div>
+                        </Card>
+                    </Link>
+                    <Link to="/tools/achivement">
+                        <Card className="tools-item">
+                            <div className="icon fad fa-ribbon" />
+                            <div className="text">成就百科</div>
+                        </Card>
+                    </Link>
                 </div>
             </div>
             <div className="getstart">
