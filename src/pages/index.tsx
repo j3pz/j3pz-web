@@ -32,7 +32,7 @@ const IndexPage = () => {
         <Main className="main-content">
             <SEO title="剑网3配装器 | 首页" />
             <Img fluid={data.titleImage.childImageSharp.fluid} alt="" className="banner-img" />
-            <Card className="simple-intro">
+            <Card className="simple-intro" acrylic>
                 <div className="intro-title">「剑网3配装器」是什么？</div>
                 <div className="intro-text">
                     剑网3配装器是由玩家开发，

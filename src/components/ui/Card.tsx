@@ -4,13 +4,18 @@ import './card.scss';
 interface CardProps {
     style?: CSSProperties;
     className?: string;
+    acrylic?: boolean;
 }
 
 function Card({
-    children, style, className = '',
+    children, style, className = '', acrylic,
 }: PropsWithChildren<CardProps>) {
+    const classNames = ['card', className];
+    if (acrylic) {
+        classNames.push('card-acrylic');
+    }
     return (
-        <div className={`${className} card`} style={style}>
+        <div className={classNames.join(' ')} style={style}>
             {children}
         </div>
     );
