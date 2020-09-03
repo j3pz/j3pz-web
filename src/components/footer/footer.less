@@ -14,11 +14,20 @@
     .link-list {
         .list-header {
             font-size: 16px;
+            line-height: 2;
             font-weight: 700;
         }
         .list-item {
             font-size: 14px;
             color: #666666;
+            display: block;
+            width: min-content;
+            word-break: keep-all;
+            white-space: nowrap;
+            line-height: 1.8;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 
