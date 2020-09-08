@@ -2,9 +2,11 @@ import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import Policy from '../../components/layouts/Policy';
 import Footer from '../../components/footer/Footer';
+import SEO from '../../components/seo';
 
 const PrivacyPage = () => (
     <Policy>
+        <SEO title="隐私协议" />
         <Container component="section">
             <Row>
                 <Col sm={12} md={10} offset={{ md: 1 }}>
