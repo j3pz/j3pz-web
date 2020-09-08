@@ -1,31 +1,25 @@
 import React, { PropsWithChildren } from 'react';
+import { Link } from 'gatsby';
 import Header from '../header/Header';
 import '../base';
+import './layout.less';
 
 interface PolicyProps {
-    id: string;
+    className?: string;
 }
 
-const Policy = ({ children, id }: PropsWithChildren<PolicyProps>) => (
+const Policy = ({ children }: PropsWithChildren<PolicyProps>) => (
     <>
         <Header />
-        <div
-            style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                margin: 0,
-                padding: 0,
-            }}
-        >
-            <main style={{
-                display: 'flex', flexDirection: 'column', minHeight: '100%', paddingTop: 120,
-            }}
-            >
-                <div>
-                    协议中心
+        <div className="main-container">
+            <main className="main-container" style={{ paddingTop: 0 }}>
+                <div className="policy-header">
+                    <h2>协议中心</h2>
+                    <div className="policy-tabs">
+                        <Link to="policies/toc" className="policy-tab" activeClassName="active">用户使用协议</Link>
+                        <Link to="policies/privacy" className="policy-tab" activeClassName="active">隐私协议</Link>
+                        <Link to="policies/privacy-settings" className="policy-tab" activeClassName="active">隐私设置</Link>
+                    </div>
                 </div>
                 {children}
             </main>

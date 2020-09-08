@@ -38,7 +38,7 @@ function Footer({ background = '#FAFAFA' }: FooterProps) {
                                     <div className="list-header">资源</div>
                                     <div className="list-item">使用说明</div>
                                     <div className="list-item">帮助与反馈</div>
-                                    <Link to="policies/terms" className="list-item">用户协议</Link>
+                                    <Link to="policies/toc" className="list-item">用户协议</Link>
                                     <Link to="policies/privacy" className="list-item">隐私协议</Link>
                                 </Col>
                             </Row>

@@ -3,8 +3,12 @@ import React from 'react';
 import './Header.css';
 import { Button } from 'rsuite';
 
-const Header = () => (
-    <header className="header">
+interface HeaderProps {
+    type?: 'shadow' | 'border';
+}
+
+const Header = ({ type = 'border' } : HeaderProps) => (
+    <header className={`header header-${type}`}>
         <Link to="/" className="logo">
             <img src="https://images.j3pz.com/imgs/icon.png" alt="Logo" />
         </Link>

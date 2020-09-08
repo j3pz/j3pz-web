@@ -1,12 +1,13 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import Policy from '../../components/layouts/Policy';
+import Footer from '../../components/footer/Footer';
 
 const TermsPage = () => (
-    <Policy id="terms">
+    <Policy>
         <Container component="section">
             <Row>
-                <Col sm={12} md={8}>
+                <Col sm={12} md={10} offset={{ md: 1 }}>
                     <h4 className="label">网站内容</h4>
                     <p className="lead-text">
                         剑网3配装器为玩家开发，与剑网3官方无任何关系。
@@ -28,7 +29,7 @@ const TermsPage = () => (
                         最后，我们不保证网站上任何信息的准确性、完整性和可靠性以及网站的性能。
                         尽管我们会定期检查网站的性能和网站上的内容以提供更优秀的内容，但我们不承诺不会撤下或改变某些内容。
                     </p>
-                    <h4>著作权</h4>
+                    <h4 className="label">著作权</h4>
                     <p className="lead-text">
                         剑网3配装器由玩家胖叔叔制作并免费提供，仅对增值服务收取费用。
                         剑网3配装器保留对网站提供的任何内容的所有权和著作权，使用者并无任何的权利。
@@ -46,6 +47,8 @@ const TermsPage = () => (
                 </Col>
             </Row>
         </Container>
+        <div style={{ margin: 48 }} />
+        <Footer />
     </Policy>
 );
 

@@ -1,0 +1,43 @@
+@import '../../css/global.less';
+
+.main-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    & > main {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        padding-top: 120px;
+    }
+}
+
+.policy-header {
+    position: relative;
+    background: #FAFAFA;
+    padding: 90px 0 90px;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.policy-tabs {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .policy-tab {
+        display: inline-block;
+        padding: 24px;
+        font-size: 18px;
+        color: #000000;
+
+        &.active {
+            color: @base-color;
+            font-weight: 700;
+            border-bottom: 4px solid @base-color;
+        }
+    }
+}
