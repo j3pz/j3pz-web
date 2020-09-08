@@ -15,11 +15,12 @@ const Main = ({ children, className }: PropsWithChildren<MainProps>) => (
                 top: 0,
                 left: 0,
                 right: 0,
+                bottom: 0,
                 margin: 0,
                 padding: 0,
             }}
         >
-            <main className={className}>{children}</main>
+            <main className={className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>{children}</main>
         </div>
     </>
 );

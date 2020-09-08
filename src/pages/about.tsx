@@ -17,7 +17,7 @@ const TimelineItem = ({ desc, date }: { desc: ReactNode; date: string }) => (
 const AboutPage = () => (
     <Main className="">
         <SEO title="关于这里" />
-        <Container component="main" style={{ paddingTop: 120 }}>
+        <Container component="section" style={{ paddingTop: 120 }}>
             <Row>
                 <Col sm={12} md={8}>
                     <h3 className="label">剑网3 配装器</h3>
