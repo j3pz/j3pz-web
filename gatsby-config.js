@@ -22,7 +22,7 @@ module.exports = {
                 },
             },
         },
-        'gatsby-plugin-typescript',
+        'gatsby-plugin-ts',
         'gatsby-plugin-sharp',
         {
             resolve: 'gatsby-plugin-manifest',

@@ -2,7 +2,7 @@
     "include": ["./src/**/*", "./gatsby-*.js"],
     "compilerOptions": {
         "moduleResolution": "node",
-        "target": "esnext",
+        "target": "es6",
         "module": "esnext",
         "lib": ["dom", "es2017"],
         "jsx": "react",
@@ -11,6 +11,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "noEmit": true,
+        "noImplicitAny": false,
         "skipLibCheck": true
     }
 }
