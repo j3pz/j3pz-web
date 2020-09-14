@@ -27,12 +27,14 @@
 }
 
 .logo {
-    height: 36px;
+    height: 100%;
     margin-right: 12px;
+    display: inline-flex;
 }
 .logo > img {
     width: 36px;
     height: 36px;
+    margin: auto;
 }
 
 .title {
