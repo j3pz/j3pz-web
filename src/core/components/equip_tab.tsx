@@ -7,7 +7,7 @@ import $store from '../store';
 export default class EquipTab extends Component {
     render() {
         return (
-            <div>
+            <div style={{ height: '100%' }}>
                 <EquipNav store={$store} />
             </div>
         );

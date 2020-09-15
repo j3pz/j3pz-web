@@ -15,7 +15,16 @@ export default class CoreEdit extends Component<StoreProps> {
     render() {
         const { store } = this.props;
         return (
-            <main style={{ paddingTop: 56 }}>
+            <main
+                style={{
+                    paddingTop: 56,
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                }}
+            >
                 <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab}>
                     <Nav.Item eventKey={AppTab.EQUIP}>装备调整</Nav.Item>
                     <Nav.Item eventKey={AppTab.CASE}>方案调整</Nav.Item>
