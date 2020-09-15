@@ -23,9 +23,11 @@ export default class CoreEdit extends Component<StoreProps> {
                     left: 0,
                     right: 0,
                     bottom: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
                 }}
             >
-                <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab}>
+                <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab} style={{ textAlign: 'right' }}>
                     <Nav.Item eventKey={AppTab.EQUIP}>装备调整</Nav.Item>
                     <Nav.Item eventKey={AppTab.CASE}>方案调整</Nav.Item>
                 </Nav>

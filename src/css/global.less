@@ -14,3 +14,34 @@ a:hover {
 html, * {
     box-sizing: border-box;
 }
+
+
+@scrollbar_background:rgba(255, 255, 255, 0.23);
+@scrollbar_background_hover:rgba(255, 255, 255, 0.4);
+@scrollbar_width: 8px;
+@scrollbar_height: 8px;
+@scrollbar_length: 140px;
+@scrollbar_border:1px solid transparent;
+@scrollbar_border_radius: 5px;
+
+::-webkit-scrollbar {
+    width: @scrollbar_width;
+    height: @scrollbar_height;
+}
+::-webkit-scrollbar-thumb {
+    background: @scrollbar_background;
+    border-radius: @scrollbar_border_radius;
+    border: @scrollbar_border;
+    height: @scrollbar_length;
+    background-clip: content-box; // 通过裁切来控制滚动条宽度
+}
+::-webkit-scrollbar-thumb:hover {
+    background: @scrollbar_background_hover;
+    border-radius: @scrollbar_border_radius;
+    border: @scrollbar_border;
+    height: @scrollbar_length;
+    background-clip: content-box; // 通过裁切来控制滚动条宽度
+}
+::-webkit-scrollbar-corner {
+    background-color: inherit;
+}

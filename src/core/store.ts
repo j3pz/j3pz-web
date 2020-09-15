@@ -1,18 +1,18 @@
 import { observable } from 'mobx';
-import { Category } from './model/base';
+import { Position } from './model/base';
 
 export enum AppTab { EQUIP, CASE }
 
 export interface EditState {
     tab: AppTab;
     equipNavExpanded: boolean;
-    activeEquipNav: Category;
+    activeEquipNav: Position;
 }
 
 const $store = observable<EditState>({
     tab: AppTab.EQUIP,
     equipNavExpanded: true,
-    activeEquipNav: Category.HAT,
+    activeEquipNav: Position.HAT,
 });
 
 export default $store;
