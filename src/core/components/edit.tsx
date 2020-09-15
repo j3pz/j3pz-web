@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { Nav } from 'rsuite';
 import { observer } from 'mobx-react';
-import { EditState, AppTab } from './store';
+import { StoreProps, AppTab } from './store';
 import EquipTab from './equip_tab';
 import CaseTab from './case_tab';
 
-interface CoreEditProps {
-    store: EditState,
-}
-
 @observer
-export default class CoreEdit extends Component<CoreEditProps> {
+export default class CoreEdit extends Component<StoreProps> {
     switchTab = (key: AppTab) => {
         const { store } = this.props;
         store.tab = key;
