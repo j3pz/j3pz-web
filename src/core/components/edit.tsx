@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Nav } from 'rsuite';
 import { observer } from 'mobx-react';
-import { StoreProps, AppTab } from './store';
+import { StoreProps, AppTab } from '../store';
 import EquipTab from './equip_tab';
 import CaseTab from './case_tab';
 
