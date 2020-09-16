@@ -13,7 +13,7 @@ export default class EquipTab extends Component {
         return (
             <div style={{ flex: 1, overflow: 'auto', display: 'flex' }}>
                 <EquipNav store={$store} />
-                <Container style={{ flex: 1 }}>
+                <Container style={{ flex: 1, paddingTop: 12 }}>
                     <Row>
                         <Col xs={12} sm={6}>
                             <EquipView equip={equip} />
