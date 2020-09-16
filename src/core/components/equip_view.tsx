@@ -9,12 +9,20 @@ interface EquipViewProps {
 }
 
 function EquipView({ equip }: EquipViewProps) {
+    if (equip === undefined || equip.id === undefined) {
+        return <div className="equip" />;
+    }
     return (
         <div className="equip">
             <li className="equip-name">
                 {equip.name}
-                {/* <span class="star" ng-repeat="n in [1,2,3,4,5,6,7,8]" ng-if="n<=equips[$root.focus].jinglian.strengthen">★</span>
-                <span class="right">精炼等级:{{equips[$root.focus].jinglian.strengthen}}/{{equips[$root.focus].data.strengthen}}</span> */}
+                {/* <span class="star" ng-repeat="n in [1,2,3,4,5,6,7,8]" ng-if="n<=equips[$root.focus].jinglian.strengthen">★</span> */}
+                <span className="right">
+                    精炼等级:
+                    {equip.strengthened}
+                    /
+                    {equip.strengthen}
+                </span>
             </li>
             <li className="basic-info">
                 {equip.category}

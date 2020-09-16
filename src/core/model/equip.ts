@@ -48,11 +48,11 @@ export default class Equip {
 
     public deprecated: boolean;
 
-    public embedding: EmbedInfo;
+    public embedding: EmbedInfo = new EmbedInfo();
+    public strengthened = 0;
 
     static fromJson(json: Object): Equip {
         const equip = plainToClass(Equip, json);
-        equip.embedding = new EmbedInfo();
         if (equip.embed) {
             equip.embedding.holes = +equip.embed.substr(0, 1);
             for (let i = 0; i < equip.embedding.holes; i += 1) {
