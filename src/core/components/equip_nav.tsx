@@ -3,27 +3,27 @@ import { observer } from 'mobx-react';
 import { Sidenav, Nav } from 'rsuite';
 import { StoreProps } from '../store';
 import { Category, Position } from '../model/base';
+import './equip_nav.less';
 
 interface NavInfo {
     name: string;
-    placeholder: string;
     category: Category;
 }
 
 const navLib = new Map<Position, NavInfo>([
-    [Position.HAT, { name: '帽子', placeholder: '', category: Category.HAT }],
-    [Position.JACKET, { name: '上衣', placeholder: '', category: Category.JACKET }],
-    [Position.BELT, { name: '腰带', placeholder: '', category: Category.BELT }],
-    [Position.WRIST, { name: '护腕', placeholder: '', category: Category.WRIST }],
-    [Position.BOTTOMS, { name: '下装', placeholder: '', category: Category.BOTTOMS }],
-    [Position.SHOES, { name: '鞋子', placeholder: '', category: Category.SHOES }],
-    [Position.NECKLACE, { name: '项链', placeholder: '', category: Category.NECKLACE }],
-    [Position.PENDANT, { name: '腰坠', placeholder: '', category: Category.PENDANT }],
-    [Position.RING1, { name: '戒指', placeholder: '', category: Category.RING }],
-    [Position.RING2, { name: '戒指', placeholder: '', category: Category.RING }],
-    [Position.SECONDARY_WEAPON, { name: '暗器', placeholder: '', category: Category.SECONDARY_WEAPON }],
-    [Position.PRIMARY_WEAPON, { name: '武器', placeholder: '', category: Category.PRIMARY_WEAPON }],
-    [Position.TERTIARY_WEAPON, { name: '重剑', placeholder: '', category: Category.TERTIARY_WEAPON }],
+    [Position.HAT, { name: '帽子', category: Category.HAT }],
+    [Position.JACKET, { name: '上衣', category: Category.JACKET }],
+    [Position.BELT, { name: '腰带', category: Category.BELT }],
+    [Position.WRIST, { name: '护腕', category: Category.WRIST }],
+    [Position.BOTTOMS, { name: '下装', category: Category.BOTTOMS }],
+    [Position.SHOES, { name: '鞋子', category: Category.SHOES }],
+    [Position.NECKLACE, { name: '项链', category: Category.NECKLACE }],
+    [Position.PENDANT, { name: '腰坠', category: Category.PENDANT }],
+    [Position.RING1, { name: '戒指', category: Category.RING }],
+    [Position.RING2, { name: '戒指', category: Category.RING }],
+    [Position.SECONDARY_WEAPON, { name: '暗器', category: Category.SECONDARY_WEAPON }],
+    [Position.PRIMARY_WEAPON, { name: '武器', category: Category.PRIMARY_WEAPON }],
+    [Position.TERTIARY_WEAPON, { name: '重剑', category: Category.TERTIARY_WEAPON }],
 ]);
 
 @observer
@@ -47,7 +47,21 @@ export default class EquipNav extends Component<StoreProps> {
                         <Nav>
                             {Object.values(Position).map((key) => {
                                 if (key === Position.TERTIARY_WEAPON) return null;
-                                return <Nav.Item key={key} eventKey={key}>{navLib.get(key)!.name}</Nav.Item>;
+                                const { name, category } = navLib.get(key)!;
+                                return (
+                                    <Nav.Item
+                                        key={key}
+                                        eventKey={key}
+                                    >
+                                        <img
+                                            className="equip-icon"
+                                            src={`https://images.j3pz.com/imgs/icons/placeholder_${category}.png`}
+                                            alt={name}
+                                        />
+                                        <div className="equip-type">{name}</div>
+                                        <div className="equip-name">{name}</div>
+                                    </Nav.Item>
+                                );
                             })}
                         </Nav>
                     </Sidenav.Body>
