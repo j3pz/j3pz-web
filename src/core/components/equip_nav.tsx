@@ -2,28 +2,27 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Sidenav, Nav } from 'rsuite';
 import { StoreProps } from '../store';
-import { Category, Position } from '../model/base';
+import { Category, Position, CATEGORY_DESC } from '../model/base';
 import './equip_nav.less';
 
 interface NavInfo {
-    name: string;
     category: Category;
 }
 
 const navLib = new Map<Position, NavInfo>([
-    [Position.HAT, { name: '帽子', category: Category.HAT }],
-    [Position.JACKET, { name: '上衣', category: Category.JACKET }],
-    [Position.BELT, { name: '腰带', category: Category.BELT }],
-    [Position.WRIST, { name: '护腕', category: Category.WRIST }],
-    [Position.BOTTOMS, { name: '下装', category: Category.BOTTOMS }],
-    [Position.SHOES, { name: '鞋子', category: Category.SHOES }],
-    [Position.NECKLACE, { name: '项链', category: Category.NECKLACE }],
-    [Position.PENDANT, { name: '腰坠', category: Category.PENDANT }],
-    [Position.RING1, { name: '戒指', category: Category.RING }],
-    [Position.RING2, { name: '戒指', category: Category.RING }],
-    [Position.SECONDARY_WEAPON, { name: '暗器', category: Category.SECONDARY_WEAPON }],
-    [Position.PRIMARY_WEAPON, { name: '武器', category: Category.PRIMARY_WEAPON }],
-    [Position.TERTIARY_WEAPON, { name: '重剑', category: Category.TERTIARY_WEAPON }],
+    [Position.HAT, { category: Category.HAT }],
+    [Position.JACKET, { category: Category.JACKET }],
+    [Position.BELT, { category: Category.BELT }],
+    [Position.WRIST, { category: Category.WRIST }],
+    [Position.BOTTOMS, { category: Category.BOTTOMS }],
+    [Position.SHOES, { category: Category.SHOES }],
+    [Position.NECKLACE, { category: Category.NECKLACE }],
+    [Position.PENDANT, { category: Category.PENDANT }],
+    [Position.RING1, { category: Category.RING }],
+    [Position.RING2, { category: Category.RING }],
+    [Position.SECONDARY_WEAPON, { category: Category.SECONDARY_WEAPON }],
+    [Position.PRIMARY_WEAPON, { category: Category.PRIMARY_WEAPON }],
+    [Position.TERTIARY_WEAPON, { category: Category.TERTIARY_WEAPON }],
 ]);
 
 @observer
@@ -38,7 +37,6 @@ export default class EquipNav extends Component<StoreProps> {
         return (
             <div style={{ width: store.equipNavExpanded ? 240 : 64, height: '100%' }}>
                 <Sidenav
-                    appearance="inverse"
                     style={{ height: '100%', overflow: 'auto' }}
                     onSelect={this.changeNav}
                     activeKey={store.activeEquipNav}
@@ -47,7 +45,8 @@ export default class EquipNav extends Component<StoreProps> {
                         <Nav>
                             {Object.values(Position).map((key) => {
                                 if (key === Position.TERTIARY_WEAPON) return null;
-                                const { name, category } = navLib.get(key)!;
+                                const { category } = navLib.get(key)!;
+                                const name = CATEGORY_DESC[category];
                                 return (
                                     <Nav.Item
                                         key={key}

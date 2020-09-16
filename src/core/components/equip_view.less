@@ -1,0 +1,43 @@
+.equip {
+    text-align: left;
+    padding: 8px;
+    background-color:#132221;
+
+    >li {
+        display: block;
+        font-size: 13px;
+        letter-spacing: 1px;
+        >.right {
+            float: right;
+        }
+    }
+    >li.equip-name {
+        display: inline;
+        color:#F12Cf1;
+        &.rare {
+            color:#FF8000;
+        }
+    }
+
+    >li.basic-info {
+        color:#F2F2F2;
+    }
+    >li.plus-info {
+        color:#00c848;
+    }
+    >li.quality {
+        color:#FFFF00;
+    }
+    >li.score {
+        color:#FF8000;
+    }
+    >li.hole-inactive {
+        color:#9b9b9b;
+    }
+}
+
+.slot {
+    width: 16px;
+    height: 16px;
+    vertical-align:middle;
+}

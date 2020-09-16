@@ -31,5 +31,6 @@ module.exports = {
             ignoreComments: false,
         }],
         'max-len': ['error', 140],
+        'lines-between-class-members': 'off',
     },
 };

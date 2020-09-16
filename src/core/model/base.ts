@@ -15,6 +15,20 @@ export const Category = {
     TERTIARY_WEAPON: lit('tertiaryWeapon'),
 };
 export type Category = (typeof Category)[keyof typeof Category];
+export const CATEGORY_DESC = {
+    hat: '帽子',
+    jacket: '上衣',
+    belt: '腰带',
+    wrist: '护腕',
+    bottoms: '下装',
+    shoes: '鞋子',
+    necklace: '项链',
+    pendant: '腰坠',
+    ring: '戒指',
+    secondaryWeapon: '远程武器',
+    primaryWeapon: '近程武器',
+    tertiaryWeapon: '近程武器',
+};
 
 export const Position = {
     HAT: lit('hat'),
@@ -83,3 +97,5 @@ export const KungFu = {
     隐龙诀: lit('隐龙诀'),
 };
 export type KungFu = (typeof KungFu)[keyof typeof KungFu];
+
+export type EmbedStoneType = 'unified' | 'wood' | 'fire' | 'earth' | 'metal' | 'water';
