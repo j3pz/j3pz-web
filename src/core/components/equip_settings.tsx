@@ -5,7 +5,7 @@ import $store from '../store';
 
 function EquipSettings() {
     return (
-        <PanelGroup accordion bordered>
+        <PanelGroup accordion bordered style={{ maxWidth: 600 }}>
             <Panel header="装备选择" defaultExpanded>
                 <EquipSelection store={$store} />
             </Panel>

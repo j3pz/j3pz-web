@@ -3,7 +3,18 @@ import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo } from './embed';
 
-export default class Equip {
+export class SimpleEquip {
+    public id: number;
+    public name: string;
+    public icon: number;
+    public quality: number;
+    static fromJson(json: Object): SimpleEquip {
+        const equip = plainToClass(SimpleEquip, json);
+        return equip;
+    }
+}
+
+export class Equip {
     public id: number;
     public name: string;
     public icon: number;

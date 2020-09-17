@@ -31,6 +31,7 @@ module.exports = {
             ignoreComments: false,
         }],
         'max-len': ['error', 140],
+        'max-classes-per-file': ['error', 2],
         'lines-between-class-members': 'off',
     },
 };

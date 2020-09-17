@@ -1,6 +1,6 @@
 import React from 'react';
 import { Category, CATEGORY_DESC } from '../model/base';
-import Equip from '../model/equip';
+import { Equip } from '../model/equip';
 import './equip_view.less';
 import { PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC } from '../model/attribute';
 

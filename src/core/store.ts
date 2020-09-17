@@ -1,7 +1,7 @@
 import { observable } from 'mobx';
 import 'reflect-metadata';
 import { Position, KungFu } from './model/base';
-import Equip from './model/equip';
+import { Equip } from './model/equip';
 
 export enum AppTab { EQUIP, CASE }
 

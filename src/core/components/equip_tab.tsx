@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-grid-system';
 import EquipNav, { navLib } from './equip_nav';
 import $store, { StoreProps } from '../store';
 import EquipView from './equip_view';
-import Equip from '../model/equip';
+import { Equip } from '../model/equip';
 import EquipSettings from './equip_settings';
 
 @observer
@@ -17,10 +17,10 @@ export default class EquipTab extends Component<StoreProps> {
                 <EquipNav store={$store} />
                 <Container style={{ flex: 1, paddingTop: 12 }}>
                     <Row>
-                        <Col xs={12} sm={6}>
+                        <Col sm={12} md={6}>
                             <EquipView equip={equip} />
                         </Col>
-                        <Col xs={12} sm={6}><EquipSettings /></Col>
+                        <Col sm={12} md={6}><EquipSettings /></Col>
                     </Row>
                 </Container>
             </div>

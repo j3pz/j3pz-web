@@ -6,29 +6,36 @@ import {
 import { StoreProps } from '../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../model/attribute';
 import EquipService from '../service/equip_service';
-import { KungFu } from '../model/base';
+import { KungFu, Position } from '../model/base';
 import { navLib } from './equip_nav';
-import Equip from '../model/equip';
+import { Equip, SimpleEquip } from '../model/equip';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
-    equips: Equip[];
 }
 
 @observer
 export default class EquipSelection extends Component<StoreProps, EquipSelectionState> {
+    private cache: Map<Position, SimpleEquip[]>;
+
     constructor(props) {
         super(props);
         this.state = {
             tags: [],
-            equips: [],
         };
+        this.cache = new Map();
     }
 
     handleUpdate = () => {
         const { store } = this.props;
+        const currentPosition = store.activeEquipNav;
+        if (this.cache.has(currentPosition)) {
+            return;
+        }
         EquipService.listEquip(navLib.get(store.activeEquipNav)!.category, KungFu.花间游).then((res) => {
-            this.setState({ equips: res.data.map((_) => _.attributes) });
+            const list = res.data.map((_) => SimpleEquip.fromJson(_.attributes));
+            this.cache.set(currentPosition, list);
+            this.forceUpdate();
         });
     };
 
@@ -41,10 +48,17 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
         });
     };
 
+    removeEquip = () => {
+        const { store } = this.props;
+        store.equips[store.activeEquipNav] = undefined;
+    };
+
     render() {
-        const { tags, equips } = this.state;
+        const { tags } = this.state;
+        const { store } = this.props;
+        const equips = this.cache.get(store.activeEquipNav) ?? [];
         return (
-            <>
+            <div style={{ maxWidth: 400 }}>
                 <CheckboxGroup
                     inline
                     name="filters"
@@ -61,9 +75,11 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                     size="lg"
                     onOpen={this.handleUpdate}
                     onSelect={this.setEquip}
+                    onClean={this.removeEquip}
                     labelKey="name"
                     valueKey="id"
                     placeholder="Select..."
+                    value={store.equips[store.activeEquipNav]?.id}
                     renderMenu={(menu) => {
                         if (equips.length === 0) {
                             return (
@@ -86,7 +102,7 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                         </div>
                     )}
                 />
-            </>
+            </div>
         );
     }
 }
