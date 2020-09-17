@@ -1,5 +1,5 @@
 import React from 'react';
-import { Category } from '../model/base';
+import { Category, CATEGORY_DESC } from '../model/base';
 import Equip from '../model/equip';
 import './equip_view.less';
 import { PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC } from '../model/attribute';
@@ -9,20 +9,31 @@ interface EquipViewProps {
 }
 
 function EquipView({ equip }: EquipViewProps) {
+    let isWeapon = false;
+    let isSecondaryWeapon = false;
+    let isTrinket = false;
+    if (([
+        Category.PRIMARY_WEAPON,
+        Category.TERTIARY_WEAPON,
+    ] as Category[]).includes(equip.category)) {
+        isWeapon = true;
+    } else if (([
+        Category.NECKLACE,
+        Category.PENDANT,
+        Category.RING,
+    ] as Category[]).includes(equip.category)) {
+        isTrinket = true;
+    } else if (Category.SECONDARY_WEAPON === equip.category) {
+        isSecondaryWeapon = true;
+    }
+
     if (equip === undefined || equip.id === undefined) {
         let icon = 'fad fa-helmet-battle';
-        if (([
-            Category.PRIMARY_WEAPON,
-            Category.TERTIARY_WEAPON,
-        ] as Category[]).includes(equip.category)) {
+        if (isWeapon) {
             icon = 'fad fa-swords';
-        } else if (([
-            Category.NECKLACE,
-            Category.PENDANT,
-            Category.RING,
-        ] as Category[]).includes(equip.category)) {
+        } else if (isTrinket) {
             icon = 'fad fa-rings-wedding';
-        } else if (Category.SECONDARY_WEAPON === equip.category) {
+        } else if (isSecondaryWeapon) {
             icon = 'fad fa-bow-arrow';
         }
         return (
@@ -45,7 +56,7 @@ function EquipView({ equip }: EquipViewProps) {
                 </span>
             </li>
             <li className="basic-info">
-                {equip.category}
+                {CATEGORY_DESC[equip.category]}
             </li>
 
             {['basicMagicShield', 'basicPhysicsShield'].filter((attributeKey) => equip[attributeKey] > 0).map((attributeKey) => (
@@ -55,18 +66,22 @@ function EquipView({ equip }: EquipViewProps) {
                 </li>
             ))}
 
-            <li className="basic-info">
-                近身伤害提高
-                {equip.damageRangeDesc}
-                <span className="right" style={{ color: '#F2F2F2' }}>
-                    速度
-                    {equip.speed}
-                </span>
-            </li>
-            <li className="basic-info">
-                每秒伤害
-                {equip.damagePerSecond}
-            </li>
+            {isWeapon && (
+                <>
+                    <li className="basic-info">
+                        近身伤害提高
+                        {equip.damageRangeDesc}
+                        <span className="right" style={{ color: '#F2F2F2' }}>
+                            速度
+                            {equip.speed}
+                        </span>
+                    </li>
+                    <li className="basic-info">
+                        每秒伤害
+                        {equip.damagePerSecond}
+                    </li>
+                </>
+            )}
             {PrimaryAttribute.filter((attributeKey) => equip[attributeKey] > 0).map((attributeKey) => (
                 <li className="basic-info" key={attributeKey}>
                     {ATTRIBUTE_DESC[attributeKey]}
@@ -94,7 +109,7 @@ function EquipView({ equip }: EquipViewProps) {
                 const active = embedStone.level > 0;
                 const img = active ? `0-${embedStone.level}` : 'empty-slot';
                 return (
-                    <li className={active ? 'plus-info' : 'hole-inactive'}>
+                    <li className={active ? 'plus-info' : 'hole-inactive'} key={`embed-${n}`}>
                         <img
                             src={`https://images.j3pz.com/imgs/stones/${img}.jpg`}
                             className="slot"
@@ -107,7 +122,7 @@ function EquipView({ equip }: EquipViewProps) {
                 );
             })}
             {/* 五彩石镶嵌孔(未镶嵌)  */}
-            {([Category.PRIMARY_WEAPON, Category.TERTIARY_WEAPON] as Category[]).includes(equip.category) && (
+            {isWeapon && (
             <li className="hole-inactive">
                 <img src="https://images.j3pz.com/imgs/stones/empty-slot.jpg" className="slot" alt="" />
                 &lt;只能镶嵌五彩石&gt;
