@@ -47,6 +47,7 @@ export default class EquipNav extends Component<StoreProps> {
                                 if (key === Position.TERTIARY_WEAPON) return null;
                                 const { category } = navLib.get(key)!;
                                 const name = CATEGORY_DESC[category];
+                                const equip = store.equips[key];
                                 return (
                                     <Nav.Item
                                         key={key}
@@ -54,11 +55,13 @@ export default class EquipNav extends Component<StoreProps> {
                                     >
                                         <img
                                             className="equip-icon"
-                                            src={`https://images.j3pz.com/imgs/icons/placeholder_${category}.png`}
-                                            alt={name}
+                                            src={equip?.icon
+                                                ? `https://icons.j3pz.com/${equip.icon}.png`
+                                                : `https://images.j3pz.com/imgs/icons/placeholder_${category}.png`}
+                                            alt={equip?.name ?? name}
                                         />
-                                        <div className="equip-type">{name}</div>
-                                        <div className="equip-name">{name}</div>
+                                        <div className={equip?.id ? 'equip-type' : 'equip-full'}>{name}</div>
+                                        { equip?.id && <div className="equip-name">{equip.name}</div> }
                                     </Nav.Item>
                                 );
                             })}
