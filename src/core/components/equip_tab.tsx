@@ -5,6 +5,7 @@ import EquipNav, { navLib } from './equip_nav';
 import $store, { StoreProps } from '../store';
 import EquipView from './equip_view';
 import Equip from '../model/equip';
+import EquipSettings from './equip_settings';
 
 @observer
 export default class EquipTab extends Component<StoreProps> {
@@ -19,7 +20,7 @@ export default class EquipTab extends Component<StoreProps> {
                         <Col xs={12} sm={6}>
                             <EquipView equip={equip} />
                         </Col>
-                        <Col xs={12} sm={6}>Settings</Col>
+                        <Col xs={12} sm={6}><EquipSettings /></Col>
                     </Row>
                 </Container>
             </div>

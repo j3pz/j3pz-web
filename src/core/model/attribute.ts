@@ -22,6 +22,10 @@ export type Attribute = PrimaryAttribute | SecondaryAttribute | MinorAttribute |
 export type AttributeTag =
     'physicsShield' | 'magicShield' | 'dodge' | 'parryBase' | 'toughness' |
     'crit' | 'overcome' | 'hit' | 'strain' | 'haste';
+export const AttributeTag: AttributeTag[] = [
+    'physicsShield', 'magicShield', 'dodge', 'parryBase', 'toughness',
+    'crit', 'overcome', 'hit', 'strain', 'haste',
+];
 
 export const AttributeDecorator = {
     PHYSICS: lit('PHYSICS'),
@@ -68,5 +72,39 @@ export const ATTRIBUTE_DESC = {
     healthRecover: '每秒回复气血',
     mana: '最大内力上限提高',
     manaRecover: '每秒内力恢复提升',
+    // damageOffset: '',
+};
+export const ATTRIBUTE_SHORT_DESC = {
+    // PrimaryAttribute
+    vitality: '体质',
+    spunk: '元气',
+    spirit: '根骨',
+    strength: '力道',
+    agility: '身法',
+    // SecondaryAttribute
+    physicsShield: '外防',
+    magicShield: '内防',
+    dodge: '闪避',
+    parryBase: '招架',
+    parryValue: '拆招',
+    toughness: '御劲',
+    attack: '攻击',
+    heal: '治疗成效',
+    crit: '会心',
+    critEffect: '会心效果',
+    overcome: '破防',
+    hit: '命中',
+    strain: '无双',
+    haste: '加速',
+    threat: '威胁',
+    huajing: '化劲',
+    // MinorAttribute
+    basicPhysicsShield: '外防',
+    basicMagicShield: '内防',
+    // ExtraAttribute
+    health: '气血上限',
+    healthRecover: '气血恢复',
+    mana: '内力上限',
+    manaRecover: '内力恢复',
     // damageOffset: '',
 };
