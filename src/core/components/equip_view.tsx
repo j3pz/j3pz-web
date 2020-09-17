@@ -10,7 +10,27 @@ interface EquipViewProps {
 
 function EquipView({ equip }: EquipViewProps) {
     if (equip === undefined || equip.id === undefined) {
-        return <div className="equip" />;
+        let icon = 'fad fa-helmet-battle';
+        if (([
+            Category.PRIMARY_WEAPON,
+            Category.TERTIARY_WEAPON,
+        ] as Category[]).includes(equip.category)) {
+            icon = 'fad fa-swords';
+        } else if (([
+            Category.NECKLACE,
+            Category.PENDANT,
+            Category.RING,
+        ] as Category[]).includes(equip.category)) {
+            icon = 'fad fa-rings-wedding';
+        } else if (Category.SECONDARY_WEAPON === equip.category) {
+            icon = 'fad fa-bow-arrow';
+        }
+        return (
+            <div className="equip empty-equip">
+                <i className={icon} />
+                <div>尚未穿戴装备</div>
+            </div>
+        );
     }
     return (
         <div className="equip">

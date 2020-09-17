@@ -9,7 +9,7 @@ interface NavInfo {
     category: Category;
 }
 
-const navLib = new Map<Position, NavInfo>([
+export const navLib = new Map<Position, NavInfo>([
     [Position.HAT, { category: Category.HAT }],
     [Position.JACKET, { category: Category.JACKET }],
     [Position.BELT, { category: Category.BELT }],

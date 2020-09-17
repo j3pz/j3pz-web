@@ -51,6 +51,10 @@ export default class Equip {
     public embedding: EmbedInfo = new EmbedInfo();
     public strengthened = 0;
 
+    constructor(category?: Category) {
+        if (category) this.category = category;
+    }
+
     static fromJson(json: Object): Equip {
         const equip = plainToClass(Equip, json);
         if (equip.embed) {

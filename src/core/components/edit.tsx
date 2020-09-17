@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, FlexboxGrid } from 'rsuite';
 import { observer } from 'mobx-react';
-import { StoreProps, AppTab } from '../store';
+import $store, { StoreProps, AppTab } from '../store';
 import EquipTab from './equip_tab';
 import CaseTab from './case_tab';
 
@@ -31,7 +31,7 @@ export default class CoreEdit extends Component<StoreProps> {
                             <Nav.Item eventKey={AppTab.EQUIP}>装备调整</Nav.Item>
                             <Nav.Item eventKey={AppTab.CASE}>方案调整</Nav.Item>
                         </Nav>
-                        { store.tab === AppTab.EQUIP && <EquipTab />}
+                        { store.tab === AppTab.EQUIP && <EquipTab store={$store} />}
                         { store.tab === AppTab.CASE && <CaseTab />}
                     </FlexboxGrid.Item>
                     <FlexboxGrid.Item style={{ borderLeft: '1px solid #CCCCCC', height: '100%' }} colspan={6}>
