@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import {
-    CheckboxGroup, Checkbox, SelectPicker, Icon,
+    CheckboxGroup, Checkbox, SelectPicker, Icon, RangeSlider,
 } from 'rsuite';
 import { StoreProps } from '../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../model/attribute';
@@ -9,9 +9,13 @@ import EquipService from '../service/equip_service';
 import { KungFu, Position } from '../model/base';
 import { navLib } from './equip_nav';
 import { Equip, SimpleEquip } from '../model/equip';
+import SettingsService from '../service/settings_service';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
+    minQuality: number;
+    maxQuality: number;
+    range: [number, number];
 }
 
 @observer
@@ -22,9 +26,20 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
         super(props);
         this.state = {
             tags: [],
+            minQuality: 3000,
+            maxQuality: 5000,
+            range: [4000, 5000],
         };
         this.cache = new Map();
     }
+
+    componentDidMount() {
+        SettingsService.getRange().then((res) => {
+            const [min, , max] = res.data;
+            this.setState({ minQuality: min, maxQuality: max });
+        });
+    }
+
 
     handleUpdate = () => {
         const { store } = this.props;
@@ -54,7 +69,9 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
     };
 
     render() {
-        const { tags } = this.state;
+        const {
+            tags, minQuality, maxQuality, range,
+        } = this.state;
         const { store } = this.props;
         const equips = this.cache.get(store.activeEquipNav) ?? [];
         return (
@@ -69,6 +86,9 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                 >
                     {AttributeTag.map((key) => <Checkbox value={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
                 </CheckboxGroup>
+                <div style={{ margin: 12 }} />
+                <RangeSlider value={range} min={minQuality} max={maxQuality} />
+                <div style={{ margin: 12 }} />
                 <SelectPicker
                     data={equips}
                     block
