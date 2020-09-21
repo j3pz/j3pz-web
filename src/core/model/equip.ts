@@ -1,8 +1,8 @@
 import { Type, plainToClass } from 'class-transformer';
-import { AttributeTag } from './attribute';
+import { AttributeDecorator, AttributeTag, SecondaryAttribute } from './attribute';
 import { Category, School } from './base';
 import { Effect } from './effect';
-import { EmbedInfo } from './embed';
+import { EmbedInfo, EmbedOps } from './embed';
 
 export class SimpleEquip {
     public id: number;
@@ -55,14 +55,16 @@ export class Equip {
     @Type(() => Effect)
     public effect: Effect;
     // public set: EquipSet;
-    public embed: string;
+    @Type(() => EmbedInfo)
+    public embed: EmbedInfo;
     public strengthen: number;
     // public source: Source[];
     // public represent: Represent;
+    public decorators: { [k in SecondaryAttribute]: AttributeDecorator };
 
     public deprecated: boolean;
 
-    public embedding: EmbedInfo = new EmbedInfo();
+    public embedding: EmbedOps[];
     public strengthened = 0;
 
     constructor(category?: Category) {
@@ -71,16 +73,6 @@ export class Equip {
 
     static fromJson(json: Object): Equip {
         const equip = plainToClass(Equip, json);
-        if (equip.embed) {
-            equip.embedding.holes = +equip.embed.substr(0, 1);
-            for (let i = 0; i < equip.embedding.holes; i += 1) {
-                equip.embedding.stones.push({
-                    type: 'unified',
-                    level: 0,
-                    attribute: equip.embed.substring(i * 3 + 1, i * 3 + 4),
-                });
-            }
-        }
         return equip;
     }
 

@@ -39,6 +39,17 @@ export const AttributeDecorator = {
     SOLAR_LUNAR: lit('SOLAR_LUNAR'),
 };
 export type AttributeDecorator = (typeof AttributeDecorator)[keyof typeof AttributeDecorator];
+export const DECORATOR_DESC: { [k in AttributeDecorator]: string } = {
+    [AttributeDecorator.PHYSICS]: '外功',
+    [AttributeDecorator.MAGIC]: '内功',
+    [AttributeDecorator.ALL]: '全',
+    [AttributeDecorator.NONE]: '',
+    [AttributeDecorator.NEUTRAL]: '混元性内功',
+    [AttributeDecorator.SOLAR]: '阳性内功',
+    [AttributeDecorator.LUNAR]: '阴性内功',
+    [AttributeDecorator.POISON]: '毒性内功',
+    [AttributeDecorator.SOLAR_LUNAR]: '阴阳内功',
+};
 
 export const ATTRIBUTE_DESC = {
     // PrimaryAttribute

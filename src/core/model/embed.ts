@@ -1,12 +1,10 @@
-import { EmbedStoneType } from './base';
+import { Attribute, AttributeDecorator } from './attribute';
 
 export class EmbedInfo {
-    public holes: number = 0;
-    public stones: EquipEmbed[] = [];
+    public count: number = 0;
+    public attributes: [Attribute, AttributeDecorator][] = [];
 }
-
-export interface EquipEmbed {
-    type: EmbedStoneType;
+export interface EmbedOps {
+    index: number;
     level: number;
-    attribute: string;
 }

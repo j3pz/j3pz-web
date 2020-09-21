@@ -23,8 +23,9 @@
 
     >li {
         display: block;
-        font-size: 13px;
+        font-size: 14px;
         letter-spacing: 1px;
+        line-height: 20px;
         >.right {
             float: right;
         }
@@ -52,13 +53,16 @@
     >li.score {
         color:#FF8000;
     }
-    >li.hole-inactive {
+    >li.hole-inactive > span {
         color:#9b9b9b;
+    }
+    >li.hole-active > span {
+        color:#00c848;
     }
 }
 
 .slot {
     width: 16px;
     height: 16px;
-    vertical-align:middle;
+    vertical-align: text-bottom;
 }

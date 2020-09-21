@@ -2,7 +2,7 @@ import React from 'react';
 import { Category, CATEGORY_DESC } from '../model/base';
 import { Equip } from '../model/equip';
 import './equip_view.less';
-import { PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC } from '../model/attribute';
+import { PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC, DECORATOR_DESC, AttributeDecorator } from '../model/attribute';
 
 interface EquipViewProps {
     equip: Equip;
@@ -91,6 +91,7 @@ function EquipView({ equip }: EquipViewProps) {
 
             {SecondaryAttribute.filter((attributeKey) => equip[attributeKey] > 0).map((attributeKey) => (
                 <li className="plus-info" key={attributeKey}>
+                    {DECORATOR_DESC[equip.decorators?.[attributeKey] ?? AttributeDecorator.NONE]}
                     {ATTRIBUTE_DESC[attributeKey]}
                     {equip[attributeKey]}
                 </li>
@@ -102,22 +103,27 @@ function EquipView({ equip }: EquipViewProps) {
             </li>
             {/* 装备镶嵌孔 */}
             {[1, 2, 3].map((n) => {
-                if (equip.embedding.holes < n) {
+                if (equip.embed.count < n) {
                     return null;
                 }
-                const embedStone = equip.embedding.stones[n - 1];
-                const active = embedStone.level > 0;
-                const img = active ? `0-${embedStone.level}` : 'empty-slot';
+                // const embedStone = equip.embedding.find()
+                const active = false; // embedStone.level > 0;
+                // const img = active ? `0-${embedStone.level}` : 'empty-slot';
+                const img = 'empty-slot';
                 return (
-                    <li className={active ? 'plus-info' : 'hole-inactive'} key={`embed-${n}`}>
+                    <li className={active ? 'hole-active' : 'hole-inactive'} key={`embed-${n}`}>
                         <img
                             src={`https://images.j3pz.com/imgs/stones/${img}.jpg`}
                             className="slot"
                             style={{ marginRight: 4 }}
                             alt=""
                         />
-                        镶嵌孔：
-                        {embedStone.attribute}
+                        <span>
+                            镶嵌孔：
+                            {DECORATOR_DESC[equip.embed.attributes[n - 1][1]]}
+                            {ATTRIBUTE_DESC[equip.embed.attributes[n - 1][0]]}
+                            ?
+                        </span>
                     </li>
                 );
             })}
@@ -167,7 +173,7 @@ function EquipView({ equip }: EquipViewProps) {
                 {/* <span>(+{{equips[$root.focus].jinglian.score}}+{{equips[$root.focus].embed.totalScore}})</span> */}
             </li>
             {/*
-            <!-- 装备推荐门票 -->
+            <!-- 装备推荐门派：-->
             <li class="basicInfo">
                 推荐门派：{{equips[$root.focus].getRecommend()}}
             </li>
