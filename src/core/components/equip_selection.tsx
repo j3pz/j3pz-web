@@ -9,6 +9,7 @@ import EquipService from '../service/equip_service';
 import { KungFu, Position } from '../model/base';
 import { navLib } from './equip_nav';
 import { Equip, SimpleEquip } from '../model/equip';
+import './equip_selection.less';
 import SettingsService from '../service/settings_service';
 
 interface EquipSelectionState {
@@ -72,12 +73,24 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
         store.equips[store.activeEquipNav] = undefined;
     };
 
+    getFilteredEquips = () => {
+        const { store } = this.props;
+        const { range, tags } = this.state;
+        const equips = this.cache.get(store.activeEquipNav) ?? [];
+        return equips.filter((equip) => {
+            if (equip.quality > range[1] || equip.quality < range[0]) return false;
+            if (tags.length > 0 && tags.filter((t) => equip.tags.includes(t)).length === 0) return false;
+            return true;
+        });
+    };
+
     render() {
         const {
             tags, minQuality, maxQuality, range,
         } = this.state;
         const { store } = this.props;
-        const equips = this.cache.get(store.activeEquipNav) ?? [];
+        const raw = this.cache.get(store.activeEquipNav) ?? [];
+        const equips = this.getFilteredEquips();
         return (
             <div style={{ maxWidth: 400 }}>
                 <CheckboxGroup
@@ -88,7 +101,7 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                         this.setState({ tags: value });
                     }}
                 >
-                    {AttributeTag.map((key) => <Checkbox value={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
+                    {AttributeTag.map((key) => <Checkbox value={key} key={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
                 </CheckboxGroup>
                 <div style={{ margin: 12 }} />
                 品质筛选
@@ -117,27 +130,40 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                     onClean={this.removeEquip}
                     labelKey="name"
                     valueKey="id"
-                    placeholder="Select..."
+                    searchable={false}
+                    placeholder="选取装备..."
+                    virtualized={false}
                     value={store.equips[store.activeEquipNav]?.id}
                     renderMenu={(menu) => {
-                        if (equips.length === 0) {
+                        if (raw.length === 0) {
                             return (
                                 <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
-                                    <Icon icon="spinner" spin />
+                                    <i className="fal fa-spinner fa-spin" />
                                     {' '}
                                     加载中...
+                                </p>
+                            );
+                        } if (equips.length === 0) {
+                            return (
+                                <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
+                                    <i className="fal fa-file-search" />
+                                    {' '}
+                                    没有装备符合筛选条件
                                 </p>
                             );
                         }
                         return menu;
                     }}
-                    renderMenuItem={(label, item) => (
-                        <div>
-                            <b>{label}</b>
-                            {
-                                // @ts-ignore
-                                item.quality
-                            }
+                    // @ts-ignore
+                    renderMenuItem={(label, item: SimpleEquip) => (
+                        <div className="equip-select-item" key={item.id}>
+                            <div>
+                                <b>{label}</b>
+                                <span>{`${item.quality}品`}</span>
+                            </div>
+                            <div>
+                                <i>{item.tags.map((tag) => ATTRIBUTE_SHORT_DESC[tag]).join(' ')}</i>
+                            </div>
                         </div>
                     )}
                 />

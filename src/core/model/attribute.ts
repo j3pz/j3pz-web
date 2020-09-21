@@ -5,7 +5,7 @@ export const PrimaryAttribute: PrimaryAttribute[] = ['vitality', 'spunk', 'spiri
 export type SecondaryAttribute =
     'physicsShield' | 'magicShield' | 'dodge' | 'parryBase' | 'parryValue' | 'toughness' |
     'attack' | 'heal' | 'crit' | 'critEffect' | 'overcome' |
-    'hit' | 'strain' | 'haste' | 'threat' | 'huajing' |
+    'hit' | 'surplus' | 'strain' | 'haste' | 'threat' | 'huajing' |
     // 直接增加百分比的属性
     'dodgePercentage' | 'toughnessPercentage' |
     'critPercentage' | 'critEffectPercentage' | 'overcomePercentage' |
@@ -13,7 +13,7 @@ export type SecondaryAttribute =
 export const SecondaryAttribute: SecondaryAttribute[] = [
     'physicsShield', 'magicShield', 'dodge', 'parryBase', 'parryValue', 'toughness',
     'attack', 'heal', 'crit', 'critEffect', 'overcome',
-    'hit', 'strain', 'haste', 'threat', 'huajing',
+    'hit', 'surplus', 'strain', 'haste', 'threat', 'huajing',
 ];
 export type MinorAttribute = 'basicMagicShield' | 'basicPhysicsShield' | 'attackSpeed' | 'damageBase' | 'damageRange';
 export type ExtraAttribute = 'health' | 'healthRecover' | 'mana' | 'manaRecover' | 'damageOffset';
@@ -21,10 +21,10 @@ export type ExtraAttribute = 'health' | 'healthRecover' | 'mana' | 'manaRecover'
 export type Attribute = PrimaryAttribute | SecondaryAttribute | MinorAttribute | ExtraAttribute;
 export type AttributeTag =
     'physicsShield' | 'magicShield' | 'dodge' | 'parryBase' | 'toughness' |
-    'crit' | 'overcome' | 'hit' | 'strain' | 'haste';
+    'crit' | 'overcome' | 'surplus' | 'strain' | 'haste';
 export const AttributeTag: AttributeTag[] = [
     'physicsShield', 'magicShield', 'dodge', 'parryBase', 'toughness',
-    'crit', 'overcome', 'hit', 'strain', 'haste',
+    'crit', 'overcome', 'surplus', 'strain', 'haste',
 ];
 
 export const AttributeDecorator = {
@@ -61,6 +61,7 @@ export const ATTRIBUTE_DESC = {
     overcome: '破防等级提高',
     hit: '命中等级提高',
     strain: '无双等级提高',
+    surplus: '破招等级提高',
     haste: '加速等级提高',
     threat: '招式产生的威胁提高',
     huajing: '化劲等级提高',
@@ -95,6 +96,7 @@ export const ATTRIBUTE_SHORT_DESC = {
     overcome: '破防',
     hit: '命中',
     strain: '无双',
+    surplus: '破招',
     haste: '加速',
     threat: '威胁',
     huajing: '化劲',

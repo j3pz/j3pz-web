@@ -1,4 +1,5 @@
 import { Type, plainToClass } from 'class-transformer';
+import { AttributeTag } from './attribute';
 import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo } from './embed';
@@ -8,6 +9,8 @@ export class SimpleEquip {
     public name: string;
     public icon: number;
     public quality: number;
+    public tags: AttributeTag[];
+
     static fromJson(json: Object): SimpleEquip {
         const equip = plainToClass(SimpleEquip, json);
         return equip;
