@@ -1,2 +1,2 @@
-const ENDPOINT = 'http://localhost:8080/api';
+const ENDPOINT = 'https://j3pz.dev/api';
 export default ENDPOINT;

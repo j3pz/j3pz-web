@@ -54,6 +54,10 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
         });
     };
 
+    handleRange = ([min, max]) => {
+        this.setState({ range: [min, max] });
+    };
+
     setEquip = (value: number) => {
         const { store } = this.props;
         const currentPosition = store.activeEquipNav;
@@ -87,7 +91,22 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                     {AttributeTag.map((key) => <Checkbox value={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
                 </CheckboxGroup>
                 <div style={{ margin: 12 }} />
-                <RangeSlider value={range} min={minQuality} max={maxQuality} />
+                品质筛选
+                {' '}
+                {range[0]}
+                {' '}
+                品 -
+                {range[1]}
+                {' '}
+                品
+                <RangeSlider
+                    value={range}
+                    min={minQuality}
+                    max={maxQuality}
+                    style={{ marginTop: 12 }}
+                    step={10}
+                    onChange={this.handleRange}
+                />
                 <div style={{ margin: 12 }} />
                 <SelectPicker
                     data={equips}
