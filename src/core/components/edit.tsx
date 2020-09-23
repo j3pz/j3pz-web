@@ -4,12 +4,15 @@ import { observer } from 'mobx-react';
 import $store, { StoreProps, AppTab } from '../store';
 import EquipTab from './equip_tab';
 import CaseTab from './case_tab';
+import SchoolDropdown from './school_dropdown';
 
 @observer
 export default class CoreEdit extends Component<StoreProps> {
     switchTab = (key: AppTab) => {
-        const { store } = this.props;
-        store.tab = key;
+        if (key in AppTab) {
+            const { store } = this.props;
+            store.tab = key;
+        }
     };
 
     render() {
@@ -27,9 +30,10 @@ export default class CoreEdit extends Component<StoreProps> {
             >
                 <FlexboxGrid style={{ height: '100%' }}>
                     <FlexboxGrid.Item colspan={18} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                        <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab} style={{ textAlign: 'right' }}>
-                            <Nav.Item eventKey={AppTab.EQUIP}>装备调整</Nav.Item>
-                            <Nav.Item eventKey={AppTab.CASE}>方案调整</Nav.Item>
+                        <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab}>
+                            <SchoolDropdown store={$store} />
+                            <Nav.Item eventKey={AppTab.CASE} style={{ float: 'right' }}>方案调整</Nav.Item>
+                            <Nav.Item eventKey={AppTab.EQUIP} style={{ float: 'right' }}>装备调整</Nav.Item>
                         </Nav>
                         { store.tab === AppTab.EQUIP && <EquipTab store={$store} />}
                         { store.tab === AppTab.CASE && <CaseTab />}

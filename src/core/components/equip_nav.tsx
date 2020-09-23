@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Sidenav, Nav } from 'rsuite';
 import { StoreProps } from '../store';
-import { Category, Position, CATEGORY_DESC } from '../model/base';
+import {
+    Category, Position, CATEGORY_DESC, KungFu,
+} from '../model/base';
 import './equip_nav.less';
 
 interface NavInfo {
@@ -44,7 +46,12 @@ export default class EquipNav extends Component<StoreProps> {
                     <Sidenav.Body>
                         <Nav>
                             {Object.values(Position).map((key) => {
-                                if (key === Position.TERTIARY_WEAPON) return null;
+                                if (key === Position.TERTIARY_WEAPON
+                                    && store.kungfu !== KungFu.山居剑意
+                                    && store.kungfu !== KungFu.问水诀
+                                ) {
+                                    return null;
+                                }
                                 const { category } = navLib.get(key)!;
                                 const name = CATEGORY_DESC[category];
                                 const equip = store.equips[key];

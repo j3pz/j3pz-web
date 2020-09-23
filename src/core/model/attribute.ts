@@ -39,6 +39,8 @@ export const AttributeDecorator = {
     SOLAR_LUNAR: lit('SOLAR_LUNAR'),
 };
 export type AttributeDecorator = (typeof AttributeDecorator)[keyof typeof AttributeDecorator];
+export type DecoratorTuple = [Attribute, AttributeDecorator];
+
 export const DECORATOR_DESC: { [k in AttributeDecorator]: string } = {
     [AttributeDecorator.PHYSICS]: '外功',
     [AttributeDecorator.MAGIC]: '内功',

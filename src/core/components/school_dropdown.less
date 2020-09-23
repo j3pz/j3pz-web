@@ -1,0 +1,28 @@
+.kungfu-title {
+    display: flex;
+    line-height: 25px;
+    align-items: center;
+    width: 64px;
+
+    i {
+        font-style: normal;
+        font-size: 36px;
+        flex-shrink: 0;
+        display: inline-block;
+        position: relative;
+        top: -3px;
+        width: 36px;
+    }
+    span {
+        display: none;
+        padding-left: 12px;
+        min-width: 0;
+    }
+
+    &.expand {
+        width: 196px;
+        span {
+            display: inline-block;
+        }
+    }
+}

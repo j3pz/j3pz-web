@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import {
-    CheckboxGroup, Checkbox, SelectPicker, Icon, RangeSlider,
+    CheckboxGroup, Checkbox, SelectPicker, RangeSlider,
 } from 'rsuite';
 import { StoreProps } from '../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../model/attribute';
@@ -49,7 +49,7 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
             return;
         }
         EquipService.listEquip(navLib.get(store.activeEquipNav)!.category, KungFu.花间游).then((res) => {
-            const list = res.data.map((_) => SimpleEquip.fromJson(_.attributes));
+            const list = res.map((_) => SimpleEquip.fromJson(_.attributes));
             this.cache.set(currentPosition, list);
             this.forceUpdate();
         });
@@ -63,7 +63,7 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
         const { store } = this.props;
         const currentPosition = store.activeEquipNav;
         EquipService.getEquip(value).then((res) => {
-            const equip = Equip.fromJson(res.data.attributes);
+            const equip = Equip.fromJson(res.attributes);
             store.equips[currentPosition] = equip;
         });
     };

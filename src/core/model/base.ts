@@ -65,8 +65,28 @@ export const School = {
     霸刀: lit('霸刀'),
     蓬莱: lit('蓬莱'),
     凌雪: lit('凌雪'),
+    衍天: lit('衍天'),
 };
 export type School = (typeof School)[keyof typeof School];
+
+export const schoolAbbrMap = {
+    [School.万花]: 'wanhua',
+    [School.少林]: 'shaolin',
+    [School.明教]: 'mingjiao',
+    [School.唐门]: 'tangmen',
+    [School.七秀]: 'qixiu',
+    [School.五毒]: 'wudu',
+    [School.纯阳]: 'chunyang',
+    [School.天策]: 'tiance',
+    [School.丐帮]: 'gaibang',
+    [School.藏剑]: 'cangjian',
+    [School.苍云]: 'cangyun',
+    [School.长歌]: 'changge',
+    [School.霸刀]: 'badao',
+    [School.蓬莱]: 'penglai',
+    [School.凌雪]: 'lingxue',
+    [School.衍天]: 'yantian',
+};
 
 export const KungFu = {
     花间游: lit('花间游'),
@@ -95,7 +115,15 @@ export const KungFu = {
     明尊琉璃体: lit('明尊琉璃体'),
     铁骨衣: lit('铁骨衣'),
     隐龙诀: lit('隐龙诀'),
+    太玄经: lit('太玄经'),
 };
 export type KungFu = (typeof KungFu)[keyof typeof KungFu];
 
 export type EmbedStoneType = 'unified' | 'wood' | 'fire' | 'earth' | 'metal' | 'water';
+
+export const GamingRole = {
+    DAMAGE_DEALER: lit('DAMAGE_DEALER'),
+    HEALER: lit('HEALER'),
+    TANK: lit('TANK'),
+};
+export type GamingRole = (typeof GamingRole)[keyof typeof GamingRole];
