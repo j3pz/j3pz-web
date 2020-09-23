@@ -22,6 +22,7 @@ interface EquipSelectionState {
 @observer
 export default class EquipSelection extends Component<StoreProps, EquipSelectionState> {
     private cache: Map<Position, SimpleEquip[]>;
+    private lastKungFu: KungFu;
 
     constructor(props) {
         super(props);
@@ -45,12 +46,14 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
     handleUpdate = () => {
         const { store } = this.props;
         const currentPosition = store.activeEquipNav;
-        if (this.cache.has(currentPosition)) {
+        const currentKungfu = store.kungfu;
+        if (this.cache.has(currentPosition) && currentKungfu === this.lastKungFu) {
             return;
         }
-        EquipService.listEquip(navLib.get(store.activeEquipNav)!.category, KungFu.花间游).then((res) => {
+        EquipService.listEquip(navLib.get(store.activeEquipNav)!.category, currentKungfu).then((res) => {
             const list = res.map((_) => SimpleEquip.fromJson(_.attributes));
             this.cache.set(currentPosition, list);
+            this.lastKungFu = currentKungfu;
             this.forceUpdate();
         });
     };
