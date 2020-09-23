@@ -20,9 +20,9 @@ const Header = ({ type = 'border', mode = 'acrylic' } : HeaderProps) => {
                 </Navbar.Header>
                 <Navbar.Body>
                     <Nav>
-                        <Nav.Item><Link to="/intro">使用说明</Link></Nav.Item>
-                        <Nav.Item><Link to="/changelog">更新记录</Link></Nav.Item>
-                        <Nav.Item>
+                        <Nav.Item componentClass="button"><Link to="/intro">使用说明</Link></Nav.Item>
+                        <Nav.Item componentClass="button"><Link to="/changelog">更新记录</Link></Nav.Item>
+                        <Nav.Item componentClass="button">
                             <a href="https://support.qq.com/products/105376" target="_blank" rel="noopener noreferrer">反馈</a>
                         </Nav.Item>
                     </Nav>
