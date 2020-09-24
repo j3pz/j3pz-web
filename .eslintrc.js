@@ -33,5 +33,6 @@ module.exports = {
         'max-len': ['error', 140],
         'max-classes-per-file': ['error', 2],
         'lines-between-class-members': 'off',
+        'react/destructuring-assignment': 'off',
     },
 };

@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import 'reflect-metadata';
 import { Position, KungFu } from './model/base';
 import { Equip } from './model/equip';
+import Talent from './model/talent';
 
 export enum AppTab { EQUIP, CASE }
 
@@ -25,14 +26,16 @@ export interface EditState {
         [Position.PRIMARY_WEAPON]?: Equip;
         [Position.TERTIARY_WEAPON]?: Equip;
     };
+    talents: Talent[];
 }
 
 const $store = observable<EditState>({
-    tab: AppTab.EQUIP,
+    tab: AppTab.CASE,
     equipNavExpanded: true,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,
     equips: {},
+    talents: [],
 });
 
 export default $store;
