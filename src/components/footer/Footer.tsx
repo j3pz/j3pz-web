@@ -49,10 +49,10 @@ function Footer({ background = '#FAFAFA' }: FooterProps) {
             </Row>
             <div className="infos content black">
                 <div className="social-media">
-                    <a href="/"><img src="http://images.j3pz.com/imgs/wechat.png" alt="微信公众号" /></a>
-                    <a href="/"><img src="http://images.j3pz.com/imgs/weibo.png" alt="开发者微博" /></a>
-                    <a href="/"><img src="http://images.j3pz.com/imgs/qq.png" alt="QQ 群组" /></a>
-                    <a href="/"><img src="http://images.j3pz.com/imgs/telegram.png" alt="Telegram 频道" /></a>
+                    <a href="/"><img src="https://images.j3pz.com/imgs/wechat.png" alt="微信公众号" /></a>
+                    <a href="/"><img src="https://images.j3pz.com/imgs/weibo.png" alt="开发者微博" /></a>
+                    <a href="/"><img src="https://images.j3pz.com/imgs/qq.png" alt="QQ 群组" /></a>
+                    <a href="/"><img src="https://images.j3pz.com/imgs/telegram.png" alt="Telegram 频道" /></a>
                 </div>
                 <div className="legal">
                     <span>
