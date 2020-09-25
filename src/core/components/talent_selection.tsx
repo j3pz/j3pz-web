@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Nav, Sidenav } from 'rsuite';
+import {
+    Nav, Popover, Sidenav, Whisper,
+} from 'rsuite';
+import { Col, Container, Row } from 'react-grid-system';
 import { Lambda, observe } from 'mobx';
 import $store, { StoreProps } from '../store';
 import TalentService from '../service/talent_service';
@@ -67,16 +70,38 @@ export default class TalentSelection extends Component<StoreProps, TalentSelecti
                                 const idx = talent.indexOf(store.talents[i]);
                                 const selected = talent[Math.max(0, idx)];
                                 return (
-                                    <Nav.Item
+                                    <Whisper
                                         key={selected.id}
+                                        placement="right"
+                                        enterable
+                                        trigger={['hover', 'focus']}
+                                        speaker={(
+                                            <Popover>
+                                                <Container>
+                                                    <Row>
+                                                        {talent.map((t) => (
+                                                            <Col key={`option-${t.id}`}>
+                                                                <img
+                                                                    className="talent-icon"
+                                                                    src={`https://icons.j3pz.com/${t.icon}.png`}
+                                                                    alt={t.name}
+                                                                />
+                                                            </Col>
+                                                        ))}
+                                                    </Row>
+                                                </Container>
+                                            </Popover>
+                                        )}
                                     >
-                                        <img
-                                            className="talent-icon"
-                                            src={`https://icons.j3pz.com/${selected.icon}.png`}
-                                            alt={selected.name}
-                                        />
-                                        <div className="talent-name">{selected.name}</div>
-                                    </Nav.Item>
+                                        <Nav.Item>
+                                            <img
+                                                className="talent-icon"
+                                                src={`https://icons.j3pz.com/${selected.icon}.png`}
+                                                alt={selected.name}
+                                            />
+                                            <div className="talent-name">{selected.name}</div>
+                                        </Nav.Item>
+                                    </Whisper>
                                 );
                             })}
                         </Nav>
