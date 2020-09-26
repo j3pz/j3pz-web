@@ -5,6 +5,7 @@ import $store, { StoreProps, AppTab } from '../store';
 import EquipTab from './equip_tab';
 import CaseTab from './case_tab';
 import SchoolDropdown from './school_dropdown';
+import BuildingState from '../../components/empty_states/building';
 
 @observer
 export default class CoreEdit extends Component<StoreProps> {
@@ -38,7 +39,15 @@ export default class CoreEdit extends Component<StoreProps> {
                         { store.tab === AppTab.EQUIP && <EquipTab store={$store} />}
                         { store.tab === AppTab.CASE && <CaseTab />}
                     </FlexboxGrid.Item>
-                    <FlexboxGrid.Item style={{ borderLeft: '1px solid #CCCCCC', height: '100%' }} colspan={6}>
+                    <FlexboxGrid.Item
+                        style={{
+                            borderLeft: '1px solid #CCCCCC',
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}
+                        colspan={6}
+                    >
                         <Nav appearance="subtle">
                             <Nav.Item icon={<i className="fal fa-undo" />} />
                             <Nav.Item icon={<i className="fal fa-redo" />} />
@@ -46,7 +55,7 @@ export default class CoreEdit extends Component<StoreProps> {
                             <Nav.Item icon={<i className="fal fa-folder-open" />} />
                             <Nav.Item icon={<i className="fal fa-share-alt" />} />
                         </Nav>
-                        result
+                        <BuildingState />
                     </FlexboxGrid.Item>
                 </FlexboxGrid>
             </main>
