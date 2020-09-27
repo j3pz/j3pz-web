@@ -69,13 +69,18 @@ export default class TalentSelection extends Component<StoreProps, TalentSelecti
                                 const selected = talent[Math.max(0, idx)];
                                 return (
                                     <Nav.Item>
-                                        <Container>
+                                        <img
+                                            className="selected-talent-icon"
+                                            src={`https://icons.j3pz.com/${selected.icon}.png`}
+                                            alt={selected.name}
+                                        />
+                                        <Container className="talent-selection">
                                             <div>{selected.name}</div>
                                             <Row>
                                                 {talent.map((t) => (
                                                     <Col key={`option-${t.id}`}>
                                                         <img
-                                                            className="talent-icon"
+                                                            className="option-talent-icon"
                                                             src={`https://icons.j3pz.com/${t.icon}.png`}
                                                             alt={t.name}
                                                         />
