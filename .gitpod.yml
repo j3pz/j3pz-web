@@ -1,8 +1,0 @@
-tasks:
-  - init: install
-    command: npm install
-image:
-  file: .gitpod.Dockerfile
-vscode:
-  extensions:
-    - dbaeumer.vscode-eslint@2.1.5:9Wg0Glx/TwD8ElFBg+FKcQ==
