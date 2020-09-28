@@ -34,5 +34,7 @@ module.exports = {
         'max-classes-per-file': ['error', 2],
         'lines-between-class-members': 'off',
         'react/destructuring-assignment': 'off',
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/no-noninteractive-element-interactions': 'off',
     },
 };

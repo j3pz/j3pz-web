@@ -1,3 +1,4 @@
+@import '../../css/global.less';
 .selected-talent-icon {
     position: absolute;
     left: 0;
@@ -12,6 +13,11 @@
     height: 30px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0;
+    background-size: 30px 30px;
+    &.active {
+        box-shadow: 0 0 4px 3px fade(@base-color, 50%);
+    }
 }
 
 .talent-options {

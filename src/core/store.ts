@@ -30,12 +30,12 @@ export interface EditState {
 }
 
 const $store = observable<EditState>({
-    tab: AppTab.CASE,
+    tab: AppTab.EQUIP,
     equipNavExpanded: true,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,
     equips: {},
-    talents: [],
+    talents: Array.from({ length: 12 }).map(() => Talent.emptyTalent()),
 });
 
 export default $store;

@@ -17,6 +17,17 @@ export default class Talent {
         return talent;
     }
 
+    static emptyTalent(kungfu: KungFu = KungFu.花间游): Talent {
+        return Talent.fromJson({
+            id: 0,
+            name: '',
+            description: '',
+            icon: 1434,
+            version: '0',
+            kungfu,
+        });
+    }
+
     public setIndex(val: number): Talent {
         this.index = val;
         return this;
