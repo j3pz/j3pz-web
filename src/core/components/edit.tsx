@@ -33,8 +33,8 @@ export default class CoreEdit extends Component<StoreProps> {
                     <FlexboxGrid.Item colspan={18} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                         <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab}>
                             <SchoolDropdown store={$store} />
-                            <Nav.Item eventKey={AppTab.CASE} style={{ float: 'right' }}>方案调整</Nav.Item>
-                            <Nav.Item eventKey={AppTab.EQUIP} style={{ float: 'right' }}>装备调整</Nav.Item>
+                            <Nav.Item eventKey={AppTab.CASE} style={{ float: 'right' }}>方案设置</Nav.Item>
+                            <Nav.Item eventKey={AppTab.EQUIP} style={{ float: 'right' }}>装备设置</Nav.Item>
                         </Nav>
                         { store.tab === AppTab.EQUIP && <EquipTab store={$store} />}
                         { store.tab === AppTab.CASE && <CaseTab />}
