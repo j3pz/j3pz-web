@@ -2,8 +2,8 @@
     position: absolute;
     left: 0;
     margin-left: 8px;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 4px;
 }
 
@@ -11,11 +11,30 @@
     width: 30px;
     height: 30px;
     border-radius: 4px;
+    cursor: pointer;
 }
 
-.talent-name {
-    line-height: 32px;
-    height: 32px;
-    font-size: 18px;
+.talent-options {
+    height: 48px;
+}
+.talent-option {
+    text-align: center;
+    display: inline-block;
+    width: 40px;
 }
 
+.talent-selection {
+    .talent-name {
+        line-height: 20px;
+        height: 20px;
+        font-size: 18px;
+    }
+    .talent-desc {
+        font-size: 12px;
+        line-height: 16px;
+        height: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
