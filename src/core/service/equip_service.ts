@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Category, KungFu } from '../model/base';
 import { Equip, SimpleEquip } from '../model/equip';
 import { Resource } from '../model/resource';
-import ENDPOINT from './base';
+import { ENDPOINT, errorHandler } from './base';
 
 export default class EquipService {
     static async listEquip(category: Category, kungfu: KungFu): Promise<Resource<SimpleEquip>[]> {
@@ -11,12 +11,12 @@ export default class EquipService {
                 category,
                 kungfu,
             },
-        });
-        return res.data.data;
+        }).catch(errorHandler);
+        return res?.data.data ?? [];
     }
 
     static async getEquip(id: number): Promise<Resource<Equip>> {
-        const res = await axios.get(`${ENDPOINT}/equip/${id}`);
-        return res.data.data;
+        const res = await axios.get(`${ENDPOINT}/equip/${id}`).catch(errorHandler);
+        return res?.data.data ?? {};
     }
 }

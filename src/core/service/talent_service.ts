@@ -2,7 +2,7 @@ import axios from 'axios';
 import { KungFu } from '../model/base';
 import { Resource } from '../model/resource';
 import Talent from '../model/talent';
-import ENDPOINT from './base';
+import { ENDPOINT, errorHandler } from './base';
 
 export default class TalentService {
     static async listTalent(kungfu: KungFu): Promise<Resource<Talent>[]> {
@@ -10,7 +10,7 @@ export default class TalentService {
             params: {
                 kungfu,
             },
-        });
-        return res.data.data;
+        }).catch(errorHandler);
+        return res?.data.data ?? [];
     }
 }

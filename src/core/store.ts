@@ -41,5 +41,5 @@ const $store = observable<EditState>({
 export default $store;
 
 export interface StoreProps {
-    store: EditState,
+    store: EditState;
 }

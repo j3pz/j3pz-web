@@ -37,7 +37,7 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
 
     componentDidMount() {
         SettingsService.getRange().then((res) => {
-            const [min, , max] = res.data;
+            const [min, , max] = res;
             this.setState({ minQuality: min, maxQuality: max });
         });
     }

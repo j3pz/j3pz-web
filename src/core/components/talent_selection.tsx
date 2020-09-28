@@ -38,10 +38,11 @@ export default class TalentSelection extends Component<StoreProps, TalentSelecti
             this.setState({
                 talents: talents.map((t) => t.attributes)
                     .reduce((acc, t) => {
-                        if (acc[t.index - 1]) {
-                            acc[t.index - 1].push(t);
+                        const idx = t.index - 1;
+                        if (acc[idx]) {
+                            acc[idx].push(t);
                         } else {
-                            acc[t.index - 1] = [t];
+                            acc[idx] = [t];
                         }
                         return acc;
                     }, [] as Talent[][]),
