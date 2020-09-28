@@ -2,7 +2,9 @@ import React from 'react';
 import { Category, CATEGORY_DESC } from '../model/base';
 import { Equip } from '../model/equip';
 import './equip_view.less';
-import { PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC, DECORATOR_DESC, AttributeDecorator } from '../model/attribute';
+import {
+    PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC, DECORATOR_DESC, AttributeDecorator,
+} from '../model/attribute';
 
 interface EquipViewProps {
     equip: Equip;
@@ -183,6 +185,13 @@ function EquipView({ equip }: EquipViewProps) {
                 {{equips[$root.focus].data.prediction}}
             </li>
             */}
+            {equip.represent && (
+                <li className="basic-info">
+                    外观
+                    {' '}
+                    {equip.represent.name}
+                </li>
+            )}
         </div>
     );
 }

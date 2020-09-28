@@ -3,6 +3,7 @@ import { AttributeDecorator, AttributeTag, SecondaryAttribute } from './attribut
 import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo, EmbedOps } from './embed';
+import Represent from './represent';
 
 export class SimpleEquip {
     public id: number;
@@ -59,7 +60,7 @@ export class Equip {
     public embed: EmbedInfo;
     public strengthen: number;
     // public source: Source[];
-    // public represent: Represent;
+    public represent: Represent;
     public decorators: { [k in SecondaryAttribute]: AttributeDecorator };
 
     public deprecated: boolean;
