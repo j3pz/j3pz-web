@@ -4,6 +4,7 @@ import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo, EmbedOps } from './embed';
 import Represent from './represent';
+import Source, { SourceType } from './source';
 
 export class SimpleEquip {
     public id: number;
@@ -59,7 +60,8 @@ export class Equip {
     @Type(() => EmbedInfo)
     public embed: EmbedInfo;
     public strengthen: number;
-    // public source: Source[];
+    @Type(() => Source)
+    public source: Source[];
     public represent: Represent;
     public decorators: { [k in SecondaryAttribute]: AttributeDecorator };
 
@@ -88,5 +90,23 @@ export class Equip {
     get damagePerSecond(): number {
         const speed = (this.damageBase + this.damageRange / 2) / (this.attackSpeed / 16);
         return Math.floor(speed * 2) / 2;
+    }
+
+    get sourceDescription(): string {
+        return this.source.map((s) => {
+            switch (s.type) {
+                default: return '';
+                case SourceType.RAID:
+                    return `[掉落] ${s.boss.name}(${s.boss.map.name})`;
+                case SourceType.REDEEM:
+                    return `[商店] ${s.redeem}`;
+                case SourceType.REPUTATION:
+                    return `[声望] ${s.reputation.name} - ${s.reputation.level}`;
+                case SourceType.ACTIVITY:
+                    return `[活动] ${s.activity}`;
+                case SourceType.OTHER:
+                    return `[其它] ${s.comment ?? ''}`;
+            }
+        }).join('\n');
     }
 }

@@ -107,14 +107,7 @@ export default class EquipSelection extends Component<StoreProps, EquipSelection
                     {AttributeTag.map((key) => <Checkbox value={key} key={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
                 </CheckboxGroup>
                 <div style={{ margin: 12 }} />
-                品质筛选
-                {' '}
-                {range[0]}
-                {' '}
-                品 -
-                {range[1]}
-                {' '}
-                品
+                {`品质筛选 ${range[0]} 品 - ${range[1]} 品`}
                 <RangeSlider
                     value={range}
                     min={minQuality}

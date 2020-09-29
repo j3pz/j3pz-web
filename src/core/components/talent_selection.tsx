@@ -15,7 +15,7 @@ interface TalentSelectionState {
 @observer
 export default class TalentSelection extends Component<StoreProps, TalentSelectionState> {
     private disposer: Lambda;
-    constructor(props: StoreProps) {
+    constructor(props) {
         super(props);
         this.state = {
             talents: Array.from({ length: 12 })

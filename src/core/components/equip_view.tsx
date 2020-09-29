@@ -179,12 +179,15 @@ function EquipView({ equip }: EquipViewProps) {
             <li class="basicInfo">
                 推荐门派：{{equips[$root.focus].getRecommend()}}
             </li>
-            <!-- 装备来源 -->
-            <li class="basicInfo" style="white-space: pre-wrap;">获取：{{equips[$root.focus].getDropSource()}}</li>
-            <li class="basicInfo">
-                {{equips[$root.focus].data.prediction}}
-            </li>
             */}
+
+            {/* 装备来源 */}
+            <li className="basic-info" style={{ whiteSpace: 'break-spaces' }}>
+                获取:
+                {'\n'}
+                {equip.sourceDescription}
+            </li>
+
             {equip.represent && (
                 <li className="basic-info">
                     外观
