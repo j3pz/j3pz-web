@@ -1,7 +1,7 @@
 import { plainToClass } from 'class-transformer';
 import { KungFu } from './base';
 
-export default class Talent {
+export class Talent {
     public id: number;
     public kungfu: KungFu;
     public index: number;

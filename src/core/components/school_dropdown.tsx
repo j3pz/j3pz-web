@@ -5,7 +5,7 @@ import { PrimaryAttribute } from '../model/attribute';
 import { GamingRole, KungFu, schoolAbbrMap } from '../model/base';
 import { KungFuInfo } from '../model/kungfu';
 import { Resource } from '../model/resource';
-import KungFuService from '../service/kungfu_service';
+import { KungFuService } from '../service/kungfu_service';
 import { StoreProps } from '../store';
 import '../../css/icon.less';
 import './school_dropdown.less';
@@ -29,7 +29,7 @@ const kungfuTypes = {
 };
 
 @observer
-export default class SchoolDropdown extends Component<StoreProps, SchoolDropdownState> {
+export class SchoolDropdown extends Component<StoreProps, SchoolDropdownState> {
     allKungFu: Resource<KungFuInfo>[] = [];
 
     constructor(props) {

@@ -2,7 +2,7 @@ import { observable } from 'mobx';
 import 'reflect-metadata';
 import { Position, KungFu } from './model/base';
 import { Equip } from './model/equip';
-import Talent from './model/talent';
+import { Talent } from './model/talent';
 
 export enum AppTab { EQUIP, CASE }
 
@@ -29,7 +29,7 @@ export interface EditState {
     talents: Talent[];
 }
 
-const $store = observable<EditState>({
+export const $store = observable<EditState>({
     tab: AppTab.EQUIP,
     equipNavExpanded: true,
     activeEquipNav: Position.HAT,
@@ -37,8 +37,6 @@ const $store = observable<EditState>({
     equips: {},
     talents: Array.from({ length: 12 }).map(() => Talent.emptyTalent()),
 });
-
-export default $store;
 
 export interface StoreProps {
     store: EditState;

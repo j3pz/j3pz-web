@@ -3,9 +3,9 @@ import {
     Radio, RadioGroup, InputNumber, List, FlexboxGrid, Form, ControlLabel, HelpBlock,
 } from 'rsuite';
 import { Container, Row, Col } from 'react-grid-system';
-import Tools from '../../components/layouts/Tools';
-import SEO from '../../components/seo';
-import Card from '../../components/ui/Card';
+import { Tools } from '../../components/layouts/Tools';
+import { SEO } from '../../components/seo';
+import { Card } from '../../components/ui/Card';
 
 interface HastePageState {
     skillTime: number;

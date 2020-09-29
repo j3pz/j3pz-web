@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import './tools_sidebar.less';
 import { Link } from 'gatsby';
-import Footer from '../footer/Footer';
+import { Footer } from '../footer/Footer';
 
 interface ToolsSidebarProps {
     header?: number;
@@ -38,4 +38,4 @@ function ToolsSidebar({ children, header = 0 } : PropsWithChildren<ToolsSidebarP
     );
 }
 
-export default ToolsSidebar;
+export { ToolsSidebar };

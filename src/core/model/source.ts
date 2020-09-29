@@ -38,7 +38,7 @@ class Reputation {
     public level: string;
 }
 
-export default class Source {
+export class Source {
     public id: number;
     public comment?: string;
     public type: SourceType;

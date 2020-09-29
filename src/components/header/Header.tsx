@@ -50,4 +50,4 @@ const Header = ({ type = 'border', mode = 'acrylic' } : HeaderProps) => {
     );
 };
 
-export default Header;
+export { Header };

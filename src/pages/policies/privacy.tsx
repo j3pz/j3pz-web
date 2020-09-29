@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
-import Policy from '../../components/layouts/Policy';
-import Footer from '../../components/footer/Footer';
-import SEO from '../../components/seo';
+import { Policy } from '../../components/layouts/Policy';
+import { Footer } from '../../components/footer/Footer';
+import { SEO } from '../../components/seo';
 
 const PrivacyPage = () => (
     <Policy>

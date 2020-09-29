@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Nav, Popover, Tooltip, Whisper,
 } from 'rsuite';
-import Talent from '../model/talent';
+import { Talent } from '../model/talent';
 
 interface TalentOptionsProps {
     talents: Talent[];
@@ -57,4 +57,4 @@ function TalentOptions({ idx, talents, onChange = () => {} }: TalentOptionsProps
     );
 }
 
-export default TalentOptions;
+export { TalentOptions };

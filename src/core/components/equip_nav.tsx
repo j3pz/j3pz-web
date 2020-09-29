@@ -28,7 +28,7 @@ export const navLib = new Map<Position, NavInfo>([
 ]);
 
 @observer
-export default class EquipNav extends Component<StoreProps> {
+export class EquipNav extends Component<StoreProps> {
     changeNav = (key: Position) => {
         const { store } = this.props;
         store.activeEquipNav = key;

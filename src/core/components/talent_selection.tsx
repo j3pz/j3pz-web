@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Nav, Sidenav } from 'rsuite';
 import { Lambda, observe } from 'mobx';
-import $store, { StoreProps } from '../store';
-import TalentService from '../service/talent_service';
-import Talent from '../model/talent';
+import { $store, StoreProps } from '../store';
+import { TalentService } from '../service/talent_service';
+import { Talent } from '../model/talent';
 import './talent_selection.less';
-import TalentOptions from './talent_options';
+import { TalentOptions } from './talent_options';
 
 interface TalentSelectionState {
     talents: Talent[][];
 }
 
 @observer
-export default class TalentSelection extends Component<StoreProps, TalentSelectionState> {
+export class TalentSelection extends Component<StoreProps, TalentSelectionState> {
     private disposer: Lambda;
     constructor(props) {
         super(props);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function BuildingState() {
+function BuildingState() {
     return (
         <div
             style={{
@@ -26,3 +26,5 @@ export default function BuildingState() {
         </div>
     );
 }
+
+export { BuildingState };

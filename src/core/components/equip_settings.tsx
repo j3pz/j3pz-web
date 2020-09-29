@@ -1,7 +1,7 @@
 import React from 'react';
 import { PanelGroup, Panel } from 'rsuite';
-import EquipSelection from './equip_selection';
-import $store from '../store';
+import { EquipSelection } from './equip_selection';
+import { $store } from '../store';
 
 function EquipSettings() {
     return (
@@ -17,4 +17,4 @@ function EquipSettings() {
     );
 }
 
-export default EquipSettings;
+export { EquipSettings };

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Container, Row, Col } from 'react-grid-system';
-import EquipNav, { navLib } from './equip_nav';
-import $store, { StoreProps } from '../store';
-import EquipView from './equip_view';
+import { EquipNav, navLib } from './equip_nav';
+import { $store, StoreProps } from '../store';
+import { EquipView } from './equip_view';
 import { Equip } from '../model/equip';
-import EquipSettings from './equip_settings';
+import { EquipSettings } from './equip_settings';
 
 @observer
-export default class EquipTab extends Component<StoreProps> {
+export class EquipTab extends Component<StoreProps> {
     render() {
         const { store } = this.props;
         const equip = store.equips[store.activeEquipNav] ?? new Equip(navLib.get(store.activeEquipNav)!.category);

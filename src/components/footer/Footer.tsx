@@ -68,4 +68,4 @@ function Footer({ background = '#FAFAFA' }: FooterProps) {
     );
 }
 
-export default Footer;
+export { Footer };

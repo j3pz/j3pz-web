@@ -5,12 +5,13 @@ import {
 } from 'rsuite';
 import { StoreProps } from '../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../model/attribute';
-import EquipService from '../service/equip_service';
+import { EquipService } from '../service/equip_service';
 import { KungFu, Position } from '../model/base';
 import { navLib } from './equip_nav';
-import { Equip, SimpleEquip } from '../model/equip';
+import { Equip } from '../model/equip';
 import './equip_selection.less';
-import SettingsService from '../service/settings_service';
+import { SettingsService } from '../service/settings_service';
+import { SimpleEquip } from '../model/simple_equip';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
@@ -20,7 +21,7 @@ interface EquipSelectionState {
 }
 
 @observer
-export default class EquipSelection extends Component<StoreProps, EquipSelectionState> {
+export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
     private cache: Map<Position, SimpleEquip[]>;
     private lastKungFu: KungFu;
 

@@ -199,4 +199,4 @@ function EquipView({ equip }: EquipViewProps) {
     );
 }
 
-export default EquipView;
+export { EquipView };

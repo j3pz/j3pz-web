@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Link } from 'gatsby';
-import Header from '../header/Header';
+import { Header } from '../header/Header';
 import '../base';
 import './layout.less';
 
@@ -27,4 +27,4 @@ const Policy = ({ children }: PropsWithChildren<PolicyProps>) => (
     </>
 );
 
-export default Policy;
+export { Policy };

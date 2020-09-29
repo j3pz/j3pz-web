@@ -1,4 +1,4 @@
-export default class Represent {
+export class Represent {
     id: number;
     name: string;
 }

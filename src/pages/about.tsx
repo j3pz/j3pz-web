@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import { Timeline } from 'rsuite';
-import Main from '../components/layouts/Main';
-import SEO from '../components/seo';
+import { Main } from '../components/layouts/Main';
+import { SEO } from '../components/seo';
+import { Footer } from '../components/footer/Footer';
 import '../css/text.less';
 import '../css/about.less';
-import Footer from '../components/footer/Footer';
 
 const TimelineItem = ({ desc, date }: { desc: ReactNode; date: string }) => (
     <Timeline.Item>

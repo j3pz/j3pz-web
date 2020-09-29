@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Nav, FlexboxGrid } from 'rsuite';
 import { observer } from 'mobx-react';
-import $store, { StoreProps, AppTab } from '../store';
-import EquipTab from './equip_tab';
-import CaseTab from './case_tab';
-import SchoolDropdown from './school_dropdown';
-import BuildingState from '../../components/empty_states/building';
+import { $store, StoreProps, AppTab } from '../store';
+import { EquipTab } from './equip_tab';
+import { CaseTab } from './case_tab';
+import { SchoolDropdown } from './school_dropdown';
+import { BuildingState } from '../../components/empty_states/building';
 
 @observer
-export default class CoreEdit extends Component<StoreProps> {
+export class CoreEdit extends Component<StoreProps> {
     switchTab = (key: AppTab) => {
         if (key in AppTab) {
             const { store } = this.props;

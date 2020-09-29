@@ -1,23 +1,11 @@
 import { Type, plainToClass } from 'class-transformer';
-import { AttributeDecorator, AttributeTag, SecondaryAttribute } from './attribute';
+import { AttributeDecorator, SecondaryAttribute } from './attribute';
 import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo, EmbedOps } from './embed';
-import Represent from './represent';
-import Source, { redeemType, SourceType } from './source';
-
-export class SimpleEquip {
-    public id: number;
-    public name: string;
-    public icon: number;
-    public quality: number;
-    public tags: AttributeTag[];
-
-    static fromJson(json: Object): SimpleEquip {
-        const equip = plainToClass(SimpleEquip, json);
-        return equip;
-    }
-}
+import { EquipSet } from './equip_set';
+import { Represent } from './represent';
+import { Source, redeemType, SourceType } from './source';
 
 export class Equip {
     public id: number;
@@ -56,7 +44,7 @@ export class Equip {
     public threat: number;
     @Type(() => Effect)
     public effect: Effect;
-    // public set: EquipSet;
+    public set: EquipSet;
     @Type(() => EmbedInfo)
     public embed: EmbedInfo;
     public strengthen: number;

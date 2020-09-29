@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { Category, KungFu } from '../model/base';
-import { Equip, SimpleEquip } from '../model/equip';
+import { Equip } from '../model/equip';
 import { Resource } from '../model/resource';
+import { SimpleEquip } from '../model/simple_equip';
 import { ENDPOINT, errorHandler } from './base';
 
-export default class EquipService {
+export class EquipService {
     static async listEquip(category: Category, kungfu: KungFu): Promise<Resource<SimpleEquip>[]> {
         const res = await axios.get(`${ENDPOINT}/equip`, {
             params: {

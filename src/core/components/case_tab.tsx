@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Col, Container, Row } from 'react-grid-system';
-import TalentSelection from './talent_selection';
-import $store from '../store';
+import { TalentSelection } from './talent_selection';
+import { $store } from '../store';
 
 @observer
-export default class CaseTab extends Component {
+export class CaseTab extends Component {
     render() {
         return (
             <div style={{ flex: 1, overflow: 'auto', display: 'flex' }}>

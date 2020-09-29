@@ -3,11 +3,11 @@ import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import { Button } from 'rsuite';
-import SEO from '../components/seo';
-import Card from '../components/ui/Card';
+import { SEO } from '../components/seo';
+import { Card } from '../components/ui/Card';
+import { Footer } from '../components/footer/Footer';
+import { Header } from '../components/header/Header';
 import '../css/index.less';
-import Footer from '../components/footer/Footer';
-import Header from '../components/header/Header';
 
 const IndexPage = () => {
     const data = useStaticQuery(graphql`

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import Header from '../header/Header';
+import { Header } from '../header/Header';
 import '../base';
 import './layout.less';
 
@@ -16,4 +16,4 @@ const Main = ({ children, className }: PropsWithChildren<MainProps>) => (
     </>
 );
 
-export default Main;
+export { Main };

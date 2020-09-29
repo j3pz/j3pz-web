@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-grid-system';
-import Main from '../components/layouts/Main';
-import SEO from '../components/seo';
+import { Main } from '../components/layouts/Main';
+import { SEO } from '../components/seo';
+import { Footer } from '../components/footer/Footer';
 import '../css/text.less';
-import Footer from '../components/footer/Footer';
 
 const CreditPage = () => (
     <Main>
