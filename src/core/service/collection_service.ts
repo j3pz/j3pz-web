@@ -17,7 +17,7 @@ export class CollectionService {
         return Object.entries(collection.equips)
             .filter(([, equips]) => (equips ?? []).length > 0)
             .map(([category, equips]) => ({
-                name: equips![0].name,
+                name: equips!.map((_) => _.name).join('/'),
                 active: equips!.filter((e) => e.active).length > 0,
                 category,
             }));
