@@ -114,7 +114,7 @@ function EquipView({ equip }: EquipViewProps) {
                 // const img = active ? `0-${embedStone.level}` : 'empty-slot';
                 const img = 'empty-slot';
                 return (
-                    <li className={active ? 'hole-active' : 'hole-inactive'} key={`embed-${n}`}>
+                    <li className={active ? 'hole-active' : 'inactive'} key={`embed-${n}`}>
                         <img
                             src={`https://images.j3pz.com/imgs/stones/${img}.jpg`}
                             className="slot"
@@ -132,7 +132,7 @@ function EquipView({ equip }: EquipViewProps) {
             })}
             {/* 五彩石镶嵌孔(未镶嵌)  */}
             {isWeapon && (
-            <li className="hole-inactive">
+            <li className="inactive">
                 <img src="https://images.j3pz.com/imgs/stones/empty-slot.jpg" className="slot" alt="" />
                 &lt;只能镶嵌五彩石&gt;
             </li>
@@ -161,15 +161,30 @@ function EquipView({ equip }: EquipViewProps) {
                     if (info.active) {
                         return <li className="quality" key={`equip-set-${info.category}`}>{info.name}</li>;
                     }
-                    return <li className="hole-inactive" key={`equip-set-${info.category}`}>{info.name}</li>;
+                    return <li className="inactive" key={`equip-set-${info.category}`}>{info.name}</li>;
                 })
             }
-            {/* }
-            <br ng-if="equips[$root.focus].data.texiao&&equips[$root.focus].data.texiao.type==='Collection'">
-            装备套装特效信息
-            <li ng-class="setController.collectionsList[setController.posSetMap[$root.focus]].activeNum>=effect.conditionNum?'plusInfo':'holeInactive'" ng-repeat="effect in setController.collectionsList[setController.posSetMap[$root.focus]].effects">[{{effect.conditionNum}}]{{effect.desc}}</li>
-            装备附魔
-            <li class="enhance">{{equips[$root.focus].enhance.desc}}</li>
+            <br />
+            {/* 装备套装特效信息 */}
+            {
+                CollectionService.getEffects(equip).map((effect) => {
+                    if (effect.active) {
+                        return (
+                            <li className="plus-info" key={`set-effect-${effect.id}`}>
+                                {`[${effect.requirement}] ${effect.description}`}
+                            </li>
+                        );
+                    }
+                    return (
+                        <li className="inactive" key={`set-effect-${effect.id}`}>
+                            {`[${effect.requirement}] ${effect.description}`}
+                        </li>
+                    );
+                })
+            }
+            {/* <li ng-class="setController.collectionsList[setController.posSetMap[$root.focus]].activeNum>=effect.conditionNum?'plusInfo':'holeInactive'" ng-repeat="effect in setController.collectionsList[setController.posSetMap[$root.focus]].effects">[{{effect.conditionNum}}]{{effect.desc}}</li> */}
+            {/* 装备附魔 */}
+            {/* <li class="enhance">{{equips[$root.focus].enhance.desc}}</li> */}
             {/* 装备品质 */}
             <li className="quality">
                 品质等级
@@ -203,7 +218,6 @@ function EquipView({ equip }: EquipViewProps) {
                 {'\n'}
                 {equip.sourceDescription}
             </li>
-
         </div>
     );
 }

@@ -22,6 +22,20 @@ export class CollectionService {
                 category,
             }));
     }
+
+    static getEffects(equip: Equip) {
+        const collection = this.collections.get(equip.set?.id);
+        if (!collection) return [];
+        const active = this.getActiveCount(equip);
+        return Object.values(collection.setEffect)
+            .map((setEffect) => ({
+                id: setEffect.id,
+                active: setEffect.requirement <= active,
+                requirement: setEffect.requirement,
+                description: setEffect.effect.description,
+            }));
+    }
+
     static getActiveCount(equip: Equip): number {
         const collection = this.collections.get(equip.set?.id);
         if (!collection) return 0;

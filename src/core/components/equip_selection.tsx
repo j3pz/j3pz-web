@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import {
     CheckboxGroup, Checkbox, SelectPicker, RangeSlider,
 } from 'rsuite';
+import { transaction } from 'mobx';
 import { StoreProps } from '../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../model/attribute';
 import { EquipService } from '../service/equip_service';
@@ -13,7 +14,6 @@ import './equip_selection.less';
 import { SettingsService } from '../service/settings_service';
 import { SimpleEquip } from '../model/simple_equip';
 import { CollectionService } from '../service/collection_service';
-import { transaction } from 'mobx';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
@@ -33,7 +33,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             tags: [],
             minQuality: 3000,
             maxQuality: 5000,
-            range: [4000, 5000],
+            range: [3200, 3400],
         };
         this.cache = new Map();
     }
