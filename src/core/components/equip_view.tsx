@@ -47,7 +47,7 @@ function EquipView({ equip }: EquipViewProps) {
     }
     return (
         <div className="equip">
-            <li className="equip-name">
+            <li className={`equip-name ${equip.strengthen > 6 ? 'rare' : ''}`}>
                 {equip.name}
                 {/* <span class="star" ng-repeat="n in [1,2,3,4,5,6,7,8]" ng-if="n<=equips[$root.focus].jinglian.strengthen">★</span> */}
                 <span className="right">
