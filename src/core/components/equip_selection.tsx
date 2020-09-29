@@ -79,7 +79,10 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
 
     removeEquip = () => {
         const { store } = this.props;
-        store.equips[store.activeEquipNav] = undefined;
+        transaction(() => {
+            store.equips[store.activeEquipNav] = undefined;
+            CollectionService.updateCollection(store);
+        });
     };
 
     getFilteredEquips = () => {

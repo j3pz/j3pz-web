@@ -152,16 +152,16 @@ function EquipView({ equip }: EquipViewProps) {
             {/* 装备套装汇总信息 */}
             {equip.set && (
             <li className="quality">
-                {`${equip.set.name}(${CollectionService.getActiveCount(equip)}/${Object.keys(equip.set.equips).length})`}
+                {`${equip.set.name}(${CollectionService.getActiveCount(equip)}/${CollectionService.getEquips(equip).length})`}
             </li>
             )}
             {/* 装备套装激活信息 */}
             {
                 CollectionService.getEquips(equip).map((info) => {
                     if (info.active) {
-                        return <li className="quality" key={`equip-set-${info.category}`}>{info.name}</li>;
+                        return <li className="quality" key={`equip-set-${info.position}`}>{info.name}</li>;
                     }
-                    return <li className="inactive" key={`equip-set-${info.category}`}>{info.name}</li>;
+                    return <li className="inactive" key={`equip-set-${info.position}`}>{info.name}</li>;
                 })
             }
             <br />
@@ -182,7 +182,6 @@ function EquipView({ equip }: EquipViewProps) {
                     );
                 })
             }
-            {/* <li ng-class="setController.collectionsList[setController.posSetMap[$root.focus]].activeNum>=effect.conditionNum?'plusInfo':'holeInactive'" ng-repeat="effect in setController.collectionsList[setController.posSetMap[$root.focus]].effects">[{{effect.conditionNum}}]{{effect.desc}}</li> */}
             {/* 装备附魔 */}
             {/* <li class="enhance">{{equips[$root.focus].enhance.desc}}</li> */}
             {/* 装备品质 */}

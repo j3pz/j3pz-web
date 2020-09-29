@@ -1,25 +1,35 @@
-import { Category } from '../model/base';
+import { Position } from '../model/base';
 import { Equip } from '../model/equip';
 import { EquipSet } from '../model/equip_set';
 import { SimpleEquip } from '../model/simple_equip';
 import { EditState } from '../store';
 
 interface Collection extends EquipSet {
-    equips: Partial<Record<Category, (SimpleEquip & { active?: boolean })[]>>;
+    equips: Partial<Record<Position, (SimpleEquip & { active?: boolean })[]>>;
 }
 
 export class CollectionService {
     static collections: Map<number, Collection> = new Map();
+
+    private static categoryToPosition(equipSet: EquipSet): Collection {
+        const collection: Collection = equipSet;
+        if (equipSet.equips.ring) {
+            collection.equips.ring_1 = equipSet.equips.ring.map((_) => _.clone());
+            collection.equips.ring_2 = equipSet.equips.ring.map((_) => _.clone());
+            delete (collection as EquipSet).equips.ring;
+        }
+        return collection;
+    }
 
     static getEquips(equip: Equip) {
         const collection = this.collections.get(equip.set?.id);
         if (!collection) return [];
         return Object.entries(collection.equips)
             .filter(([, equips]) => (equips ?? []).length > 0)
-            .map(([category, equips]) => ({
-                name: equips!.map((_) => _.name).join('/'),
+            .map(([position, equips]) => ({
+                name: [...new Set(equips!.map((_) => _.name))].join('/'),
                 active: equips!.filter((e) => e.active).length > 0,
-                category,
+                position,
             }));
     }
 
@@ -44,16 +54,19 @@ export class CollectionService {
 
     static updateCollection(store: EditState) {
         const collections: Map<number, Collection> = new Map();
-        Object.values(store.equips).forEach((equip) => {
+        Object.entries(store.equips).forEach(([position, equip]) => {
             if (equip?.set) {
                 if (!collections.has(equip.set.id)) {
-                    collections.set(equip.set.id, equip.set.clone());
+                    collections.set(equip.set.id, this.categoryToPosition(equip.set.clone()));
                 }
                 const collection = collections.get(equip.set.id)!;
-                const match = collection.equips[equip.category]?.find((e) => e.id === equip.id);
-                if (match) {
-                    match.active = true;
-                }
+                collection.equips[(position as Position)]?.forEach((e) => {
+                    if (e.id === equip.id) {
+                        e.active = true;
+                    } else {
+                        e.active = false;
+                    }
+                });
             }
         });
         this.collections = collections;

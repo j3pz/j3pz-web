@@ -1,4 +1,6 @@
-import { plainToClass, Type } from 'class-transformer';
+import {
+    classToClass, plainToClass, Transform, Type,
+} from 'class-transformer';
 import { Category } from './base';
 import { Effect } from './effect';
 import { SimpleEquip } from './simple_equip';
@@ -17,10 +19,14 @@ export class EquipSet {
     public name: string;
     @Type(() => SetEffect)
     public setEffect: SetEffect[];
+    @Type(() => SimpleEquip)
+    @Transform((value) => Object.entries(value).reduce((acc, [category, equip]) => {
+        acc[category] = plainToClass(SimpleEquip, equip);
+        return acc;
+    }, {}))
     public equips: SetEquipInfo;
 
     clone(): EquipSet {
-        const cloned = plainToClass(EquipSet, JSON.parse(JSON.stringify(this)));
-        return cloned;
+        return classToClass(this);
     }
 }

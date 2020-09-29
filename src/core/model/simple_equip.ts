@@ -1,4 +1,4 @@
-import { plainToClass } from 'class-transformer';
+import { classToClass, plainToClass } from 'class-transformer';
 import { AttributeTag } from './attribute';
 
 export class SimpleEquip {
@@ -11,5 +11,9 @@ export class SimpleEquip {
     static fromJson(json: Object): SimpleEquip {
         const equip = plainToClass(SimpleEquip, json);
         return equip;
+    }
+
+    clone(): SimpleEquip {
+        return classToClass(this);
     }
 }
