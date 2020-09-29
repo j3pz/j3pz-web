@@ -4,7 +4,7 @@ import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo, EmbedOps } from './embed';
 import Represent from './represent';
-import Source, { SourceType } from './source';
+import Source, { redeemType, SourceType } from './source';
 
 export class SimpleEquip {
     public id: number;
@@ -99,7 +99,7 @@ export class Equip {
                 case SourceType.RAID:
                     return `[掉落] ${s.boss.name}(${s.boss.map.name})`;
                 case SourceType.REDEEM:
-                    return `[商店] ${s.redeem}`;
+                    return `[商店] ${redeemType[s.redeem]}`;
                 case SourceType.REPUTATION:
                     return `[声望] ${s.reputation.name} - ${s.reputation.level}`;
                 case SourceType.ACTIVITY:

@@ -9,16 +9,16 @@ export enum SourceType {
     OTHER = 'other', // 其他类型
 }
 
-export enum RedeemType {
-    CONTRIBUTION = 'contribution', // 帮贡
-    CHIVALRY = 'chivalry', // 侠义
-    PRESTIGE_FIEND = 'prestige_fiend', // 恶人谷威望
-    PRESTIGE_VIRTUE = 'prestige_virtue', // 浩气盟威望
-    ARENA = 'arena', // 名剑竞技场
-    STORE = 'store', // 其他商店
-    SET = 'set', // 套装兑换
-    UNKNOWN = 'unknown', // 未知兑换来源
-}
+export const redeemType = {
+    contribution: '帮贡',
+    chivalry: '侠义',
+    prestige_fiend: '恶人谷威望',
+    prestige_virtue: '浩气盟威望',
+    arena: '名剑竞技场',
+    store: '其他商店',
+    set: '套装兑换',
+    unknown: '未知兑换来源',
+};
 
 class GameMap {
     public id: number;
@@ -46,6 +46,6 @@ export default class Source {
     public boss: Boss;
     @Type(() => Reputation)
     public reputation: Reputation;
-    public redeem: RedeemType;
+    public redeem: keyof typeof redeemType;
     public activity: string;
 }
