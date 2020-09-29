@@ -12,19 +12,7 @@ export interface EditState {
     activeEquipNav: Position;
     kungfu: KungFu;
     equips: {
-        [Position.HAT]?: Equip;
-        [Position.JACKET]?: Equip;
-        [Position.BELT]?: Equip;
-        [Position.WRIST]?: Equip;
-        [Position.BOTTOMS]?: Equip;
-        [Position.SHOES]?: Equip;
-        [Position.NECKLACE]?: Equip;
-        [Position.PENDANT]?: Equip;
-        [Position.RING1]?: Equip;
-        [Position.RING2]?: Equip;
-        [Position.SECONDARY_WEAPON]?: Equip;
-        [Position.PRIMARY_WEAPON]?: Equip;
-        [Position.TERTIARY_WEAPON]?: Equip;
+        [k in Position]?: Equip;
     };
     talents: Talent[];
 }

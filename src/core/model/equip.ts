@@ -44,6 +44,7 @@ export class Equip {
     public threat: number;
     @Type(() => Effect)
     public effect: Effect;
+    @Type(() => EquipSet)
     public set: EquipSet;
     @Type(() => EmbedInfo)
     public embed: EmbedInfo;

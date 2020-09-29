@@ -12,6 +12,8 @@ import { Equip } from '../model/equip';
 import './equip_selection.less';
 import { SettingsService } from '../service/settings_service';
 import { SimpleEquip } from '../model/simple_equip';
+import { CollectionService } from '../service/collection_service';
+import { transaction } from 'mobx';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
@@ -68,7 +70,10 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
         const currentPosition = store.activeEquipNav;
         EquipService.getEquip(value).then((res) => {
             const equip = Equip.fromJson(res.attributes);
-            store.equips[currentPosition] = equip;
+            transaction(() => {
+                store.equips[currentPosition] = equip;
+                CollectionService.updateCollection(store);
+            });
         });
     };
 

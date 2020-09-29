@@ -5,6 +5,7 @@ import './equip_view.less';
 import {
     PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC, DECORATOR_DESC, AttributeDecorator,
 } from '../model/attribute';
+import { CollectionService } from '../service/collection_service';
 
 interface EquipViewProps {
     equip: Equip;
@@ -148,20 +149,27 @@ function EquipView({ equip }: EquipViewProps) {
             <li className="plus-info">
                 {equip.effect?.description}
             </li>
-            {/*
-            <!-- 装备套装汇总信息 -->
-            <li class="quality" ng-if="equips[$root.focus].data.texiao&&equips[$root.focus].data.texiao.type==='Collection'">
-                {{setController.collectionsList[setController.posSetMap[$root.focus]].name}}({{setController.collectionsList[setController.posSetMap[$root.focus]].activeNum}}/{{setController.collectionsList[setController.posSetMap[$root.focus]].allNum}})
+            {/* 装备套装汇总信息 */}
+            {equip.set && (
+            <li className="quality">
+                {`${equip.set.name}(${CollectionService.getActiveCount(equip)}/${Object.keys(equip.set.equips).length})`}
             </li>
-            <!-- 装备套装激活信息 -->
-            <li class="quality" ng-repeat-start="component in setController.collectionsList[setController.posSetMap[$root.focus]].components" ng-if="component.active">{{component.equipName}}</li>
-            <li class="holeInactive" ng-repeat-end ng-if="!component.active">{{component.equipName}}</li>
+            )}
+            {/* 装备套装激活信息 */}
+            {
+                CollectionService.getEquips(equip).map((info) => {
+                    if (info.active) {
+                        return <li className="quality" key={`equip-set-${info.category}`}>{info.name}</li>;
+                    }
+                    return <li className="hole-inactive" key={`equip-set-${info.category}`}>{info.name}</li>;
+                })
+            }
+            {/* }
             <br ng-if="equips[$root.focus].data.texiao&&equips[$root.focus].data.texiao.type==='Collection'">
-            <!-- 装备套装特效信息 -->
+            装备套装特效信息
             <li ng-class="setController.collectionsList[setController.posSetMap[$root.focus]].activeNum>=effect.conditionNum?'plusInfo':'holeInactive'" ng-repeat="effect in setController.collectionsList[setController.posSetMap[$root.focus]].effects">[{{effect.conditionNum}}]{{effect.desc}}</li>
-            <!-- 装备附魔 -->
+            装备附魔
             <li class="enhance">{{equips[$root.focus].enhance.desc}}</li>
-            */}
             {/* 装备品质 */}
             <li className="quality">
                 品质等级
@@ -180,21 +188,22 @@ function EquipView({ equip }: EquipViewProps) {
                 推荐门派：{{equips[$root.focus].getRecommend()}}
             </li>
             */}
+            {/* 装备外观 */}
+            {equip.represent && (
+                <li className="basic-info">
+                    外观:
+                    {' '}
+                    {equip.represent.name}
+                </li>
+            )}
 
             {/* 装备来源 */}
-            <li className="basic-info" style={{ whiteSpace: 'break-spaces' }}>
+            <li className="basic-info extension" style={{ whiteSpace: 'break-spaces' }}>
                 获取:
                 {'\n'}
                 {equip.sourceDescription}
             </li>
 
-            {equip.represent && (
-                <li className="basic-info">
-                    外观
-                    {' '}
-                    {equip.represent.name}
-                </li>
-            )}
         </div>
     );
 }
