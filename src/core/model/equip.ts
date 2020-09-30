@@ -57,7 +57,7 @@ export class Equip {
     public deprecated: boolean;
 
     public embedding: EmbedOps[];
-    public strengthened = 0;
+    public strengthLevel = 0;
 
     constructor(category?: Category) {
         if (category) this.category = category;

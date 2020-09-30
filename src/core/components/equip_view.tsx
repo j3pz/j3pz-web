@@ -50,10 +50,11 @@ function EquipView({ equip }: EquipViewProps) {
         <div className="equip">
             <li className={`equip-name ${equip.strengthen > 6 ? 'rare' : ''}`}>
                 {equip.name}
-                {/* <span class="star" ng-repeat="n in [1,2,3,4,5,6,7,8]" ng-if="n<=equips[$root.focus].jinglian.strengthen">★</span> */}
+                {[1, 2, 3, 4, 5, 6, 7, 8].filter((n) => n <= equip.strengthLevel)
+                    .map(() => <i className="fas fa-star star" />)}
                 <span className="right">
                     精炼等级:
-                    {equip.strengthened}
+                    {equip.strengthLevel}
                     /
                     {equip.strengthen}
                 </span>
