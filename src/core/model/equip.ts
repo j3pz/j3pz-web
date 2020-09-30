@@ -68,6 +68,10 @@ export class Equip {
         return equip;
     }
 
+    public getStrengthValue(base: number): number {
+        return Math.round((base * this.strengthLevel * (0.007 + this.strengthLevel * 0.003)) / 2);
+    }
+
     get damageRangeDesc(): string {
         return `${this.damageBase} - ${this.damageBase + this.damageRange}`;
     }

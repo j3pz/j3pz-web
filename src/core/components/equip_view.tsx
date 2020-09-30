@@ -90,6 +90,7 @@ function EquipView({ equip }: EquipViewProps) {
                 <li className="basic-info" key={attributeKey}>
                     {ATTRIBUTE_DESC[attributeKey]}
                     {equip[attributeKey]}
+                    {equip.strengthLevel > 0 && <span>{`(+${equip.getStrengthValue(equip[attributeKey])})`}</span>}
                 </li>
             ))}
 
@@ -98,6 +99,7 @@ function EquipView({ equip }: EquipViewProps) {
                     {DECORATOR_DESC[equip.decorators?.[attributeKey] ?? AttributeDecorator.NONE]}
                     {ATTRIBUTE_DESC[attributeKey]}
                     {equip[attributeKey]}
+                    {equip.strengthLevel > 0 && <span>{`(+${equip.getStrengthValue(equip[attributeKey])})`}</span>}
                 </li>
             ))}
 
@@ -189,13 +191,13 @@ function EquipView({ equip }: EquipViewProps) {
             <li className="quality">
                 品质等级
                 {equip.quality}
-                {/* <span>(+{{equips[$root.focus].jinglian.quality}})</span> */}
+                {equip.strengthLevel > 0 && <span>{`(+${equip.getStrengthValue(equip.quality)})`}</span>}
             </li>
             {/* 装备分数 */}
             <li className="score">
                 装备分数
                 {equip.score}
-                {/* <span>(+{{equips[$root.focus].jinglian.score}}+{{equips[$root.focus].embed.totalScore}})</span> */}
+                {equip.strengthLevel > 0 && <span>{`(+${equip.getStrengthValue(equip.score)})`}</span>}
             </li>
             {/*
             <!-- 装备推荐门派：-->
