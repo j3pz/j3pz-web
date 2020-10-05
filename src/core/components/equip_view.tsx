@@ -112,10 +112,9 @@ function EquipView({ equip }: EquipViewProps) {
                 if (equip.embed.count < n) {
                     return null;
                 }
-                // const embedStone = equip.embedding.find()
-                const active = false; // embedStone.level > 0;
-                // const img = active ? `0-${embedStone.level}` : 'empty-slot';
-                const img = 'empty-slot';
+                const embedStone = equip.embedding[n - 1] ?? { index: n - 1, level: 0 };
+                const active = embedStone.level > 0;
+                const img = active ? `0-${embedStone.level}` : 'empty-slot';
                 return (
                     <li className={active ? 'hole-active' : 'inactive'} key={`embed-${n}`}>
                         <img

@@ -56,7 +56,7 @@ export class Equip {
 
     public deprecated: boolean;
 
-    public embedding: EmbedOps[];
+    public embedding: EmbedOps[] = [];
     public strengthLevel = 0;
 
     constructor(category?: Category) {
@@ -65,6 +65,7 @@ export class Equip {
 
     static fromJson(json: Object): Equip {
         const equip = plainToClass(Equip, json);
+        equip.embedding = Array.from({ length: equip.embed.count });
         return equip;
     }
 
@@ -75,6 +76,15 @@ export class Equip {
     public setStrengthLevel(level: number): Equip {
         const equip = classToClass(this);
         equip.strengthLevel = level;
+        return equip;
+    }
+
+    public setEmbed(idx: number, level: number): Equip {
+        const equip = classToClass(this);
+        equip.embedding[idx] = {
+            index: idx,
+            level,
+        };
         return equip;
     }
 
