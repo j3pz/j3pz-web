@@ -20,7 +20,9 @@ export class EquipTab extends Component<StoreProps> {
                         <Col sm={12} md={6}>
                             <EquipView equip={equip} />
                         </Col>
-                        <Col sm={12} md={6}><EquipSettings /></Col>
+                        <Col sm={12} md={6}>
+                            <EquipSettings />
+                        </Col>
                     </Row>
                 </Container>
             </div>

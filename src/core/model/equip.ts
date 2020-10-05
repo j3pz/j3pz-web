@@ -1,4 +1,4 @@
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, classToClass } from 'class-transformer';
 import { AttributeDecorator, SecondaryAttribute } from './attribute';
 import { Category, School } from './base';
 import { Effect } from './effect';
@@ -70,6 +70,12 @@ export class Equip {
 
     public getStrengthValue(base: number): number {
         return Math.round((base * this.strengthLevel * (0.007 + this.strengthLevel * 0.003)) / 2);
+    }
+
+    public setStrengthLevel(level: number): Equip {
+        const equip = classToClass(this);
+        equip.strengthLevel = level;
+        return equip;
     }
 
     get damageRangeDesc(): string {

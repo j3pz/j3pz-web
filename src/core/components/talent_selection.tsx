@@ -60,7 +60,7 @@ export class TalentSelection extends Component<StoreProps, TalentSelectionState>
         const { talents } = this.state;
         return (
             <div style={{ width: store.equipNavExpanded ? 240 : 64, height: '100%' }}>
-                <Sidenav style={{ height: '100%', overflow: 'auto' }}>
+                <Sidenav style={{ height: '100%', overflow: 'auto', borderRight: '1px solid #CCCCCC' }}>
                     <Sidenav.Body>
                         <Nav>
                             {talents.map((talent, i) => {

@@ -39,7 +39,7 @@ export class EquipNav extends Component<StoreProps> {
         return (
             <div style={{ width: store.equipNavExpanded ? 240 : 64, height: '100%' }}>
                 <Sidenav
-                    style={{ height: '100%', overflow: 'auto' }}
+                    style={{ height: '100%', overflow: 'auto', borderRight: '1px solid #CCCCCC' }}
                     onSelect={this.changeNav}
                     activeKey={store.activeEquipNav}
                 >

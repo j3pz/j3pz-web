@@ -51,7 +51,7 @@ function EquipView({ equip }: EquipViewProps) {
             <li className={`equip-name ${equip.strengthen > 6 ? 'rare' : ''}`}>
                 {equip.name}
                 {[1, 2, 3, 4, 5, 6, 7, 8].filter((n) => n <= equip.strengthLevel)
-                    .map(() => <i className="fas fa-star star" />)}
+                    .map((n) => <i className="fas fa-star star" key={`star-${n}`} />)}
                 <span className="right">
                     精炼等级:
                     {equip.strengthLevel}

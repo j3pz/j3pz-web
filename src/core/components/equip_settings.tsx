@@ -2,6 +2,7 @@ import React from 'react';
 import { PanelGroup, Panel } from 'rsuite';
 import { EquipSelection } from './equip_selection';
 import { $store } from '../store';
+import { EquipEnhance } from './equip_enhance';
 
 function EquipSettings() {
     return (
@@ -9,9 +10,10 @@ function EquipSettings() {
             <Panel header="装备选择" defaultExpanded>
                 <EquipSelection store={$store} />
             </Panel>
-            {/* <Panel header="Panel 2">
+            <Panel header="装备增强">
+                <EquipEnhance store={$store} />
             </Panel>
-            <Panel header="Panel 3">
+            {/* <Panel header="Panel 3">
             </Panel> */}
         </PanelGroup>
     );
