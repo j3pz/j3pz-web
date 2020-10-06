@@ -4,6 +4,7 @@ import { EquipSelection } from './equip_selection';
 import { $store } from '../store';
 import { EquipEnhance } from './equip_enhance';
 import { EquipEmbed } from './equip_embed';
+import { StoneSetting } from './stone_setting';
 
 function EquipSettings() {
     return (
@@ -15,7 +16,10 @@ function EquipSettings() {
                 <EquipEnhance store={$store} />
             </Panel>
             <Panel header="装备镶嵌">
-                <EquipEmbed store={$store} />
+                <div className="equip-embed">
+                    <EquipEmbed store={$store} />
+                    <StoneSetting store={$store} />
+                </div>
             </Panel>
         </PanelGroup>
     );

@@ -20,7 +20,7 @@ export class EquipEmbed extends Component<StoreProps> {
         const { store } = this.props;
         const currentEquip = store.equips[store.activeEquipNav];
         return (
-            <div className="equip-embed">
+            <>
                 <div className="label">五行石镶嵌</div>
                 <div className="holes">
                     {currentEquip?.embedding.map((ops, i) => {
@@ -57,8 +57,7 @@ export class EquipEmbed extends Component<StoreProps> {
                         );
                     })}
                 </div>
-                <div className="label">五彩石镶嵌</div>
-            </div>
+            </>
         );
     }
 }
