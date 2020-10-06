@@ -103,10 +103,13 @@ function EquipView({ equip }: EquipViewProps) {
                 </li>
             ))}
 
-            {/* 触发类特效 */}
-            <li className="score">
-                {equip.effect?.description}
-            </li>
+            {/* 触发类特效 */
+                equip.effect?.trigger === 'Passive' && (
+                    <li className="score has-break">
+                        {equip.effect?.description.replace(/;/g, '\n')}
+                    </li>
+                )
+            }
             {/* 装备镶嵌孔 */}
             {[1, 2, 3].map((n) => {
                 if (equip.embed.count < n) {
@@ -147,10 +150,13 @@ function EquipView({ equip }: EquipViewProps) {
                 {{attribute.desc}}
             </li> */}
 
-            {/* 装备使用类特效 */}
-            <li className="plus-info">
-                {equip.effect?.description}
-            </li>
+            {/* 装备使用类特效 */
+                equip.effect?.trigger === 'Usage' && (
+                    <li className="plus-info has-break">
+                        {`使用: ${equip.effect?.description}`}
+                    </li>
+                )
+            }
             {/* 装备套装汇总信息 */}
             {equip.set && (
             <li className="quality">
@@ -214,7 +220,7 @@ function EquipView({ equip }: EquipViewProps) {
             )}
 
             {/* 装备来源 */}
-            <li className="basic-info extension" style={{ whiteSpace: 'break-spaces' }}>
+            <li className="basic-info extension has-break">
                 获取:
                 {'\n'}
                 {equip.sourceDescription}

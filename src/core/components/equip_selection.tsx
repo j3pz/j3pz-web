@@ -33,7 +33,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             tags: [],
             minQuality: 3000,
             maxQuality: 5000,
-            range: [3200, 3400],
+            range: [2040, 5000],
         };
         this.cache = new Map();
     }
