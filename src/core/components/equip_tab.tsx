@@ -18,7 +18,7 @@ export class EquipTab extends Component<StoreProps> {
                 <Container style={{ flex: 1, paddingTop: 12 }}>
                     <Row>
                         <Col sm={12} md={6}>
-                            <EquipView equip={equip} />
+                            <EquipView equip={equip} stone={store.stones[store.activeEquipNav]} />
                         </Col>
                         <Col sm={12} md={6}>
                             <EquipSettings />

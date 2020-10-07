@@ -6,6 +6,7 @@ import { EmbedInfo, EmbedOps } from './embed';
 import { EquipSet } from './equip_set';
 import { Represent } from './represent';
 import { Source, redeemType, SourceType } from './source';
+import { Stone } from './stone';
 
 export class Equip {
     public id: number;
@@ -57,6 +58,7 @@ export class Equip {
     public deprecated: boolean;
 
     public embedding: EmbedOps[] = [];
+    public attributeStone: Stone;
     public strengthLevel = 0;
 
     constructor(category?: Category) {

@@ -1,6 +1,8 @@
+import { transaction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Popover, Whisper } from 'rsuite';
+import { EmbedService } from '../service/embed_service';
 import { StoreProps } from '../store';
 import './equip_embed.less';
 
@@ -12,7 +14,10 @@ export class EquipEmbed extends Component<StoreProps> {
         const { store } = this.props;
         const currentEquip = store.equips[store.activeEquipNav];
         if (currentEquip) {
-            store.equips[store.activeEquipNav] = currentEquip.setEmbed(idx, level);
+            transaction(() => {
+                store.equips[store.activeEquipNav] = currentEquip.setEmbed(idx, level);
+                EmbedService.update(store);
+            });
         }
     };
 

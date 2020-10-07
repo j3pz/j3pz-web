@@ -6,12 +6,15 @@ import {
     PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC, DECORATOR_DESC, AttributeDecorator,
 } from '../model/attribute';
 import { CollectionService } from '../service/collection_service';
+import { Stone } from '../model/stone';
+import { EmbedService } from '../service/embed_service';
 
 interface EquipViewProps {
     equip: Equip;
+    stone?: Stone;
 }
 
-function EquipView({ equip }: EquipViewProps) {
+function EquipView({ equip, stone }: EquipViewProps) {
     let isWeapon = false;
     let isSecondaryWeapon = false;
     let isTrinket = false;
@@ -123,7 +126,6 @@ function EquipView({ equip }: EquipViewProps) {
                         <img
                             src={`https://images.j3pz.com/imgs/stones/${img}.jpg`}
                             className="slot"
-                            style={{ marginRight: 4 }}
                             alt=""
                         />
                         <span>
@@ -136,19 +138,30 @@ function EquipView({ equip }: EquipViewProps) {
                 );
             })}
             {/* 五彩石镶嵌孔(未镶嵌)  */}
-            {isWeapon && (
+            {isWeapon && !stone && (
             <li className="inactive">
                 <img src="https://images.j3pz.com/imgs/stones/empty-slot.jpg" className="slot" alt="" />
-                &lt;只能镶嵌五彩石&gt;
+                <span>&lt;只能镶嵌五彩石&gt;</span>
             </li>
             )}
 
-            {/* <!-- 五彩石镶嵌孔(已镶嵌) -->
-            <li ng-repeat="attribute in attributeStone[attributeStoneSelected].attributes" ng-if="((focus=='b_primaryWeapon'||focus=='c_primaryWeapon')&&((attributeStone[0].level!=0&&focus=='b_primaryWeapon')||(attributeStone[1].level!=0&&focus=='c_primaryWeapon')))&&attribute.number>0" ng-class="attribute.isActive?'plusInfo':'holeInactive'">
-                <img ng-if="attribute.isFirstChild" ng-src="{{'/images/'+attribute.type+'-'+attributeStone[attributeStoneSelected].level+'.jpg'}}" style="width:16px;height:16px;vertical-align:middle;"/>
-                <img ng-if="!attribute.isFirstChild" src="imgs/tou.png" style="width:16px;height:16px;vertical-align:middle;">
-                {{attribute.desc}}
-            </li> */}
+            {/* 五彩石镶嵌孔(已镶嵌) */}
+            {isWeapon && stone && (
+                <>
+                    {stone.attributes.map((attrib, i) => {
+                        const active = attrib.requiredLevel <= EmbedService.totalLevel
+                            && attrib.requiredQuantity <= EmbedService.totalCount;
+                        return (
+                            <li className={active ? 'hole-active' : 'inactive'} key={`stone-attribute-${attrib.id}`}>
+                                {i === 0
+                                    ? <img src={`https://icons.j3pz.com/${stone.icon}.png`} className="slot" alt="" />
+                                    : <span className="slot" />}
+                                <span>{DECORATOR_DESC[attrib.decorator] + ATTRIBUTE_DESC[attrib.key] + attrib.value}</span>
+                            </li>
+                        );
+                    })}
+                </>
+            )}
 
             {/* 装备使用类特效 */
                 equip.effect?.trigger === 'Usage' && (
