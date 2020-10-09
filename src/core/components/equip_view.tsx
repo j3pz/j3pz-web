@@ -44,6 +44,25 @@ function EquipView({ equip, stone }: EquipViewProps) {
         }
         return (
             <div className="equip empty-equip">
+                <p style={{ width: 80, backgroundColor: '#F12Cf1' }} className="placeholder" />
+                <p style={{ width: 40, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 140, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 140, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 70, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 70, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 130, backgroundColor: '#00C848' }} className="placeholder" />
+                <p style={{ width: 140, backgroundColor: '#00C848' }} className="placeholder" />
+                <p style={{ width: 160, backgroundColor: '#00C848' }} className="placeholder" />
+                <p style={{ width: 150, backgroundColor: '#00C848' }} className="placeholder" />
+                <p style={{ width: 190, backgroundColor: '#9B9B9B' }} className="placeholder" />
+                <p style={{ width: 190, backgroundColor: '#9B9B9B' }} className="placeholder" />
+                <p style={{ width: 0, backgroundColor: 'transparent' }} className="placeholder" />
+                <p style={{ width: 100, backgroundColor: '#FFFF00' }} className="placeholder" />
+                <p style={{ width: 100, backgroundColor: '#FF8000' }} className="placeholder" />
+                <p style={{ width: 110, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 110, backgroundColor: '#FFFFFF' }} className="placeholder" />
+                <p style={{ width: 40, backgroundColor: '#9B9B9B' }} className="placeholder" />
+                <p style={{ width: 140, backgroundColor: '#9B9B9B' }} className="placeholder" />
                 <i className={icon} />
                 <div>尚未穿戴装备</div>
             </div>
