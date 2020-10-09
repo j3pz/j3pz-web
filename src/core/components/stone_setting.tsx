@@ -123,6 +123,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
                     placeholder="选择五彩石"
                     onSelect={this.selectStone}
                     onClean={this.removeStone}
+                    virtualized={false}
                     renderMenu={(menu) => {
                         if (stones.length === 0) {
                             return (
@@ -135,6 +136,17 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
                         }
                         return menu;
                     }}
+                    // @ts-ignore
+                    renderMenuItem={(label, item: Stone) => (
+                        <div className="equip-select-item" key={item.id}>
+                            <div>
+                                <b>{item.name}</b>
+                            </div>
+                            <div>
+                                <i>{item.attributes.map((a) => a.name).join(' ')}</i>
+                            </div>
+                        </div>
+                    )}
                 />
             </>
         );
