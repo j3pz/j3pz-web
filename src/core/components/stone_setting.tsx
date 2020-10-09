@@ -10,7 +10,8 @@ import './stone_setting.less';
 import { Attribute, AttributeDecorator } from '../model/attribute';
 
 interface StoneSettingState {
-    tags: SimpleStoneAttribute[];
+    tags: (SimpleStoneAttribute & { label: string })[];
+    disabledTags: string[];
     stones: Stone[];
 }
 
@@ -23,6 +24,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
         this.currentKungfu = props.store.kungfu;
         this.state = {
             tags: [],
+            disabledTags: [],
             stones: [],
         };
     }
@@ -40,7 +42,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
 
     listStones = (values: string[]) => {
         if (values.length === 0) {
-            this.setState({ stones: [] });
+            this.setState({ stones: [], disabledTags: [] });
             return;
         }
         const [attributes, decorators] = values.reduce((acc, value) => {
@@ -49,8 +51,16 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
             acc[1].push(decorator as AttributeDecorator);
             return acc;
         }, [[], []] as [Attribute[], AttributeDecorator[]]);
-        StoneService.listStones(attributes, decorators).then((stones) => {
-            this.setState({ stones: stones.map((s) => s.attributes) });
+        StoneService.listStones(attributes, decorators).then((availableStones) => {
+            const availableAttributes = new Set(this.state.tags.map((t) => t.label));
+            const stones = availableStones.map((s) => {
+                s.attributes.attributes.forEach((a) => {
+                    availableAttributes.delete(`${a.key}-${a.decorator}`);
+                });
+                return s.attributes;
+            });
+
+            this.setState({ stones, disabledTags: [...availableAttributes] });
         });
     };
 
@@ -79,7 +89,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
 
     render() {
         const { store } = this.props;
-        const { tags, stones } = this.state;
+        const { tags, stones, disabledTags } = this.state;
         const currentEquip = store.equips[store.activeEquipNav];
         if (currentEquip?.category !== 'primaryWeapon' && currentEquip?.category !== 'tertiaryWeapon') {
             return null;
@@ -96,6 +106,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
                     valueKey="label"
                     placement="topStart"
                     placeholder="选择五彩石属性"
+                    disabledItemValues={disabledTags}
                     searchable={false}
                     onSelect={this.listStones}
                     onClean={() => this.listStones([])}
