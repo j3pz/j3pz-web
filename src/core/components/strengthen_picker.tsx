@@ -3,13 +3,13 @@ import { observer } from 'mobx-react';
 import { StoreProps } from '../store';
 import './equip_enhance.less';
 
-interface EquipEnhanceState {
+interface StrengthenPickerState {
     originalLevel: number;
     equipId: number | null,
 }
 
 @observer
-export class EquipEnhance extends Component<StoreProps, EquipEnhanceState> {
+export class StrengthenPicker extends Component<StoreProps, StrengthenPickerState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,7 +54,7 @@ export class EquipEnhance extends Component<StoreProps, EquipEnhanceState> {
         const { store } = this.props;
         const currentEquip = store.equips[store.activeEquipNav];
         return (
-            <div className="equip-strengthen">
+            <>
                 <div className="label">精炼</div>
                 <span
                     className="fa-stack cancel-star"
@@ -78,7 +78,7 @@ export class EquipEnhance extends Component<StoreProps, EquipEnhanceState> {
                         }
                         return <i className="fal fa-star fa-2x add-star" {...handlers} />;
                     })}
-            </div>
+            </>
         );
     }
 }
