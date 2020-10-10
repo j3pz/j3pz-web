@@ -223,7 +223,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
                 })
             }
             {/* 装备附魔 */}
-            {/* <li class="enhance">{{equips[$root.focus].enhance.desc}}</li> */}
+            <li className="enhance">{equip.enhance?.description ?? ''}</li>
             {/* 装备品质 */}
             <li className="quality">
                 品质等级

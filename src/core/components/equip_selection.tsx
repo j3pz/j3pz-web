@@ -127,7 +127,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                 />
                 <div style={{ margin: 12 }} />
                 <SelectPicker
-                    data={equips}
+                    data={raw}
                     block
                     size="lg"
                     onOpen={this.handleUpdate}
@@ -148,7 +148,8 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                                     加载中...
                                 </p>
                             );
-                        } if (equips.length === 0) {
+                        }
+                        if (equips.length === 0) {
                             return (
                                 <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
                                     <i className="fal fa-file-search" />

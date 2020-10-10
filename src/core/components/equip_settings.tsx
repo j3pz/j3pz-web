@@ -5,6 +5,7 @@ import { $store } from '../store';
 import { StrengthenPicker } from './strengthen_picker';
 import { EquipEmbed } from './equip_embed';
 import { StoneSetting } from './stone_setting';
+import { EnhanceSelection } from './enhance_selection';
 
 function EquipSettings() {
     return (
@@ -15,6 +16,7 @@ function EquipSettings() {
             <Panel header="装备增强">
                 <div className="equip-strengthen">
                     <StrengthenPicker store={$store} />
+                    <EnhanceSelection store={$store} />
                 </div>
             </Panel>
             <Panel header="装备镶嵌">

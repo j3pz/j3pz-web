@@ -3,6 +3,7 @@ import { AttributeDecorator, SecondaryAttribute } from './attribute';
 import { Category, School } from './base';
 import { Effect } from './effect';
 import { EmbedInfo, EmbedOps } from './embed';
+import { Enhance } from './enhance';
 import { EquipSet } from './equip_set';
 import { Represent } from './represent';
 import { Source, redeemType, SourceType } from './source';
@@ -60,6 +61,7 @@ export class Equip {
     public embedding: EmbedOps[] = [];
     public attributeStone: Stone;
     public strengthLevel = 0;
+    public enhance: Enhance;
 
     constructor(category?: Category) {
         if (category) this.category = category;
@@ -87,6 +89,12 @@ export class Equip {
             index: idx,
             level,
         };
+        return equip;
+    }
+
+    public setEnhance(enhance: Enhance): Equip {
+        const equip = classToClass(this);
+        equip.enhance = enhance;
         return equip;
     }
 
