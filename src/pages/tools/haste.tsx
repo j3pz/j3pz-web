@@ -78,7 +78,7 @@ export default class HastePage extends Component<{}, HastePageState> {
         const results = this.getHaste();
         return (
             <Tools>
-                <SEO title="剑网3配装器 | 加速宝典" />
+                <SEO title="加速宝典" />
                 <Container fluid style={{ margin: 0 }}>
                     <Row>
                         <Col lg={4} md={6} sm={12} style={{ paddingTop: 24 }}>

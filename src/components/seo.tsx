@@ -36,13 +36,19 @@ function SEO({
 
     const metaDescription = description || site.siteMetadata.description;
 
+    let applyTemplate = true;
+
+    if (title.indexOf(site.siteMetadata.title) >= 0) {
+        applyTemplate = false;
+    }
+
     return (
         <Helmet
             htmlAttributes={{
                 lang,
             }}
             title={title}
-            titleTemplate={`%s | ${site.siteMetadata.title}`}
+            titleTemplate={applyTemplate ? `%s | ${site.siteMetadata.title}` : '%s'}
             script={[{ src: 'https://kit.fontawesome.com/2f45df1ed1.js', type: 'text/javascript', crossorigin: 'anonymous' }]}
             meta={[
                 {

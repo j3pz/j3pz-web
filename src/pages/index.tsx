@@ -32,7 +32,7 @@ const IndexPage = () => {
         <>
             <Header type="shadow" />
             <main className="main-content">
-                <SEO title="剑网3配装器 | 首页" />
+                <SEO title="剑网3配装器" />
                 <Img fluid={data.titleImage.childImageSharp.fluid} alt="" className="banner-img" />
                 <Card className="simple-intro" acrylic>
                     <div className="intro-title">「剑网3配装器」是什么？</div>
