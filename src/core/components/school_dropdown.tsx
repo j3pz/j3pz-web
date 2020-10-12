@@ -99,7 +99,7 @@ export class SchoolDropdown extends Component<StoreProps, SchoolDropdownState> {
                 placement="rightStart"
                 activeKey={store.kungfu}
                 onSelect={this.changeSchool}
-                style={{ borderBottom: '1px solid #CCCCCC', borderRight: '1px solid #CCCCCC' }}
+                style={{ borderRight: '1px solid #CCCCCC' }}
             >
                 {Object.entries(kungfuTypes).map(([type, title]) => (
                     <Dropdown.Menu key={type} title={title}>
