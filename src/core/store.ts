@@ -4,6 +4,7 @@ import { Position, KungFu } from './model/base';
 import { Equip } from './model/equip';
 import { Stone } from './model/stone';
 import { Talent } from './model/talent';
+import { User } from './model/user';
 
 export enum AppTab { EQUIP, CASE }
 
@@ -20,6 +21,7 @@ export interface EditState {
         [Position.PRIMARY_WEAPON]?: Stone;
         [Position.TERTIARY_WEAPON]?: Stone;
     };
+    user: User | null;
 }
 
 export const $store = observable<EditState>({
@@ -30,6 +32,7 @@ export const $store = observable<EditState>({
     equips: {},
     stones: {},
     talents: Array.from({ length: 12 }).map(() => Talent.emptyTalent()),
+    user: null,
 });
 
 export interface StoreProps {

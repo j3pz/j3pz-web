@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { Col, Container, Row } from 'react-grid-system';
 import {
     Button,
@@ -9,6 +9,9 @@ import {
 } from 'rsuite';
 import { SEO } from '../components/seo';
 import '../css/login.less';
+import { UserService } from '../core/service/user_service';
+import { User } from '../core/model/user';
+import { $store } from '../core/store';
 
 const { StringType } = Schema.Types;
 
@@ -31,25 +34,56 @@ const signInModel = Schema.Model({
 
 interface LoginPageState {
     mode: 'signin' | 'signup';
+    requesting: boolean;
+}
+
+interface LoginForm {
+    email: string;
+    password: string;
+    name?: string;
 }
 
 export default class LoginPage extends Component<{}, LoginPageState> {
+    formValue: LoginForm = {
+        email: '',
+        password: '',
+        name: '',
+    };
+
     constructor(props) {
         super(props);
         this.state = {
             mode: 'signup',
+            requesting: false,
         };
     }
 
     goSignIn = () => {
         this.setState({ mode: 'signin' });
     };
+
     goSignUp = () => {
         this.setState({ mode: 'signup' });
     };
 
+    update = (value) => {
+        this.formValue = value;
+    };
+
+    doSignIn = () => {
+        this.setState({ requesting: true });
+        UserService.login(this.formValue.email, this.formValue.password).then((res) => {
+            this.setState({ requesting: false });
+            const user = User.fromJson(res.attributes);
+            $store.user = user;
+            localStorage.setItem('token', user.token);
+            navigate('/app');
+        });
+    };
+
+
     render() {
-        const { mode } = this.state;
+        const { mode, requesting } = this.state;
         return (
             <>
                 <SEO title="登录" />
@@ -62,7 +96,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                             <div className="sign-in-form">
                                 <p>登录配装器</p>
                                 <p>使用邮箱登录已有账号:</p>
-                                <Form fluid model={signInModel}>
+                                <Form fluid model={signInModel} checkTrigger="blur" onChange={this.update}>
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
@@ -93,7 +127,10 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                             <Button
                                                 size="lg"
                                                 appearance="primary"
+                                                type="submit"
+                                                loading={requesting}
                                                 style={{ borderRadius: 24, minWidth: 200 }}
+                                                onClick={this.doSignIn}
                                             >
                                                 登 录
                                             </Button>
@@ -117,6 +154,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     }}
                                     appearance="ghost"
                                     size="lg"
+                                    loading={requesting}
                                     onClick={this.goSignIn}
                                 >
                                     登 录
@@ -136,6 +174,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     }}
                                     appearance="ghost"
                                     size="lg"
+                                    loading={requesting}
                                     onClick={this.goSignUp}
                                 >
                                     注 册
@@ -148,7 +187,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                             <div className="sign-up-form">
                                 <p>创建新账号</p>
                                 <p>使用邮箱注册一个新的账号:</p>
-                                <Form fluid model={signUpModel}>
+                                <Form fluid model={signUpModel} checkTrigger="blur">
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
@@ -184,6 +223,8 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                             <Button
                                                 size="lg"
                                                 appearance="primary"
+                                                type="submit"
+                                                loading={requesting}
                                                 style={{ borderRadius: 24, minWidth: 200 }}
                                             >
                                                 注 册
