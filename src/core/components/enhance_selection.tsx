@@ -15,10 +15,6 @@ export class EnhanceSelection extends Component<StoreProps> {
     constructor(props) {
         super(props);
         this.state = {
-            // tags: [],
-            // minQuality: 3000,
-            // maxQuality: 5000,
-            // range: [2040, 5000],
         };
         this.cache = new Map();
     }
@@ -56,7 +52,7 @@ export class EnhanceSelection extends Component<StoreProps> {
         const currentEquip = store.equips[store.activeEquipNav];
         return (
             <>
-                <div className="label">附魔</div>
+                <div className="label enhance">附魔</div>
                 <SelectPicker
                     data={raw}
                     block
@@ -67,6 +63,7 @@ export class EnhanceSelection extends Component<StoreProps> {
                     valueKey="id"
                     disabled={!currentEquip}
                     virtualized={false}
+                    searchable={false}
                     onSelect={this.setEnhance}
                     renderMenu={(menu) => {
                         if (raw.length === 0) {
