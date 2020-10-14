@@ -11,4 +11,19 @@ export class UserService {
         }).catch(errorHandler);
         return res?.data.data;
     }
+
+    static async getUser(token: string, hasNotify: boolean): Promise<Resource<User> | false> {
+        if (token) {
+            const res = await axios.get(`${ENDPOINT}/user`, {
+                headers: { Authorization: `Bearer ${token}` },
+            }).catch((e) => {
+                if (hasNotify) {
+                    errorHandler(e);
+                }
+                return { data: { data: false } };
+            });
+            return res?.data.data;
+        }
+        return false;
+    }
 }
