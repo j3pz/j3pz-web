@@ -4,6 +4,7 @@ import {
     Button, Nav, Sidenav,
 } from 'rsuite';
 import { StoreProps } from '../store';
+import { NewCaseGuide } from './new_case_guide';
 
 const iconStyle: CSSProperties = {
     position: 'absolute',
@@ -18,6 +19,7 @@ const iconStyle: CSSProperties = {
 
 interface DashboardState {
     active: string;
+    create: boolean;
 }
 
 @observer
@@ -27,14 +29,16 @@ export class Dashboard extends Component<StoreProps, DashboardState> {
 
         this.state = {
             active: 'cases',
+            create: false,
         };
     }
 
     showNewCaseGuide = () => {
-
+        this.setState({ create: true });
     };
 
     render() {
+        const { active, create } = this.state;
         return (
             <main
                 style={{
@@ -68,7 +72,7 @@ export class Dashboard extends Component<StoreProps, DashboardState> {
                         </div>
                     </Sidenav.Header>
                     <Sidenav.Body>
-                        <Nav activeKey={this.state.active}>
+                        <Nav activeKey={active}>
                             <Nav.Item
                                 eventKey="cases"
                                 icon={<i className="far fa-grip-vertical" style={iconStyle} />}
@@ -90,6 +94,8 @@ export class Dashboard extends Component<StoreProps, DashboardState> {
                         </Nav>
                     </Sidenav.Body>
                 </Sidenav>
+
+                <NewCaseGuide show={create} onClose={() => { this.setState({ create: false }); }} />
             </main>
         );
     }
