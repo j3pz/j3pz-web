@@ -4,6 +4,7 @@ import { $store } from '../core/store';
 import { Dashboard } from '../core/components/dashboard';
 import { UserService } from '../core/service/user_service';
 import { User } from '../core/model/user';
+import { SEO } from '../components/seo';
 
 export default class DashboardPage extends Component {
     componentDidMount() {
@@ -21,6 +22,7 @@ export default class DashboardPage extends Component {
     render() {
         return (
             <>
+                <SEO title="剑网3配装器" />
                 <Dashboard store={$store} />
             </>
         );

@@ -77,7 +77,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
             const user = User.fromJson(res.attributes);
             $store.user = user;
             localStorage.setItem('token', user.token);
-            navigate('/app');
+            navigate('/dashboard');
         });
     };
 

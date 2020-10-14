@@ -1,53 +1,96 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import { observer } from 'mobx-react';
 import {
-    Button, Dropdown, Icon, Nav, Sidenav,
+    Button, Nav, Sidenav,
 } from 'rsuite';
 import { StoreProps } from '../store';
 
+const iconStyle: CSSProperties = {
+    position: 'absolute',
+    left: 20,
+    top: 15,
+    lineHeight: 1.245,
+    marginRight: 20,
+    fontSize: 16,
+    textAlign: 'center',
+    width: 16,
+};
+
+interface DashboardState {
+    active: string;
+}
+
 @observer
-export class Dashboard extends Component<StoreProps> {
+export class Dashboard extends Component<StoreProps, DashboardState> {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            active: 'cases',
+        };
+    }
+
+    showNewCaseGuide = () => {
+
+    };
+
     render() {
         return (
-            <Sidenav appearance="subtle">
-                <Sidenav.Header>
-                    <div style={{ padding: 24, margin: '8 0', width: 200 }}>
-                        <img src="https://images.j3pz.com/imgs/icon.png" alt="Logo" style={{ width: 48 }} />
-                        <Button block size="lg" style={{ marginTop: 60 }} appearance="primary">
-                            <i className="fas fa-plus" />
-                            {' '}
-                            新配装方案
-                        </Button>
-                    </div>
-                </Sidenav.Header>
-                <Sidenav.Body>
-                    <Nav>
-                        <Nav.Item eventKey="1" active icon={<Icon icon="dashboard" />}>Dashboard</Nav.Item>
-                        <Nav.Item eventKey="2" icon={<Icon icon="group" />}>User Group</Nav.Item>
-                        <Dropdown eventKey="3" title="Advanced" icon={<Icon icon="magic" />}>
-                            <Dropdown.Item divider />
-                            <Dropdown.Item panel style={{}}>
-                                Reports
-                            </Dropdown.Item>
-                            <Dropdown.Item eventKey="3-1">Geo</Dropdown.Item>
-                            <Dropdown.Item eventKey="3-2">Devices</Dropdown.Item>
-                            <Dropdown.Item eventKey="3-3">Loyalty</Dropdown.Item>
-                            <Dropdown.Item eventKey="3-4">Visit Depth</Dropdown.Item>
-                            <Dropdown.Item divider />
-                            <Dropdown.Item panel style={{}}>
-                                Settings
-                            </Dropdown.Item>
-                            <Dropdown.Item eventKey="4-1">Applications</Dropdown.Item>
-                            <Dropdown.Item eventKey="4-2">Channels</Dropdown.Item>
-                            <Dropdown.Item eventKey="4-3">Versions</Dropdown.Item>
-                            <Dropdown.Menu eventKey="4-5" title="Custom Action">
-                                <Dropdown.Item eventKey="4-5-1">Action Name</Dropdown.Item>
-                                <Dropdown.Item eventKey="4-5-2">Action Params</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Nav>
-                </Sidenav.Body>
-            </Sidenav>
+            <main
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: 'flex',
+                }}
+            >
+                <Sidenav
+                    appearance="default"
+                    style={{ width: 240, height: '100%', borderRight: '1px solid #cccccc' }}
+                    onSelect={(v) => { this.setState({ active: v }); }}
+                >
+                    <Sidenav.Header>
+                        <div style={{ padding: 24, margin: '8 0' }}>
+                            <img src="https://images.j3pz.com/imgs/icon.png" alt="Logo" style={{ width: 48 }} />
+                            <Button
+                                block
+                                size="lg"
+                                style={{ marginTop: 48 }}
+                                appearance="primary"
+                                onClick={this.showNewCaseGuide}
+                            >
+                                <i className="fas fa-plus" />
+                                {'  '}
+                                新配装方案
+                            </Button>
+                        </div>
+                    </Sidenav.Header>
+                    <Sidenav.Body>
+                        <Nav activeKey={this.state.active}>
+                            <Nav.Item
+                                eventKey="cases"
+                                icon={<i className="far fa-grip-vertical" style={iconStyle} />}
+                            >
+                                配装方案
+                            </Nav.Item>
+                            <Nav.Item
+                                eventKey="published"
+                                icon={<i className="far fa-presentation" style={iconStyle} />}
+                            >
+                                发布方案
+                            </Nav.Item>
+                            <Nav.Item
+                                eventKey="settings"
+                                icon={<i className="far fa-cogs" style={iconStyle} />}
+                            >
+                                设置
+                            </Nav.Item>
+                        </Nav>
+                    </Sidenav.Body>
+                </Sidenav>
+            </main>
         );
     }
 }
