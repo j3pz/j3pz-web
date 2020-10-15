@@ -14,10 +14,9 @@ export default class DashboardPage extends Component<{}, DashboardPageState> {
     constructor(props) {
         super(props);
         this.state = {
-            logged: false,
+            logged: !!$store.user,
         };
     }
-
 
     componentDidMount() {
         if (!$store.user) {

@@ -58,6 +58,23 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         };
     }
 
+    componentDidMount() {
+        if ($store.user) {
+            navigate('/dashboard');
+            return;
+        }
+        const token = localStorage.getItem('token');
+        if (token) {
+            UserService.getUser(token, false).then((user) => {
+                if (user) {
+                    $store.user = User.fromJson(user.attributes);
+                    navigate('/dashboard');
+                }
+            });
+        }
+    }
+
+
     goSignIn = () => {
         this.setState({ mode: 'signin' });
     };
