@@ -90,7 +90,7 @@ const IndexPage = () => {
                 <div className="getstart">
                     <div className="content">
                         <div className="title center">由玩家设计，为玩家创造</div>
-                        <Link to="/app"><Button className="getstart-btn" appearance="primary">江湖必备，点此开始</Button></Link>
+                        <Link to="/dashboard"><Button className="getstart-btn" appearance="primary">江湖必备，点此开始</Button></Link>
                     </div>
                     <Img fluid={data.getstart.childImageSharp.fluid} alt="" className="getstart-img" />
                 </div>
