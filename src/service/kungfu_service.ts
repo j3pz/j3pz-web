@@ -4,8 +4,12 @@ import { Resource } from '../model/resource';
 import { ENDPOINT, errorHandler } from './base';
 
 export class KungFuService {
+    static allKungFu: Resource<KungFuInfo>[] = [];
+
     static async getKungFuList(): Promise<Resource<KungFuInfo>[]> {
         const res = await axios.get(`${ENDPOINT}/kungfu`).catch(errorHandler);
-        return res?.data.data ?? [];
+        const list = res?.data.data ?? [];
+        this.allKungFu = list;
+        return list;
     }
 }

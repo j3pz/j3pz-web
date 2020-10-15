@@ -6,10 +6,17 @@ import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
 import { CaseInfo } from '../../model/case_info';
 import { CaseService } from '../../service/case_service';
 import { StoreProps } from '../../store';
+import { KungFu, schoolAbbrMap } from '../../model/base';
+import { KungFuInfo } from '../../model/kungfu';
+import { Resource } from '../../model/resource';
+import { KungFuService } from '../../service/kungfu_service';
+import '../../css/icon.less';
+import './case_list.less';
 
 @observer
 export class CaseList extends Component<StoreProps> {
     static cache: CaseInfo[] = [];
+    private allKungFu: Resource<KungFuInfo>[] = [];
 
     componentDidMount() {
         const { store } = this.props;
@@ -17,7 +24,17 @@ export class CaseList extends Component<StoreProps> {
             CaseList.cache = cases.map((_) => _.attributes);
             this.forceUpdate();
         });
+        KungFuService.getKungFuList().then((res) => {
+            this.allKungFu = res;
+            this.forceUpdate();
+        });
     }
+
+    getIcon = (kungfu: KungFu) => {
+        const kungFuInfo = this.allKungFu.find((info) => info.id === kungfu);
+        if (kungFuInfo) return schoolAbbrMap[kungFuInfo.attributes.school];
+        return '';
+    };
 
     render() {
         const list = CaseList.cache;
@@ -30,20 +47,24 @@ export class CaseList extends Component<StoreProps> {
                 </FlexboxGrid>
                 <List hover size="lg">
                     {list.map((c) => (
-                        <List.Item key={`case-${c.id}`} style={{ paddingLeft: 36, paddingRight: 36 }}>
+                        <List.Item key={`case-${c.id}`} style={{ paddingLeft: 36, paddingRight: 36 }} className="case-item">
                             <FlexboxGrid align="middle">
                                 {/* Icon */}
                                 <FlexboxGridItem style={{ width: 60 }}>
                                     <img src="https://placehold.it/48x48.png" alt={`${c.kungfu}图标`} />
                                 </FlexboxGridItem>
                                 {/* Name */}
-                                <FlexboxGridItem colspan={12}>
+                                <FlexboxGridItem colspan={12} className="case-item-col">
                                     <div style={{ fontSize: 14, color: '#5A5A5B' }}>{c.kungfu}</div>
                                     <Link to={`/app#${c.id}`} style={{ fontSize: 20, color: '#333334' }}>{c.name}</Link>
+                                    <div className="case-more">
+                                        <i className="fas fa-ellipsis-h" />
+                                    </div>
                                 </FlexboxGridItem>
                                 {/* Update Time */}
-                                <FlexboxGridItem colspan={6} style={{ color: '#5A5A5B' }}>
+                                <FlexboxGridItem style={{ color: '#5A5A5B', flex: 1 }} className="case-item-col">
                                     Update Time
+                                    <i className={`jx3icon jx3icon-${this.getIcon(c.kungfu)} school-icon`} />
                                 </FlexboxGridItem>
                             </FlexboxGrid>
                         </List.Item>

@@ -1,0 +1,37 @@
+.school-icon {
+    position: absolute;
+    font-size: 80px;
+    right: 0;
+    opacity: 0.16;
+    top: -50px;
+    display: none;
+}
+.case-more {
+    display: none;
+    position: absolute;
+    font-size: 20px;
+    right: 36px;
+    top: 10px;
+    opacity: 0.64;
+    cursor: pointer;
+    &:hover {
+        opacity: 1;
+    }
+}
+.case-item-col {
+    position: relative;
+}
+.case-item {
+    overflow: hidden;
+    &:hover {
+        .school-icon {
+            display: block;
+        }
+        .case-more {
+            display: block;
+        }
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}
