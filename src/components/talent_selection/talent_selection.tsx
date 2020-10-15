@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Nav, Sidenav } from 'rsuite';
 import { Lambda, observe } from 'mobx';
-import { $store, StoreProps } from '../store';
+import { $store, StoreProps } from '../../store';
 import { TalentService } from '../../service/talent_service';
-import { Talent } from '../model/talent';
+import { Talent } from '../../model/talent';
 import './talent_selection.less';
 import { TalentOptions } from './talent_options';
 

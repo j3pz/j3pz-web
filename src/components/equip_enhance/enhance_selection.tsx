@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { SelectPicker } from 'rsuite';
-import { StoreProps } from '../store';
+import { StoreProps } from '../../store';
 import { EnhanceService } from '../../service/enhance_service';
-import { KungFu, Position } from '../model/base';
-import { navLib } from './equip_nav';
-import { Enhance, SimpleEnhance } from '../model/enhance';
+import { KungFu, Position } from '../../model/base';
+import { navLib } from '../equip_tab/equip_nav';
+import { Enhance, SimpleEnhance } from '../../model/enhance';
 
 @observer
 export class EnhanceSelection extends Component<StoreProps> {

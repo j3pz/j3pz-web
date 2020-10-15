@@ -1,7 +1,7 @@
 import React from 'react';
 import { SEO } from '../components/seo';
 import { Header } from '../components/header/Header';
-import { CoreEdit } from '../core/components/edit';
+import { CoreEdit } from '../components/editor/edit';
 import { $store } from '../store';
 
 const AppPage = () => (

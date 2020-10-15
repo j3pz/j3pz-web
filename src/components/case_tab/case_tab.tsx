@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Col, Container, Row } from 'react-grid-system';
-import { TalentSelection } from '../../core/components/talent_selection';
+import { TalentSelection } from '../talent_selection/talent_selection';
 import { $store } from '../../store';
 
 @observer

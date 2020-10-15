@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Popover, Whisper } from 'rsuite';
 import { EmbedService } from '../../service/embed_service';
-import { StoreProps } from '../store';
+import { StoreProps } from '../../store';
 import './equip_embed.less';
 
 @observer

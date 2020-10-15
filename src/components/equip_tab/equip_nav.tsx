@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Sidenav, Nav } from 'rsuite';
-import { StoreProps } from '../store';
+import { StoreProps } from '../../store';
 import {
     Category, Position, CATEGORY_DESC, KungFu,
-} from '../model/base';
+} from '../../model/base';
 import './equip_nav.less';
 
 interface NavInfo {

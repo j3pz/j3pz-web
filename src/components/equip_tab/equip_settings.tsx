@@ -1,11 +1,11 @@
 import React from 'react';
 import { PanelGroup, Panel } from 'rsuite';
-import { EquipSelection } from './equip_selection';
-import { $store } from '../store';
-import { StrengthenPicker } from './strengthen_picker';
-import { EquipEmbed } from './equip_embed';
-import { StoneSetting } from './stone_setting';
-import { EnhanceSelection } from './enhance_selection';
+import { EquipSelection } from '../equip_selection/equip_selection';
+import { $store } from '../../store';
+import { StrengthenPicker } from '../equip_enhance/strengthen_picker';
+import { EquipEmbed } from '../equip_embed/equip_embed';
+import { StoneSetting } from '../stone_setting/stone_setting';
+import { EnhanceSelection } from '../equip_enhance/enhance_selection';
 
 function EquipSettings() {
     return (

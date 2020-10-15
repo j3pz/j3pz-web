@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { SelectPicker, TagPicker } from 'rsuite';
-import { StoreProps } from '../store';
-import { KungFu } from '../model/base';
+import { StoreProps } from '../../store';
+import { KungFu } from '../../model/base';
 import { StoneService } from '../../service/stone_service';
-import { Stone } from '../model/stone';
-import { SimpleStoneAttribute } from '../model/stone_attribute';
+import { Stone } from '../../model/stone';
+import { SimpleStoneAttribute } from '../../model/stone_attribute';
 import './stone_setting.less';
-import { Attribute, AttributeDecorator } from '../model/attribute';
+import { Attribute, AttributeDecorator } from '../../model/attribute';
 
 interface StoneSettingState {
     tags: (SimpleStoneAttribute & { label: string })[];

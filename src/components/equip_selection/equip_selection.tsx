@@ -4,15 +4,15 @@ import {
     CheckboxGroup, Checkbox, SelectPicker, RangeSlider,
 } from 'rsuite';
 import { transaction } from 'mobx';
-import { StoreProps } from '../store';
-import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../model/attribute';
+import { StoreProps } from '../../store';
+import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import { EquipService } from '../../service/equip_service';
-import { KungFu, Position } from '../model/base';
-import { navLib } from './equip_nav';
-import { Equip } from '../model/equip';
+import { KungFu, Position } from '../../model/base';
+import { navLib } from '../equip_tab/equip_nav';
+import { Equip } from '../../model/equip';
 import './equip_selection.less';
 import { SettingsService } from '../../service/settings_service';
-import { SimpleEquip } from '../model/simple_equip';
+import { SimpleEquip } from '../../model/simple_equip';
 import { CollectionService } from '../../service/collection_service';
 
 interface EquipSelectionState {

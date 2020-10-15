@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Dropdown } from 'rsuite';
-import { PrimaryAttribute } from '../model/attribute';
-import { GamingRole, KungFu, schoolAbbrMap } from '../model/base';
-import { KungFuInfo } from '../model/kungfu';
-import { Resource } from '../model/resource';
+import { PrimaryAttribute } from '../../model/attribute';
+import { GamingRole, KungFu, schoolAbbrMap } from '../../model/base';
+import { KungFuInfo } from '../../model/kungfu';
+import { Resource } from '../../model/resource';
 import { KungFuService } from '../../service/kungfu_service';
-import { StoreProps } from '../store';
+import { StoreProps } from '../../store';
 import '../../css/icon.less';
 import './school_dropdown.less';
 

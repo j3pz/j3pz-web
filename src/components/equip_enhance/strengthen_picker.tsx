@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { StoreProps } from '../store';
+import { StoreProps } from '../../store';
 import './equip_enhance.less';
 
 interface StrengthenPickerState {
