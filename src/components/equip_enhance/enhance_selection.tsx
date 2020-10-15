@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { SelectPicker } from 'rsuite';
 import { StoreProps } from '../store';
-import { EnhanceService } from '../service/enhance_service';
+import { EnhanceService } from '../../service/enhance_service';
 import { KungFu, Position } from '../model/base';
 import { navLib } from './equip_nav';
 import { Enhance, SimpleEnhance } from '../model/enhance';

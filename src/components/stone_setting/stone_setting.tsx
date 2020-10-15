@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { SelectPicker, TagPicker } from 'rsuite';
 import { StoreProps } from '../store';
 import { KungFu } from '../model/base';
-import { StoneService } from '../service/stone_service';
+import { StoneService } from '../../service/stone_service';
 import { Stone } from '../model/stone';
 import { SimpleStoneAttribute } from '../model/stone_attribute';
 import './stone_setting.less';

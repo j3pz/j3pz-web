@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 import {
     Button, Nav, Sidenav,
 } from 'rsuite';
-import { StoreProps } from '../store';
-import { NewCaseGuide } from './new_case_guide';
+import { StoreProps } from '../../store';
+import { NewCaseGuide } from '../new_case_guide/new_case_guide';
 
 const iconStyle: CSSProperties = {
     position: 'absolute',

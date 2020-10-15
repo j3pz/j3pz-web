@@ -1,4 +1,4 @@
-import { lit } from '../../utils/literal';
+import { lit } from '../utils/literal';
 
 export type PrimaryAttribute = 'vitality' | 'spunk' | 'spirit' | 'strength' | 'agility';
 export const PrimaryAttribute: PrimaryAttribute[] = ['vitality', 'spunk', 'spirit', 'strength', 'agility'];

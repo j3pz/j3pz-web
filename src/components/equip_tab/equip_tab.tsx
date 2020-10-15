@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Container, Row, Col } from 'react-grid-system';
-import { EquipNav, navLib } from './equip_nav';
-import { $store, StoreProps } from '../store';
-import { EquipView } from './equip_view';
-import { Equip } from '../model/equip';
-import { EquipSettings } from './equip_settings';
+import { EquipNav, navLib } from '../../core/components/equip_nav';
+import { $store, StoreProps } from '../../store';
+import { EquipView } from '../equip_view/equip_view';
+import { Equip } from '../../model/equip';
+import { EquipSettings } from '../../core/components/equip_settings';
 
 @observer
 export class EquipTab extends Component<StoreProps> {

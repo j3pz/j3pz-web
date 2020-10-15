@@ -1,4 +1,4 @@
-import { lit } from '../../utils/literal';
+import { lit } from '../utils/literal';
 
 export const Category = {
     HAT: lit('hat'),

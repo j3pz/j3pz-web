@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { navigate } from 'gatsby';
-import { $store } from '../core/store';
-import { Dashboard } from '../core/components/dashboard';
-import { UserService } from '../core/service/user_service';
-import { User } from '../core/model/user';
+import { $store } from '../store';
+import { Dashboard } from '../components/dashboard/dashboard';
+import { UserService } from '../service/user_service';
+import { User } from '../model/user';
 import { SEO } from '../components/seo';
 
 export default class DashboardPage extends Component {

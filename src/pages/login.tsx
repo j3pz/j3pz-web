@@ -9,9 +9,9 @@ import {
 } from 'rsuite';
 import { SEO } from '../components/seo';
 import '../css/login.less';
-import { UserService } from '../core/service/user_service';
-import { User } from '../core/model/user';
-import { $store } from '../core/store';
+import { UserService } from '../service/user_service';
+import { User } from '../model/user';
+import { $store } from '../store';
 
 const { StringType } = Schema.Types;
 

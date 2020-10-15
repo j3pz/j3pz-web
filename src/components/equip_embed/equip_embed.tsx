@@ -2,7 +2,7 @@ import { transaction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Popover, Whisper } from 'rsuite';
-import { EmbedService } from '../service/embed_service';
+import { EmbedService } from '../../service/embed_service';
 import { StoreProps } from '../store';
 import './equip_embed.less';
 

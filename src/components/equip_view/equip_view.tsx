@@ -1,13 +1,13 @@
 import React from 'react';
-import { Category, CATEGORY_DESC } from '../model/base';
-import { Equip } from '../model/equip';
+import { Category, CATEGORY_DESC } from '../../model/base';
+import { Equip } from '../../model/equip';
 import './equip_view.less';
 import {
     PrimaryAttribute, SecondaryAttribute, ATTRIBUTE_DESC, DECORATOR_DESC, AttributeDecorator,
-} from '../model/attribute';
-import { CollectionService } from '../service/collection_service';
-import { Stone } from '../model/stone';
-import { EmbedService } from '../service/embed_service';
+} from '../../model/attribute';
+import { CollectionService } from '../../service/collection_service';
+import { Stone } from '../../model/stone';
+import { EmbedService } from '../../service/embed_service';
 
 interface EquipViewProps {
     equip: Equip;
