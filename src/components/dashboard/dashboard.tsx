@@ -3,8 +3,9 @@ import { observer } from 'mobx-react';
 import {
     Button, Nav, Sidenav,
 } from 'rsuite';
-import { StoreProps } from '../../store';
+import { $store, StoreProps } from '../../store';
 import { NewCaseGuide } from '../new_case_guide/new_case_guide';
+import { CaseList } from './case_list';
 
 const iconStyle: CSSProperties = {
     position: 'absolute',
@@ -17,13 +18,17 @@ const iconStyle: CSSProperties = {
     width: 16,
 };
 
+interface DashboardProps {
+    logged: boolean;
+}
+
 interface DashboardState {
     active: string;
     create: boolean;
 }
 
 @observer
-export class Dashboard extends Component<StoreProps, DashboardState> {
+export class Dashboard extends Component<StoreProps & DashboardProps, DashboardState> {
     constructor(props) {
         super(props);
 
@@ -39,6 +44,7 @@ export class Dashboard extends Component<StoreProps, DashboardState> {
 
     render() {
         const { active, create } = this.state;
+        const { logged } = this.props;
         return (
             <main
                 style={{
@@ -94,7 +100,10 @@ export class Dashboard extends Component<StoreProps, DashboardState> {
                         </Nav>
                     </Sidenav.Body>
                 </Sidenav>
+                <div style={{ paddingTop: 120, flex: 1 }}>
 
+                    { logged && active === 'cases' && <CaseList store={$store} /> }
+                </div>
                 <NewCaseGuide show={create} onClose={() => { this.setState({ create: false }); }} />
             </main>
         );

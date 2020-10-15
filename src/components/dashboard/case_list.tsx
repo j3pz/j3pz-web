@@ -1,0 +1,55 @@
+import { Link } from 'gatsby';
+import { observer } from 'mobx-react';
+import React, { Component } from 'react';
+import { FlexboxGrid, List } from 'rsuite';
+import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
+import { CaseInfo } from '../../model/case_info';
+import { CaseService } from '../../service/case_service';
+import { StoreProps } from '../../store';
+
+@observer
+export class CaseList extends Component<StoreProps> {
+    static cache: CaseInfo[] = [];
+
+    componentDidMount() {
+        const { store } = this.props;
+        CaseService.getCaseList(store.user!.token).then((cases) => {
+            CaseList.cache = cases.map((_) => _.attributes);
+            this.forceUpdate();
+        });
+    }
+
+    render() {
+        const list = CaseList.cache;
+        return (
+            <div>
+                <FlexboxGrid style={{ padding: '8px 36px' }}>
+                    <FlexboxGridItem style={{ width: 60 }} />
+                    <FlexboxGridItem colspan={12}>名称</FlexboxGridItem>
+                    <FlexboxGridItem colspan={6}>更新时间</FlexboxGridItem>
+                </FlexboxGrid>
+                <List hover size="lg">
+                    {list.map((c) => (
+                        <List.Item key={`case-${c.id}`} style={{ paddingLeft: 36, paddingRight: 36 }}>
+                            <FlexboxGrid align="middle">
+                                {/* Icon */}
+                                <FlexboxGridItem style={{ width: 60 }}>
+                                    <img src="https://placehold.it/48x48.png" alt={`${c.kungfu}图标`} />
+                                </FlexboxGridItem>
+                                {/* Name */}
+                                <FlexboxGridItem colspan={12}>
+                                    <div style={{ fontSize: 14, color: '#5A5A5B' }}>{c.kungfu}</div>
+                                    <Link to={`/app#${c.id}`} style={{ fontSize: 20, color: '#333334' }}>{c.name}</Link>
+                                </FlexboxGridItem>
+                                {/* Update Time */}
+                                <FlexboxGridItem colspan={6} style={{ color: '#5A5A5B' }}>
+                                    Update Time
+                                </FlexboxGridItem>
+                            </FlexboxGrid>
+                        </List.Item>
+                    ))}
+                </List>
+            </div>
+        );
+    }
+}
