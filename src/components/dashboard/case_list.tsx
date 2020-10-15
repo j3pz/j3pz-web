@@ -12,6 +12,7 @@ import { Resource } from '../../model/resource';
 import { KungFuService } from '../../service/kungfu_service';
 import '../../css/icon.less';
 import './case_list.less';
+import { schoolIcons } from '../../utils/school_icon';
 
 @observer
 export class CaseList extends Component<StoreProps> {
@@ -51,7 +52,11 @@ export class CaseList extends Component<StoreProps> {
                             <FlexboxGrid align="middle">
                                 {/* Icon */}
                                 <FlexboxGridItem style={{ width: 60 }}>
-                                    <img src="https://placehold.it/48x48.png" alt={`${c.kungfu}图标`} />
+                                    <img
+                                        src={`https://images.j3pz.com/imgs/school/${schoolIcons[c.kungfu]}.png`}
+                                        alt={`${c.kungfu}图标`}
+                                        className="kungfu-icon"
+                                    />
                                 </FlexboxGridItem>
                                 {/* Name */}
                                 <FlexboxGridItem colspan={12} className="case-item-col">
