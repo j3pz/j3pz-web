@@ -98,6 +98,10 @@ export class Equip {
         return equip;
     }
 
+    public clone(): Equip {
+        return classToClass(this);
+    }
+
     get damageRangeDesc(): string {
         return `${this.damageBase} - ${this.damageBase + this.damageRange}`;
     }

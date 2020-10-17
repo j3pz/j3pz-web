@@ -20,7 +20,7 @@ export default class DashboardPage extends Component<{}, DashboardPageState> {
 
     componentDidMount() {
         if (!$store.user) {
-            UserService.getUser(localStorage.getItem('token') ?? '', false).then((user) => {
+            UserService.getUser(false).then((user) => {
                 if (user) {
                     $store.user = User.fromJson(user.attributes);
                     this.setState({ logged: true });

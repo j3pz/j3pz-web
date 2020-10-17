@@ -6,9 +6,23 @@ import { EquipTab } from '../equip_tab/equip_tab';
 import { CaseTab } from '../case_tab/case_tab';
 import { SchoolDropdown } from '../school_dropdown/school_dropdown';
 import { BuildingState } from '../empty_states/building';
+import { CaseService } from '../../service/case_service';
+import { CaseDetail } from '../../model/case_info';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
+    componentDidMount() {
+        const caseId = window.location.hash.replace('#', '');
+        if (caseId) {
+            CaseService.getCase(caseId).then((res) => {
+                if (res) {
+                    const detail = CaseDetail.fromJson(res.attributes);
+                    CaseService.applyToStore(detail);
+                }
+            });
+        }
+    }
+
     switchTab = (key: AppTab) => {
         if (key in AppTab) {
             const { store } = this.props;

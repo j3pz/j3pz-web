@@ -65,7 +65,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         }
         const token = localStorage.getItem('token');
         if (token) {
-            UserService.getUser(token, false).then((user) => {
+            UserService.getUser(false).then((user) => {
                 if (user) {
                     $store.user = User.fromJson(user.attributes);
                     navigate('/dashboard');

@@ -20,8 +20,7 @@ export class CaseList extends Component<StoreProps> {
     private allKungFu: Resource<KungFuInfo>[] = [];
 
     componentDidMount() {
-        const { store } = this.props;
-        CaseService.getCaseList(store.user!.token).then((cases) => {
+        CaseService.getCaseList().then((cases) => {
             CaseList.cache = cases.map((_) => _.attributes);
             this.forceUpdate();
         });
