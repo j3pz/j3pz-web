@@ -84,18 +84,24 @@ export class Equip {
     }
 
     public setEmbed(idx: number, level: number): Equip {
-        const equip = classToClass(this);
-        equip.embedding[idx] = {
-            index: idx,
-            level,
-        };
-        return equip;
+        if (idx <= this.embed.count && level >= 0) {
+            const equip = classToClass(this);
+            equip.embedding[idx] = {
+                index: idx,
+                level,
+            };
+            return equip;
+        }
+        return this;
     }
 
-    public setEnhance(enhance: Enhance): Equip {
-        const equip = classToClass(this);
-        equip.enhance = enhance;
-        return equip;
+    public setEnhance(enhance?: Enhance): Equip {
+        if (enhance) {
+            const equip = classToClass(this);
+            equip.enhance = enhance;
+            return equip;
+        }
+        return this;
     }
 
     public clone(): Equip {

@@ -13,7 +13,7 @@ export class CollectionService {
 
     private static categoryToPosition(equipSet: EquipSet): Collection {
         const collection: Collection = equipSet;
-        if (equipSet.equips.ring) {
+        if (equipSet?.equips.ring) {
             collection.equips.ring_1 = equipSet.equips.ring.map((_) => _.clone());
             collection.equips.ring_2 = equipSet.equips.ring.map((_) => _.clone());
             delete (collection as EquipSet).equips.ring;
