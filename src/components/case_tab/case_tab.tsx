@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Col, Container, Row } from 'react-grid-system';
 import { TalentSelection } from '../talent_selection/talent_selection';
+import { BuildingState } from '../empty_states/building';
 import { $store } from '../../store';
 
 @observer
@@ -13,7 +14,7 @@ export class CaseTab extends Component {
                 <Container style={{ flex: 1, paddingTop: 12 }}>
                     <Row>
                         <Col sm={12} md={6}>
-                            test
+                            <BuildingState />
                         </Col>
                     </Row>
                 </Container>

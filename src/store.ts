@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import 'reflect-metadata';
 import { Position, KungFu } from './model/base';
 import { Equip } from './model/equip';
+import { KungFuMeta } from './model/kungfu';
 import { Stone } from './model/stone';
 import { Talent } from './model/talent';
 import { User } from './model/user';
@@ -13,6 +14,7 @@ export interface EditState {
     equipNavExpanded: boolean;
     activeEquipNav: Position;
     kungfu: KungFu;
+    kungfuMeta: KungFuMeta | null;
     equips: {
         [k in Position]?: Equip;
     };
@@ -29,6 +31,7 @@ export const $store = observable<EditState>({
     equipNavExpanded: true,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,
+    kungfuMeta: null,
     equips: {},
     stones: {},
     talents: Array.from({ length: 12 }).map(() => Talent.emptyTalent()),

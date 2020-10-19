@@ -5,9 +5,9 @@ import { $store, StoreProps, AppTab } from '../../store';
 import { EquipTab } from '../equip_tab/equip_tab';
 import { CaseTab } from '../case_tab/case_tab';
 import { SchoolDropdown } from '../school_dropdown/school_dropdown';
-import { BuildingState } from '../empty_states/building';
 import { CaseService } from '../../service/case_service';
 import { CaseDetail } from '../../model/case_info';
+import { EditorViewer } from '../viewer/editor_viewer';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -69,7 +69,7 @@ export class CoreEdit extends Component<StoreProps> {
                             <Nav.Item icon={<i className="fal fa-folder-open" />} />
                             <Nav.Item icon={<i className="fal fa-share-alt" />} />
                         </Nav>
-                        <BuildingState />
+                        <EditorViewer store={$store} />
                     </FlexboxGrid.Item>
                 </FlexboxGrid>
             </main>

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Dropdown } from 'rsuite';
+import { transaction } from 'mobx';
 import { PrimaryAttribute } from '../../model/attribute';
 import { GamingRole, KungFu, schoolAbbrMap } from '../../model/base';
 import { KungFuInfo } from '../../model/kungfu';
@@ -49,11 +50,17 @@ export class SchoolDropdown extends Component<StoreProps, SchoolDropdownState> {
             this.allKungFu = res;
             this.updateKungFu(res);
         });
+        this.changeSchool(this.props.store.kungfu);
     }
 
     changeSchool = (value: KungFu) => {
         const { store } = this.props;
-        store.kungfu = value;
+        transaction(() => {
+            KungFuService.getKungFu(value).then((res) => {
+                store.kungfu = value;
+                store.kungfuMeta = res.attributes;
+            });
+        });
     };
 
     getIcon = () => {
