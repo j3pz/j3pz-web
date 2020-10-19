@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, FlexboxGrid } from 'rsuite';
 import { observer } from 'mobx-react';
+import { navigate } from 'gatsby';
 import { $store, StoreProps, AppTab } from '../../store';
 import { EquipTab } from '../equip_tab/equip_tab';
 import { CaseTab } from '../case_tab/case_tab';
@@ -18,6 +19,8 @@ export class CoreEdit extends Component<StoreProps> {
                 if (res) {
                     const detail = CaseDetail.fromJson(res.attributes);
                     CaseService.applyToStore(detail);
+                } else {
+                    navigate('/dashboard');
                 }
             });
         }

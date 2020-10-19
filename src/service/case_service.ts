@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { transaction } from 'mobx';
+import { navigate } from 'gatsby';
 import { Position } from '../model/base';
 import { CaseDetail, CaseInfo } from '../model/case_info';
 import { Resource } from '../model/resource';
@@ -32,7 +33,7 @@ export class CaseService {
         const res = await axios.get(`${ENDPOINT}/case/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         }).catch(errorHandler);
-        return res?.data.data ?? {};
+        return res?.data.data ?? null;
     }
 
     static applyToStore(detail: CaseDetail) {
