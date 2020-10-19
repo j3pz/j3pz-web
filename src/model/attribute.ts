@@ -103,9 +103,9 @@ export const ATTRIBUTE_SHORT_DESC = {
     parryValue: '拆招',
     toughness: '御劲',
     attack: '攻击',
-    heal: '治疗成效',
+    heal: '治疗',
     crit: '会心',
-    critEffect: '会心效果',
+    critEffect: '会效',
     overcome: '破防',
     hit: '命中',
     strain: '无双',
@@ -117,9 +117,9 @@ export const ATTRIBUTE_SHORT_DESC = {
     basicPhysicsShield: '外防',
     basicMagicShield: '内防',
     // ExtraAttribute
-    health: '气血上限',
+    health: '气血',
     healthRecover: '气血恢复',
-    mana: '内力上限',
+    mana: '内力',
     manaRecover: '内力恢复',
     // damageOffset: '',
 };

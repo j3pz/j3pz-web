@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import {
-    DecoratorTuple, AttributeDecorator, ATTRIBUTE_SHORT_DESC, DECORATOR_DESC,
+    DecoratorTuple, AttributeDecorator, ATTRIBUTE_SHORT_DESC,
 } from '../../model/attribute';
 import { GamingRole } from '../../model/base';
 import { StoreProps } from '../../store';
@@ -33,6 +33,8 @@ export class EditorViewer extends Component<StoreProps> {
         if (kungfuMeta.role === GamingRole.DAMAGE_DEALER) {
             // 破防
             attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'overcome') ?? ['overcome', AttributeDecorator.ALL]);
+            // 破防
+            attributes.push(['surplus', AttributeDecorator.NONE]);
         }
 
         // 命中
@@ -66,9 +68,9 @@ export class EditorViewer extends Component<StoreProps> {
         const attributes = this.getDisplayAttributes();
         return (
             <div>
-                {attributes.map(([attribute, decorator]) => (
+                <div>属性列表</div>
+                {attributes.map(([attribute]) => (
                     <div>
-                        {DECORATOR_DESC[decorator]}
                         {ATTRIBUTE_SHORT_DESC[attribute]}
                     </div>
                 ))}
