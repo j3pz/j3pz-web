@@ -46,7 +46,7 @@ export class CoreEdit extends Component<StoreProps> {
                     bottom: 0,
                 }}
             >
-                <FlexboxGrid style={{ height: '100%' }}>
+                <FlexboxGrid style={{ height: '100%', flexWrap: 'nowrap' }}>
                     <FlexboxGrid.Item colspan={18} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                         <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab}>
                             <SchoolDropdown store={$store} />
@@ -62,6 +62,7 @@ export class CoreEdit extends Component<StoreProps> {
                             height: '100%',
                             display: 'flex',
                             flexDirection: 'column',
+                            minWidth: 360,
                         }}
                         colspan={6}
                     >

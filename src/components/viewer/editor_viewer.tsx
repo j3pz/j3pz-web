@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import {
-    DecoratorTuple, AttributeDecorator, ATTRIBUTE_SHORT_DESC,
-} from '../../model/attribute';
+import { DecoratorTuple, AttributeDecorator } from '../../model/attribute';
 import { GamingRole } from '../../model/base';
 import { StoreProps } from '../../store';
 
@@ -68,12 +66,12 @@ export class EditorViewer extends Component<StoreProps> {
         const attributes = this.getDisplayAttributes();
         return (
             <div>
-                <div>属性列表</div>
+                {/* <div>属性列表</div>
                 {attributes.map(([attribute]) => (
                     <div>
                         {ATTRIBUTE_SHORT_DESC[attribute]}
                     </div>
-                ))}
+                ))} */}
             </div>
         );
     }

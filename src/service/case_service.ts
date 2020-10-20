@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { transaction } from 'mobx';
-import { navigate } from 'gatsby';
 import { Position } from '../model/base';
 import { CaseDetail, CaseInfo } from '../model/case_info';
 import { Resource } from '../model/resource';
