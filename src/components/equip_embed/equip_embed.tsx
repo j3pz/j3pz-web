@@ -39,8 +39,8 @@ export class EquipEmbed extends Component<StoreProps> {
                                 placement="top"
                                 speaker={(
                                     <Popover style={{ maxWidth: 200 }}>
-                                        {[0, 1, 2, 3, 4, 5, 6, 7, 8]
-                                            .filter((n) => n !== level)
+                                        {[1, 2, 3, 4, 5, 6, 7, 8]
+                                            .map((n) => (n === level ? 0 : n))
                                             .map((n) => (
                                                 <img
                                                     key={`embed-option-${n}`}
