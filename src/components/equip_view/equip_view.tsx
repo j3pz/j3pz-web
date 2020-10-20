@@ -140,6 +140,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
                 const embedStone = equip.embedding[n - 1] ?? { index: n - 1, level: 0 };
                 const active = embedStone.level > 0;
                 const img = active ? `0-${embedStone.level}` : 'empty-slot';
+                const embedValue = EmbedService.getPlusValueByLevel(equip.embed.attributes[n - 1], embedStone.level);
                 return (
                     <li className={active ? 'hole-active' : 'inactive'} key={`embed-${n}`}>
                         <img
@@ -151,7 +152,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
                             镶嵌孔：
                             {DECORATOR_DESC[equip.embed.attributes[n - 1][1]]}
                             {ATTRIBUTE_DESC[equip.embed.attributes[n - 1][0]]}
-                            ?
+                            {embedValue > 0 ? `${embedValue}` : '?'}
                         </span>
                     </li>
                 );
