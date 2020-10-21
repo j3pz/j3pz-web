@@ -55,6 +55,7 @@ export class SchoolDropdown extends Component<StoreProps, SchoolDropdownState> {
 
     changeSchool = (value: KungFu) => {
         const { store } = this.props;
+        store.kungfuMeta = null;
         transaction(() => {
             KungFuService.getKungFu(value).then((res) => {
                 store.kungfu = value;

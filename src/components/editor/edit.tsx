@@ -62,18 +62,18 @@ export class CoreEdit extends Component<StoreProps> {
                             height: '100%',
                             display: 'flex',
                             flexDirection: 'column',
-                            minWidth: 360,
+                            minWidth: 361,
                         }}
                         colspan={6}
                     >
-                        <Nav appearance="subtle">
+                        <Nav appearance="subtle" style={{ height: 36 }}>
                             <Nav.Item icon={<i className="fal fa-undo" />} />
                             <Nav.Item icon={<i className="fal fa-redo" />} />
                             <Nav.Item icon={<i className="fal fa-save" />} />
                             <Nav.Item icon={<i className="fal fa-folder-open" />} />
                             <Nav.Item icon={<i className="fal fa-share-alt" />} />
                         </Nav>
-                        <EditorViewer store={$store} />
+                        { store.kungfuMeta && <EditorViewer store={$store} />}
                     </FlexboxGrid.Item>
                 </FlexboxGrid>
             </main>

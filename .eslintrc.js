@@ -38,6 +38,7 @@ module.exports = {
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/no-noninteractive-element-interactions': 'off',
         'react/jsx-props-no-spreading': 'off',
+        'react/sort-comp': 'off',
         'import/prefer-default-export': 'off',
         'import/no-default-export': 'error',
     },
