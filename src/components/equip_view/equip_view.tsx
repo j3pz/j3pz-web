@@ -8,6 +8,7 @@ import {
 import { CollectionService } from '../../service/collection_service';
 import { Stone } from '../../model/stone';
 import { EmbedService } from '../../service/embed_service';
+import { $store } from '../../store';
 
 interface EquipViewProps {
     equip: Equip;
@@ -68,6 +69,9 @@ function EquipView({ equip, stone }: EquipViewProps) {
             </div>
         );
     }
+
+    const embedScore = equip.embedScore + (isWeapon ? ($store.stones[equip.category]?.level ?? 0) * 308 : 0);
+
     return (
         <div className="equip">
             <li className={`equip-name ${equip.strengthen > 6 ? 'rare' : ''}`}>
@@ -235,7 +239,8 @@ function EquipView({ equip, stone }: EquipViewProps) {
             <li className="score">
                 装备分数
                 {equip.score}
-                {equip.strengthLevel > 0 && <span>{`(+${equip.getStrengthValue(equip.score)})`}</span>}
+                {(equip.strengthLevel > 0 || embedScore > 0)
+                    && <span>{`(+${equip.getStrengthValue(equip.score)}+${embedScore})`}</span>}
             </li>
             {/*
             <!-- 装备推荐门派：-->
