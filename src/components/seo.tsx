@@ -49,7 +49,6 @@ function SEO({
             }}
             title={title}
             titleTemplate={applyTemplate ? `%s | ${site.siteMetadata.title}` : '%s'}
-            script={[{ src: 'https://kit.fontawesome.com/2f45df1ed1.js', type: 'text/javascript', crossorigin: 'anonymous' }]}
             meta={[
                 {
                     name: 'description',

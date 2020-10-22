@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link, navigate } from 'gatsby';
 import { Col, Container, Row } from 'react-grid-system';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     Button,
     ButtonToolbar,
     Form, FormControl, FormGroup, HelpBlock, InputGroup,
     Schema,
 } from 'rsuite';
+import { faEnvelope, faLockAlt, faUserAlt } from '@fortawesome/pro-light-svg-icons';
 import { SEO } from '../components/seo';
 import '../css/login.less';
 import { UserService } from '../service/user_service';
@@ -117,7 +119,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
-                                                <i className="fal fa-envelope" />
+                                                <FontAwesomeIcon icon={faEnvelope} />
                                             </InputGroup.Addon>
                                             <FormControl name="email" placeholder="邮箱" size="lg" />
                                         </InputGroup>
@@ -125,7 +127,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     <FormGroup style={{ marginBottom: 24 }}>
                                         <InputGroup inside size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
-                                                <i className="fal fa-lock-alt" />
+                                                <FontAwesomeIcon icon={faLockAlt} />
                                             </InputGroup.Addon>
                                             <FormControl
                                                 name="password"
@@ -208,7 +210,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
-                                                <i className="fal fa-user-alt" />
+                                                <FontAwesomeIcon icon={faUserAlt} />
                                             </InputGroup.Addon>
                                             <FormControl name="name" placeholder="昵称" size="lg" />
                                         </InputGroup>
@@ -216,7 +218,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
-                                                <i className="fal fa-envelope" />
+                                                <FontAwesomeIcon icon={faEnvelope} />
                                             </InputGroup.Addon>
                                             <FormControl name="email" placeholder="邮箱" size="lg" />
                                         </InputGroup>
@@ -224,7 +226,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
-                                                <i className="fal fa-lock-alt" />
+                                                <FontAwesomeIcon icon={faLockAlt} />
                                             </InputGroup.Addon>
                                             <FormControl
                                                 name="password"

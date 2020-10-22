@@ -1,6 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/pro-solid-svg-icons';
+import {
+    faBowArrow, faHelmetBattle, faRingsWedding, faSwords,
+} from '@fortawesome/pro-duotone-svg-icons';
 import { Category, CATEGORY_DESC } from '../../model/base';
 import { Equip } from '../../model/equip';
 import './equip_view.less';
@@ -38,13 +41,13 @@ function EquipView({ equip, stone }: EquipViewProps) {
     }
 
     if (equip === undefined || equip.id === undefined) {
-        let icon = 'fad fa-helmet-battle';
+        let icon = <FontAwesomeIcon icon={faHelmetBattle} className="icon" />;
         if (isWeapon) {
-            icon = 'fad fa-swords';
+            icon = <FontAwesomeIcon icon={faSwords} className="icon" />;
         } else if (isTrinket) {
-            icon = 'fad fa-rings-wedding';
+            icon = <FontAwesomeIcon icon={faRingsWedding} className="icon" />;
         } else if (isSecondaryWeapon) {
-            icon = 'fad fa-bow-arrow';
+            icon = <FontAwesomeIcon icon={faBowArrow} className="icon" />;
         }
         return (
             <div className="equip empty-equip">
@@ -67,7 +70,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
                 <p style={{ width: 110, backgroundColor: '#FFFFFF' }} className="placeholder" />
                 <p style={{ width: 40, backgroundColor: '#9B9B9B' }} className="placeholder" />
                 <p style={{ width: 140, backgroundColor: '#9B9B9B' }} className="placeholder" />
-                <i className={icon} />
+                {icon}
                 <div>尚未穿戴装备</div>
             </div>
         );

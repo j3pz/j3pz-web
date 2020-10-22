@@ -3,6 +3,9 @@ import { observer } from 'mobx-react';
 import {
     Button, Nav, Sidenav,
 } from 'rsuite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/pro-solid-svg-icons';
+import { faCogs, faGripVertical, faPresentation } from '@fortawesome/pro-regular-svg-icons';
 import { $store, StoreProps } from '../../store';
 import { NewCaseGuide } from '../new_case_guide/new_case_guide';
 import { CaseList } from './case_list';
@@ -71,7 +74,7 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                                 appearance="primary"
                                 onClick={this.showNewCaseGuide}
                             >
-                                <i className="fas fa-plus" />
+                                <FontAwesomeIcon icon={faPlus} />
                                 {'  '}
                                 新配装方案
                             </Button>
@@ -81,19 +84,19 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                         <Nav activeKey={active}>
                             <Nav.Item
                                 eventKey="cases"
-                                icon={<i className="far fa-grip-vertical" style={iconStyle} />}
+                                icon={<FontAwesomeIcon icon={faGripVertical} style={iconStyle} />}
                             >
                                 配装方案
                             </Nav.Item>
                             <Nav.Item
                                 eventKey="published"
-                                icon={<i className="far fa-presentation" style={iconStyle} />}
+                                icon={<FontAwesomeIcon icon={faPresentation} style={iconStyle} />}
                             >
                                 发布方案
                             </Nav.Item>
                             <Nav.Item
                                 eventKey="settings"
-                                icon={<i className="far fa-cogs" style={iconStyle} />}
+                                icon={<FontAwesomeIcon icon={faCogs} style={iconStyle} />}
                             >
                                 设置
                             </Nav.Item>
