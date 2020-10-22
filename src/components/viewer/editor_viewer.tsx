@@ -1,10 +1,11 @@
 import Konva from 'konva';
+import { TextConfig } from 'konva/types/shapes/Text';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import {
-    Layer, Stage, Text, Rect,
+    Layer, Stage, Text, Rect, Group,
 } from 'react-konva';
-import { DecoratorTuple, AttributeDecorator } from '../../model/attribute';
+import { DecoratorTuple, AttributeDecorator, ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import { GamingRole, schoolAbbrMap } from '../../model/base';
 import { StoreProps } from '../../store';
 import { schoolIcons } from '../../utils/school_icon';
@@ -74,7 +75,7 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
         }
 
         // 命中
-        attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'hit') ?? ['hit', AttributeDecorator.ALL]);
+        // attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'hit') ?? ['hit', AttributeDecorator.ALL]);
         // 急速
         attributes.push(['haste', AttributeDecorator.NONE]);
         // 无双
@@ -149,8 +150,6 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                             height={80}
                             filters={[Konva.Filters.Grayscale]}
                         />
-                    </Layer>
-                    <Layer>
                         <Text
                             text={kungfu}
                             x={width / 2 - 90 * 0.5}
@@ -161,14 +160,50 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                             align="center"
                             width={90}
                         />
+                        <Rect
+                            x={16}
+                            y={180}
+                            width={width - 16 * 2}
+                            height={kungfuMeta!.role === GamingRole.DAMAGE_DEALER ? 342 : 262}
+                            fill="white"
+                            opacity={0.3}
+                            shadowColor="white"
+                            shadowOpacity={0.12}
+                            shadowBlur={8}
+                        />
+                    </Layer>
+                    <Layer name="texts">
+                        {attributes.map(([attribute], i) => {
+                            const titleProps: TextConfig = {
+                                fill: '#D6913D',
+                                text: ATTRIBUTE_SHORT_DESC[attribute],
+                                fontFamily: '"Microsoft YaHei", 微软雅黑, Roboto, sans-serif',
+                                fontSize: 24,
+                                x: ((width - 32) / 4) * (i % 4) + 16,
+                                y: 196 + Math.floor(i / 4) * 80,
+                                width: (width - 32) / 4,
+                                height: 32,
+                                verticalAlign: 'middle',
+                                align: 'center',
+                                shadowBlur: 4,
+                                shadowOpacity: 0.7,
+                            };
+                            const numberProps: TextConfig = {
+                                ...titleProps,
+                                text: '0',
+                                fill: '#FFFFFF',
+                                y: titleProps.y! + 36,
+                            };
+
+                            return (
+                                <Group key={`attribute-${attribute}`}>
+                                    <Text {...titleProps} />
+                                    <Text {...numberProps} />
+                                </Group>
+                            );
+                        })}
                     </Layer>
                 </Stage>
-                {/* <div>属性列表</div>
-                {attributes.map(([attribute]) => (
-                    <div>
-                        {ATTRIBUTE_SHORT_DESC[attribute]}
-                    </div>
-                ))} */}
             </div>
         );
     }
