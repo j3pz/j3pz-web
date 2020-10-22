@@ -16,6 +16,8 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install Dependencies
+        env:
+          FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
         run: npm install
       - name: Build
         run: npm run build
