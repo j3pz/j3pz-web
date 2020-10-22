@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { SelectPicker, TagPicker } from 'rsuite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileSearch } from '@fortawesome/pro-light-svg-icons';
 import { StoreProps } from '../../store';
 import { KungFu } from '../../model/base';
 import { StoneService } from '../../service/stone_service';
@@ -128,7 +130,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
                         if (stones.length === 0) {
                             return (
                                 <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
-                                    <i className="fal fa-file-search" />
+                                    <FontAwesomeIcon icon={faFileSearch} />
                                     {' '}
                                     没有符合条件的五彩石
                                 </p>

@@ -2,6 +2,8 @@ import { Link } from 'gatsby';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { FlexboxGrid, List } from 'rsuite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisH } from '@fortawesome/pro-solid-svg-icons';
 import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
 import { CaseInfo } from '../../model/case_info';
 import { CaseService } from '../../service/case_service';
@@ -62,7 +64,7 @@ export class CaseList extends Component<StoreProps> {
                                     <div style={{ fontSize: 14, color: '#5A5A5B' }}>{c.kungfu}</div>
                                     <Link to={`/app#${c.id}`} style={{ fontSize: 20, color: '#333334' }}>{c.name}</Link>
                                     <div className="case-more">
-                                        <i className="fas fa-ellipsis-h" />
+                                        <FontAwesomeIcon icon={faEllipsisH} />
                                     </div>
                                 </FlexboxGridItem>
                                 {/* Update Time */}

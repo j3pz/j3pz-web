@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStarHalfAlt, faSlash, faStar as faLightStar } from '@fortawesome/pro-light-svg-icons';
+import { faStar as faSolidStar } from '@fortawesome/pro-solid-svg-icons';
 import { StoreProps } from '../../store';
 import './equip_enhance.less';
 
@@ -57,13 +60,13 @@ export class StrengthenPicker extends Component<StoreProps, StrengthenPickerStat
             <>
                 <div className="label">精炼</div>
                 <span
-                    className="fa-stack cancel-star"
+                    className="fa-layers fa-2x cancel-star"
                     onClick={() => this.handleSelect(0)}
                     onMouseLeave={() => this.handleMouseOut()}
                     onMouseEnter={() => this.handleMouseIn(0)}
                 >
-                    <i className="fal fa-star-half-alt fa-stack-2x" />
-                    <i className="fal fa-slash fa-stack-2x" />
+                    <FontAwesomeIcon icon={faStarHalfAlt} />
+                    <FontAwesomeIcon icon={faSlash} />
                 </span>
                 {Array.from({ length: currentEquip?.strengthen ?? 0 })
                     .map((_, i) => {
@@ -72,11 +75,12 @@ export class StrengthenPicker extends Component<StoreProps, StrengthenPickerStat
                             onMouseEnter: () => this.handleMouseIn(i + 1),
                             onClick: () => this.handleSelect(i + 1),
                             key: `strengthen-${i}`,
+                            className: 'add-star',
                         };
                         if (i + 1 <= (currentEquip?.strengthLevel ?? 0)) {
-                            return <i className="fas fa-star fa-2x add-star" {...handlers} />;
+                            return <FontAwesomeIcon icon={faSolidStar} size="2x" {...handlers} />;
                         }
-                        return <i className="fal fa-star fa-2x add-star" {...handlers} />;
+                        return <FontAwesomeIcon icon={faLightStar} size="2x" {...handlers} />;
                     })}
             </>
         );

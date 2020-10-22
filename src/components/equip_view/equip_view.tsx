@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/pro-solid-svg-icons';
 import { Category, CATEGORY_DESC } from '../../model/base';
 import { Equip } from '../../model/equip';
 import './equip_view.less';
@@ -9,6 +11,7 @@ import { CollectionService } from '../../service/collection_service';
 import { Stone } from '../../model/stone';
 import { EmbedService } from '../../service/embed_service';
 import { $store } from '../../store';
+
 
 interface EquipViewProps {
     equip: Equip;
@@ -77,7 +80,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
             <li className={`equip-name ${equip.strengthen > 6 ? 'rare' : ''}`}>
                 {equip.name}
                 {[1, 2, 3, 4, 5, 6, 7, 8].filter((n) => n <= equip.strengthLevel)
-                    .map((n) => <i className="fas fa-star star" key={`star-${n}`} />)}
+                    .map((n) => <FontAwesomeIcon icon={faStar} className="star" key={`star-${n}`} />)}
                 <span className="right">
                     精炼等级:
                     {equip.strengthLevel}

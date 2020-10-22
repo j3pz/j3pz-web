@@ -4,6 +4,8 @@ import {
     CheckboxGroup, Checkbox, SelectPicker, RangeSlider,
 } from 'rsuite';
 import { transaction } from 'mobx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileSearch, faSpinner } from '@fortawesome/pro-light-svg-icons';
 import { StoreProps } from '../../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import { EquipService } from '../../service/equip_service';
@@ -143,7 +145,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                         if (raw.length === 0) {
                             return (
                                 <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
-                                    <i className="fal fa-spinner fa-spin" />
+                                    <FontAwesomeIcon icon={faSpinner} spin />
                                     {' '}
                                     加载中...
                                 </p>
@@ -152,7 +154,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                         if (equips.length === 0) {
                             return (
                                 <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
-                                    <i className="fal fa-file-search" />
+                                    <FontAwesomeIcon icon={faFileSearch} />
                                     {' '}
                                     没有装备符合筛选条件
                                 </p>

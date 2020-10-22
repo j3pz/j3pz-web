@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Nav, FlexboxGrid } from 'rsuite';
 import { observer } from 'mobx-react';
 import { navigate } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faUndo, faRedo, faSave, faFolderOpen, faShareAlt,
+} from '@fortawesome/pro-light-svg-icons';
 import { $store, StoreProps, AppTab } from '../../store';
 import { EquipTab } from '../equip_tab/equip_tab';
 import { CaseTab } from '../case_tab/case_tab';
@@ -67,11 +71,11 @@ export class CoreEdit extends Component<StoreProps> {
                         colspan={6}
                     >
                         <Nav appearance="subtle" style={{ height: 36 }}>
-                            <Nav.Item icon={<i className="fal fa-undo" />} />
-                            <Nav.Item icon={<i className="fal fa-redo" />} />
-                            <Nav.Item icon={<i className="fal fa-save" />} />
-                            <Nav.Item icon={<i className="fal fa-folder-open" />} />
-                            <Nav.Item icon={<i className="fal fa-share-alt" />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faUndo} />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faSave} />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} />} />
                         </Nav>
                         { store.kungfuMeta && <EditorViewer store={$store} />}
                     </FlexboxGrid.Item>

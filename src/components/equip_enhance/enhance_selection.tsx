@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { SelectPicker } from 'rsuite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/pro-light-svg-icons';
 import { StoreProps } from '../../store';
 import { EnhanceService } from '../../service/enhance_service';
 import { KungFu, Position } from '../../model/base';
@@ -69,7 +71,7 @@ export class EnhanceSelection extends Component<StoreProps> {
                         if (raw.length === 0) {
                             return (
                                 <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
-                                    <i className="fal fa-spinner fa-spin" />
+                                    <FontAwesomeIcon icon={faSpinner} spin />
                                     {' '}
                                     加载中...
                                 </p>

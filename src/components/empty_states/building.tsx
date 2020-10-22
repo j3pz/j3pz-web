@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faConstruction } from '@fortawesome/pro-duotone-svg-icons';
 
 function BuildingState() {
     return (
@@ -12,7 +14,7 @@ function BuildingState() {
                 alignItems: 'center',
             }}
         >
-            <i className="fad fa-construction" style={{ display: 'block', fontSize: 96, textAlign: 'center' }} />
+            <FontAwesomeIcon icon={faConstruction} style={{ display: 'block', fontSize: 96, textAlign: 'center' }} />
             <span
                 style={{
                     display: 'block',
