@@ -16,6 +16,7 @@ export const SecondaryAttribute: SecondaryAttribute[] = [
     'hit', 'surplus', 'strain', 'haste', 'threat', 'huajing',
 ];
 export type MinorAttribute = 'basicMagicShield' | 'basicPhysicsShield' | 'attackSpeed' | 'damageBase' | 'damageRange';
+export const MinorAttribute: MinorAttribute[] = ['basicMagicShield', 'basicPhysicsShield', 'attackSpeed', 'damageBase', 'damageRange'];
 export type ExtraAttribute = 'health' | 'healthRecover' | 'mana' | 'manaRecover' | 'damageOffset';
 
 export type Attribute = PrimaryAttribute | SecondaryAttribute | MinorAttribute | ExtraAttribute;
@@ -40,6 +41,8 @@ export const AttributeDecorator = {
 };
 export type AttributeDecorator = (typeof AttributeDecorator)[keyof typeof AttributeDecorator];
 export type DecoratorTuple = [Attribute, AttributeDecorator];
+export type DecoratableAttribute = 'attack' | 'crit' | 'critEffect' | 'hit' | 'overcome';
+export const DecoratableAttribute = ['attack', 'crit', 'critEffect', 'hit', 'overcome']
 
 export const DECORATOR_DESC: { [k in AttributeDecorator]: string } = {
     [AttributeDecorator.PHYSICS]: '外功',

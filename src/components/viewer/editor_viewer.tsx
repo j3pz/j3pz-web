@@ -11,6 +11,7 @@ import { StoreProps } from '../../store';
 import { schoolIcons } from '../../utils/school_icon';
 import { CanvasImage } from '../canvas_image/canvas_image';
 import './editor_viewer.less';
+import { ResultService } from '../../service/result_service';
 
 interface EditorViewerState {
     width: number;
@@ -105,6 +106,7 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
         const attributes = this.getDisplayAttributes();
         const { width, height } = this.state;
         const { kungfuMeta, kungfu } = this.props.store;
+        const result = ResultService.calc(this.props.store);
         return (
             <div
                 className="result-view"
@@ -139,7 +141,6 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                             scale={{ x: 0.75, y: 0.75 }}
                             width={173}
                             height={175}
-                            filters={[Konva.Filters.Grayscale]}
                         />
                         <CanvasImage
                             src={`https://images.j3pz.com/imgs/school/${schoolIcons[kungfu]}.png`}
@@ -173,9 +174,9 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                         />
                     </Layer>
                     <Layer name="texts">
-                        {attributes.map(([attribute], i) => {
+                        {attributes.map(([attribute, decorator], i) => {
                             const titleProps: TextConfig = {
-                                fill: '#D6913D',
+                                fill: '#FFFF00',
                                 text: ATTRIBUTE_SHORT_DESC[attribute],
                                 fontFamily: '"Microsoft YaHei", 微软雅黑, Roboto, sans-serif',
                                 fontSize: 24,
@@ -190,7 +191,7 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                             };
                             const numberProps: TextConfig = {
                                 ...titleProps,
-                                text: '0',
+                                text: `${result[attribute]?.[decorator] ?? result[attribute] ?? 0}`,
                                 fill: '#FFFFFF',
                                 y: titleProps.y! + 36,
                             };
