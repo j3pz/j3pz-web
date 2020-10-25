@@ -35,7 +35,7 @@ export interface EditState {
 }
 
 export const $store = observable<EditState>({
-    tab: AppTab.CASE,
+    tab: AppTab.EQUIP,
     equipNavExpanded: true,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,

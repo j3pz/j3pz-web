@@ -1,4 +1,6 @@
-import { DecoratableAttribute, PrimaryAttribute, SecondaryAttribute, MinorAttribute, AttributeDecorator } from './attribute';
+import {
+    DecoratableAttribute, PrimaryAttribute, SecondaryAttribute, MinorAttribute, AttributeDecorator,
+} from './attribute';
 import { Equip } from './equip';
 import { EmbedService } from '../service/embed_service';
 import { DecoratedAttribute } from './decorated_attribute';
@@ -12,22 +14,22 @@ export class Result {
     public agility = 0;
 
     // SecondaryAttribute
-    private _physicsShield = 0;
+    private otherPhysicsShield = 0;
     private basicPhysicsShield = 0;
     public set physicsShield(value: number) {
-        this._physicsShield = value;
+        this.otherPhysicsShield = value;
     }
     public get physicsShield() {
-        return this._physicsShield + this.basicPhysicsShield;
+        return this.otherPhysicsShield + this.basicPhysicsShield;
     }
 
-    private _magicShield = 0;
+    private otherMagicShield = 0;
     private basicMagicShield = 0;
     public set magicShield(value: number) {
-        this._magicShield = value;
+        this.otherMagicShield = value;
     }
     public get magicShield() {
-        return this._magicShield + this.basicMagicShield;
+        return this.otherMagicShield + this.basicMagicShield;
     }
 
     public dodge = 0;
@@ -54,24 +56,24 @@ export class Result {
     }
 
     set health(value: number) {
-        
+
     }
 
     applyEquip(equip?: Equip) {
         if (equip) {
             PrimaryAttribute.forEach((key) => {
-                this[key] = this[key] + (equip[key] ?? 0);
+                this[key] += equip[key] ?? 0;
                 this[key] += equip.getStrengthValue(equip[key]);
             });
             SecondaryAttribute
-                .filter(attribute => !DecoratableAttribute.includes(attribute))
+                .filter((attribute) => !DecoratableAttribute.includes(attribute))
                 .forEach((key) => {
-                    this[key] = this[key] + (equip[key] ?? 0);
+                    this[key] += equip[key] ?? 0;
                     this[key] += equip.getStrengthValue(equip[key]);
                 });
             MinorAttribute.forEach((key) => {
                 if (this[key] !== undefined) {
-                    this[key] = this[key] + (equip[key] ?? 0);
+                    this[key] += equip[key] ?? 0;
                 }
             });
 
@@ -79,12 +81,14 @@ export class Result {
                 const decorator = equip.decorators[key];
                 if (decorator === AttributeDecorator.ALL) {
                     (this[key] as DecoratedAttribute).addAll(equip[key]);
+                } else if (decorator === AttributeDecorator.MAGIC) {
+                    (this[key] as DecoratedAttribute).addMagic(equip[key]);
                 } else {
                     (this[key] as DecoratedAttribute)[decorator] += equip[key];
                 }
             });
-            
-            [1,2,3].forEach(n => {
+
+            [1, 2, 3].forEach((n) => {
                 if (equip.embed.count < n) {
                     return;
                 }
