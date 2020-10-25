@@ -73,7 +73,17 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
         EquipService.getEquip(value).then((res) => {
             const equip = Equip.fromJson(res.attributes);
             transaction(() => {
-                store.equips[currentPosition] = equip;
+                let finalEquip = equip;
+                if (store.settings.autoStrengthen) {
+                    finalEquip = finalEquip.setStrengthLevel(equip.strengthen);
+                }
+                if (store.settings.autoEmbed > 0) {
+                    const level = store.settings.autoEmbed;
+                    finalEquip = finalEquip.setEmbed(0, level)
+                        .setEmbed(1, level)
+                        .setEmbed(2, level);
+                }
+                store.equips[currentPosition] = finalEquip;
                 CollectionService.updateCollection(store);
             });
         });

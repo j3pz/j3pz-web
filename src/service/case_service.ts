@@ -64,16 +64,17 @@ export class CaseService {
         });
     }
 
-    static changeCaseName(id: string, name: string) {
+    static async changeCaseName(id: string, name: string): Promise<boolean> {
         const token = $store.user?.token ?? localStorage.getItem('token');
         if (!token) {
             directError('尚未登录');
-            return;
+            return false;
         }
         axios.patch(`${ENDPOINT}/case/${id}`, {
             name,
         }, {
             headers: { Authorization: `Bearer ${token}` },
-        });
+        }).catch(errorHandler);
+        return true;
     }
 }
