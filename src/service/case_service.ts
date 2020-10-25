@@ -4,6 +4,7 @@ import { Position } from '../model/base';
 import { CaseDetail, CaseInfo } from '../model/case_info';
 import { CaseModel } from '../model/case_model';
 import { Resource } from '../model/resource';
+import { Talent } from '../model/talent';
 import { $store, EditState } from '../store';
 import { directError, ENDPOINT, errorHandler } from './base';
 import { CollectionService } from './collection_service';
@@ -62,6 +63,11 @@ export class CaseService {
                 }
             });
             CollectionService.updateCollection($store);
+
+            $store.talents = detail.scheme.talent.map((talentScheme, i) => {
+                const talent = detail.talent.find((t) => t.id === talentScheme);
+                return (talent ?? Talent.emptyTalent(detail.kungfu)).setIndex(i);
+            });
         });
     }
 
@@ -105,7 +111,7 @@ export class CaseService {
                 });
             }
         });
-        caseModel.talent = [];
+        caseModel.talent = store.talents.map((t) => t.id);
         caseModel.effect = [];
 
         const res = await axios.put(`${ENDPOINT}/case/${caseModel.id}`, caseModel, {

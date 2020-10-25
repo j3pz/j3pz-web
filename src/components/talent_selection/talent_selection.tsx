@@ -35,17 +35,22 @@ export class TalentSelection extends Component<StoreProps, TalentSelectionState>
     updateTalents = () => {
         const { store } = this.props;
         TalentService.listTalent(store.kungfu).then((talents) => {
-            this.setState({
-                talents: talents.map((t) => t.attributes)
-                    .reduce((acc, t) => {
-                        const idx = t.index - 1;
-                        if (acc[idx]) {
-                            acc[idx].push(t);
-                        } else {
-                            acc[idx] = [t];
-                        }
-                        return acc;
-                    }, [] as Talent[][]),
+            const talentGroups = talents.map((t) => Talent.fromJson(t.attributes))
+                .reduce((acc, t) => {
+                    const idx = t.index - 1;
+                    if (acc[idx]) {
+                        acc[idx].push(t);
+                    } else {
+                        acc[idx] = [t];
+                    }
+                    return acc;
+                }, [] as Talent[][]);
+            this.setState({ talents: talentGroups });
+            store.talents = talentGroups.map((group, i) => {
+                if (store.talents[i]) {
+                    return group.find((t) => t.id === store.talents[i].id) ?? group[0];
+                }
+                return group[0];
             });
         });
     };
