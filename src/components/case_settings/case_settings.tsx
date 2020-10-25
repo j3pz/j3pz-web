@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import {
+    Alert,
     ControlLabel, Form, FormControl, FormGroup, Panel, PanelGroup, Popover, Toggle, Whisper,
 } from 'rsuite';
 import { CaseService } from '../../service/case_service';
@@ -23,7 +24,11 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
 
     changeName = () => {
         const { store } = this.props;
-        CaseService.changeCaseName(store.caseInfo.id, store.caseInfo.name);
+        CaseService.changeCaseName(store.caseInfo.id, store.caseInfo.name).then((res) => {
+            if (res) {
+                Alert.success('更名成功');
+            }
+        });
     };
 
     render() {

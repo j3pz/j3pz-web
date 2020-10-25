@@ -2,8 +2,9 @@ import axios from 'axios';
 import { transaction } from 'mobx';
 import { Position } from '../model/base';
 import { CaseDetail, CaseInfo } from '../model/case_info';
+import { CaseModel } from '../model/case_model';
 import { Resource } from '../model/resource';
-import { $store } from '../store';
+import { $store, EditState } from '../store';
 import { directError, ENDPOINT, errorHandler } from './base';
 import { CollectionService } from './collection_service';
 
@@ -76,5 +77,40 @@ export class CaseService {
             headers: { Authorization: `Bearer ${token}` },
         }).catch(errorHandler);
         return true;
+    }
+
+    static async save(store: EditState) {
+        const token = $store.user?.token ?? localStorage.getItem('token');
+        if (!token) {
+            directError('尚未登录');
+            return false;
+        }
+
+        const caseModel = new CaseModel(store.caseInfo.id);
+        caseModel.name = store.caseInfo.name;
+        caseModel.kungfu = store.kungfu;
+        caseModel.published = false;
+
+        Object.values(store.equips).forEach((equip) => {
+            if (equip) {
+                caseModel.equip.push({
+                    id: equip.id,
+                    category: equip.category,
+                    strengthen: equip.strengthLevel,
+                    enhance: equip.enhance?.id ?? null,
+                    embed: equip.embedding.map((ops) => ({
+                        type: 'unified',
+                        level: ops?.level ?? 0,
+                    })),
+                });
+            }
+        });
+        caseModel.talent = [];
+        caseModel.effect = [];
+
+        const res = await axios.put(`${ENDPOINT}/case/${caseModel.id}`, caseModel, {
+            headers: { Authorization: `Bearer ${token}` },
+        }).catch(errorHandler);
+        return res?.data.data.status === 'success';
     }
 }

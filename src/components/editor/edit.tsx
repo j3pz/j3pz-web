@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Nav, FlexboxGrid } from 'rsuite';
+import { Nav, FlexboxGrid, Alert } from 'rsuite';
 import { observer } from 'mobx-react';
 import { navigate } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faUndo, faRedo, faSave, faFolderOpen, faShareAlt,
-} from '@fortawesome/pro-light-svg-icons';
+import { faSave, faShareAlt } from '@fortawesome/pro-light-svg-icons';
 import { $store, StoreProps, AppTab } from '../../store';
 import { EquipTab } from '../equip_tab/equip_tab';
 import { CaseTab } from '../case_tab/case_tab';
@@ -34,6 +32,19 @@ export class CoreEdit extends Component<StoreProps> {
         if (key in AppTab) {
             const { store } = this.props;
             store.tab = key;
+        }
+    };
+
+    onCaseEvent = (key: string) => {
+        switch (key) {
+            case 'save':
+                CaseService.save($store).then((res) => {
+                    if (res) {
+                        Alert.success('保存成功');
+                    }
+                });
+                break;
+            default: break;
         }
     };
 
@@ -70,11 +81,11 @@ export class CoreEdit extends Component<StoreProps> {
                         }}
                         colspan={6}
                     >
-                        <Nav appearance="subtle" style={{ height: 36 }}>
-                            <Nav.Item icon={<FontAwesomeIcon icon={faUndo} />} />
-                            <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} />
-                            <Nav.Item icon={<FontAwesomeIcon icon={faSave} />} />
-                            <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} />
+                        <Nav appearance="subtle" style={{ height: 36 }} onSelect={this.onCaseEvent}>
+                            {/* <Nav.Item icon={<FontAwesomeIcon icon={faUndo} />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} /> */}
+                            <Nav.Item icon={<FontAwesomeIcon icon={faSave} />} eventKey="save" />
+                            {/* <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} /> */}
                             <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} />} />
                         </Nav>
                         { store.kungfuMeta && <EditorViewer store={$store} />}

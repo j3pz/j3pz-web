@@ -10,7 +10,7 @@ export class EquipScheme {
     public id: number;
     public category: Category;
     public strengthen: number;
-    public enhance: number;
+    public enhance: number | null;
     public embed: EquipEmbed[];
     public stone?: number;
 }
