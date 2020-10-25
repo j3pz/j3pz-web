@@ -4,6 +4,7 @@ import { Col, Container, Row } from 'react-grid-system';
 import { TalentSelection } from '../talent_selection/talent_selection';
 import { BuildingState } from '../empty_states/building';
 import { $store } from '../../store';
+import { CaseSettings } from '../case_settings/case_settings';
 
 @observer
 export class CaseTab extends Component {
@@ -15,6 +16,9 @@ export class CaseTab extends Component {
                     <Row>
                         <Col sm={12} md={6}>
                             <BuildingState />
+                        </Col>
+                        <Col sm={12} md={6}>
+                            <CaseSettings store={$store} />
                         </Col>
                     </Row>
                 </Container>

@@ -24,10 +24,18 @@ export interface EditState {
         [Position.TERTIARY_WEAPON]?: Stone;
     };
     user: User | null;
+    caseInfo: {
+        id: string;
+        name: string;
+    },
+    settings: {
+        autoStrengthen: boolean,
+        autoEmbed: number,
+    },
 }
 
 export const $store = observable<EditState>({
-    tab: AppTab.EQUIP,
+    tab: AppTab.CASE,
     equipNavExpanded: true,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,
@@ -36,6 +44,14 @@ export const $store = observable<EditState>({
     stones: {},
     talents: Array.from({ length: 12 }).map(() => Talent.emptyTalent()),
     user: null,
+    caseInfo: {
+        id: '',
+        name: '',
+    },
+    settings: {
+        autoStrengthen: true,
+        autoEmbed: 6,
+    },
 });
 
 export interface StoreProps {

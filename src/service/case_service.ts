@@ -37,6 +37,10 @@ export class CaseService {
 
     static applyToStore(detail: CaseDetail) {
         transaction(() => {
+            $store.caseInfo = {
+                id: detail.id,
+                name: detail.name,
+            };
             detail.scheme.equip.forEach((equipScheme) => {
                 const equip = detail.equip.find((e) => e.id === equipScheme.id);
                 const enhance = detail.enhance.find((e) => e.id === equipScheme.enhance);
@@ -57,6 +61,19 @@ export class CaseService {
                 }
             });
             CollectionService.updateCollection($store);
+        });
+    }
+
+    static changeCaseName(id: string, name: string) {
+        const token = $store.user?.token ?? localStorage.getItem('token');
+        if (!token) {
+            directError('尚未登录');
+            return;
+        }
+        axios.patch(`${ENDPOINT}/case/${id}`, {
+            name,
+        }, {
+            headers: { Authorization: `Bearer ${token}` },
         });
     }
 }
