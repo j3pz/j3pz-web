@@ -22,10 +22,10 @@ export type ExtraAttribute = 'health' | 'healthRecover' | 'mana' | 'manaRecover'
 export type Attribute = PrimaryAttribute | SecondaryAttribute | MinorAttribute | ExtraAttribute;
 export type AttributeTag =
     'physicsShield' | 'magicShield' | 'dodge' | 'parryBase' | 'toughness' |
-    'crit' | 'overcome' | 'surplus' | 'strain' | 'haste';
+    'crit' | 'overcome' | 'surplus' | 'strain' | 'haste' | 'huajing';
 export const AttributeTag: AttributeTag[] = [
     'physicsShield', 'magicShield', 'dodge', 'parryBase', 'toughness',
-    'crit', 'overcome', 'surplus', 'strain', 'haste',
+    'crit', 'overcome', 'surplus', 'strain', 'haste', 'huajing',
 ];
 
 export const AttributeDecorator = {
@@ -42,7 +42,7 @@ export const AttributeDecorator = {
 export type AttributeDecorator = (typeof AttributeDecorator)[keyof typeof AttributeDecorator];
 export type DecoratorTuple = [Attribute, AttributeDecorator];
 export type DecoratableAttribute = 'attack' | 'crit' | 'critEffect' | 'hit' | 'overcome';
-export const DecoratableAttribute = ['attack', 'crit', 'critEffect', 'hit', 'overcome']
+export const DecoratableAttribute = ['attack', 'crit', 'critEffect', 'hit', 'overcome'];
 
 export const DECORATOR_DESC: { [k in AttributeDecorator]: string } = {
     [AttributeDecorator.PHYSICS]: '外功',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import {
-    CheckboxGroup, Checkbox, SelectPicker, RangeSlider,
+    CheckboxGroup, Checkbox, SelectPicker, RangeSlider, Toggle,
 } from 'rsuite';
 import { transaction } from 'mobx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,12 +16,15 @@ import './equip_selection.less';
 import { SettingsService } from '../../service/settings_service';
 import { SimpleEquip } from '../../model/simple_equip';
 import { CollectionService } from '../../service/collection_service';
+import { SearchEquip } from './search_equip';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
     minQuality: number;
     maxQuality: number;
     range: [number, number];
+    selectOnly: 'pve' | 'pvp' | 'all';
+    custom: boolean;
 }
 
 @observer
@@ -36,6 +39,8 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             minQuality: 3000,
             maxQuality: 5000,
             range: [2040, 5000],
+            selectOnly: 'all',
+            custom: false,
         };
         this.cache = new Map();
     }
@@ -99,18 +104,29 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
 
     getFilteredEquips = () => {
         const { store } = this.props;
-        const { range, tags } = this.state;
-        const equips = this.cache.get(store.activeEquipNav) ?? [];
-        return equips.filter((equip) => {
+        const { range, tags, selectOnly } = this.state;
+        let hitCurrentEquip = false;
+        const currentEquip = store.equips[store.activeEquipNav];
+        const equips = (this.cache.get(store.activeEquipNav) ?? []).filter((equip) => {
+            if (equip.id === currentEquip?.id) {
+                hitCurrentEquip = true;
+                return true;
+            }
             if (equip.quality > range[1] || equip.quality < range[0]) return false;
-            if (tags.length > 0 && tags.filter((t) => equip.tags.includes(t)).length === 0) return false;
+            if (tags.length > 0 && tags.filter((t) => equip.tags.includes(t)).length < tags.length) return false;
+            if (selectOnly === 'pve' && equip.tags.includes('huajing')) return false;
+            if (selectOnly === 'pvp' && !equip.tags.includes('huajing')) return false;
             return true;
         });
+        if (!hitCurrentEquip && currentEquip) {
+            return equips.concat([SimpleEquip.fromJson(currentEquip)]);
+        }
+        return equips;
     };
 
     render() {
         const {
-            tags, minQuality, maxQuality, range,
+            tags, minQuality, maxQuality, range, selectOnly, custom,
         } = this.state;
         const { store } = this.props;
         const raw = this.cache.get(store.activeEquipNav) ?? [];
@@ -125,8 +141,29 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                         this.setState({ tags: value });
                     }}
                 >
-                    {AttributeTag.map((key) => <Checkbox value={key} key={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
+                    {AttributeTag.filter((t) => t !== 'huajing')
+                        .map((key) => <Checkbox value={key} key={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
                 </CheckboxGroup>
+                <div style={{ margin: 12 }} />
+                <div>
+                    <span>只看</span>
+                    <div style={{ display: 'inline-block', padding: 8 }}>
+                        <Toggle
+                            checkedChildren="PVE"
+                            unCheckedChildren="PVE"
+                            checked={selectOnly === 'pve'}
+                            onChange={(checked) => { this.setState({ selectOnly: checked ? 'pve' : 'all' }); }}
+                        />
+                    </div>
+                    <div style={{ display: 'inline-block', padding: 8 }}>
+                        <Toggle
+                            checkedChildren="PVP"
+                            unCheckedChildren="PVP"
+                            checked={selectOnly === 'pvp'}
+                            onChange={(checked) => { this.setState({ selectOnly: checked ? 'pvp' : 'all' }); }}
+                        />
+                    </div>
+                </div>
                 <div style={{ margin: 12 }} />
                 {`品质筛选 ${range[0]} 品 - ${range[1]} 品`}
                 <RangeSlider
@@ -139,7 +176,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                 />
                 <div style={{ margin: 12 }} />
                 <SelectPicker
-                    data={raw}
+                    data={equips}
                     block
                     size="lg"
                     onOpen={this.handleUpdate}
@@ -180,10 +217,33 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                                 <span>{`${item.quality}品`}</span>
                             </div>
                             <div>
-                                <i>{item.tags.map((tag) => ATTRIBUTE_SHORT_DESC[tag]).join(' ')}</i>
+                                <i>
+                                    {item.tags
+                                        .filter((t) => t !== 'huajing')
+                                        .map((tag) => ATTRIBUTE_SHORT_DESC[tag])
+                                        .join(' ')}
+                                </i>
                             </div>
                         </div>
                     )}
+                />
+                <div style={{ textAlign: 'right', paddingTop: 4, fontSize: 12 }}>
+                    <div
+                        onClick={() => { this.setState({ custom: true }); }}
+                        style={{ display: 'inline-block', cursor: 'pointer' }}
+                    >
+                        想要其他心法的装备? 点此搜索
+                    </div>
+                </div>
+                <SearchEquip
+                    show={custom}
+                    onClose={() => { this.setState({ custom: false }); }}
+                    category={navLib.get(store.activeEquipNav)!.category}
+                    kungfu={store.kungfu}
+                    onConfirm={(equip) => {
+                        this.setEquip(equip.id);
+                        this.setState({ custom: false });
+                    }}
                 />
             </div>
         );
