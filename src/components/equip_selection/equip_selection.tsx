@@ -218,7 +218,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                             </div>
                             <div>
                                 <i>
-                                    {item.tags
+                                    {(item.tags ?? [])
                                         .filter((t) => t !== 'huajing')
                                         .map((tag) => ATTRIBUTE_SHORT_DESC[tag])
                                         .join(' ')}
