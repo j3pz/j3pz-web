@@ -1,13 +1,15 @@
-import { faSearch } from '@fortawesome/pro-light-svg-icons';
+import { faSearch, faSpinner } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component } from 'react';
 import {
-    Button, HelpBlock, Input, InputGroup, Modal,
+    Button, HelpBlock, Input, InputGroup, Modal, Popover, Whisper,
 } from 'rsuite';
 import { ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import { Category, KungFu } from '../../model/base';
+import { Equip } from '../../model/equip';
 import { SimpleEquip } from '../../model/simple_equip';
 import { EquipService } from '../../service/equip_service';
+import { EquipView } from '../equip_view/equip_view';
 
 interface SearchEquipProps {
     show: boolean;
@@ -20,6 +22,7 @@ interface SearchEquipProps {
 interface SearchEquipState {
     keyword: string;
     equips: SimpleEquip[];
+    hoveringEquip: Equip | null;
 }
 
 export class SearchEquip extends Component<SearchEquipProps, SearchEquipState> {
@@ -28,6 +31,7 @@ export class SearchEquip extends Component<SearchEquipProps, SearchEquipState> {
         this.state = {
             keyword: '',
             equips: [],
+            hoveringEquip: null,
         };
     }
     onConfirm = () => {
@@ -48,9 +52,16 @@ export class SearchEquip extends Component<SearchEquipProps, SearchEquipState> {
         onConfirm(equip);
     }
 
+    hoverEquip(equip: SimpleEquip) {
+        if (equip.id === this.state.hoveringEquip?.id) return;
+        EquipService.getEquip(equip.id).then((res) => {
+            this.setState({ hoveringEquip: Equip.fromJson(res.attributes) });
+        });
+    }
+
     render() {
         const { show, onClose = () => {} } = this.props;
-        const { equips, keyword } = this.state;
+        const { equips, keyword, hoveringEquip } = this.state;
         return (
             <Modal
                 show={show}
@@ -80,13 +91,34 @@ export class SearchEquip extends Component<SearchEquipProps, SearchEquipState> {
                     <HelpBlock>最多显示九件装备</HelpBlock>
                     <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                         {equips.map((equip) => (
-                            <div className="equip-custom-item" onClick={() => this.select(equip)}>
-                                <img src={`https://icons.j3pz.com/${equip.icon}.png`} alt={`${equip.name}`} />
-                                <div>
-                                    <b>{equip.name}</b>
-                                    <span>{equip.tags.map((tag) => ATTRIBUTE_SHORT_DESC[tag]).join(' ')}</span>
+                            <Whisper
+                                trigger={['focus', 'hover']}
+                                speaker={(
+                                    <Popover style={{ padding: 0, minWidth: 300 }}>
+                                        {hoveringEquip && <EquipView equip={hoveringEquip} />}
+                                        {!hoveringEquip && (
+                                        <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
+                                            <FontAwesomeIcon icon={faSpinner} spin />
+                                            {' '}
+                                            加载中...
+                                        </p>
+                                        )}
+                                    </Popover>
+                                )}
+                                onFocus={() => this.hoverEquip(equip)}
+                                onMouseOver={() => this.hoverEquip(equip)}
+                            >
+                                <div
+                                    className="equip-custom-item"
+                                    onClick={() => this.select(equip)}
+                                >
+                                    <img src={`https://icons.j3pz.com/${equip.icon}.png`} alt={`${equip.name}`} />
+                                    <div>
+                                        <b>{equip.name}</b>
+                                        <span>{equip.tags.map((tag) => ATTRIBUTE_SHORT_DESC[tag]).join(' ')}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </Whisper>
                         ))}
                     </div>
                 </Modal.Body>
