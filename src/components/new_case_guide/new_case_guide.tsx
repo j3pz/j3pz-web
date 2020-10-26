@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'rsuite';
+import { Modal, Panel } from 'rsuite';
+import { schoolAbbrMap } from '../../model/base';
+import './new_case_guide.less';
+import '../../css/icon.less';
 
 interface NewCaseGuideProps {
     show: boolean;
@@ -37,16 +40,13 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
                     <Modal.Title>新配装方案</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    test
+                    {Object.entries(schoolAbbrMap).map(([school, abbr]) => (
+                        <Panel className="school-item">
+                            <span className={`jx3icon jx3icon-${abbr}`} />
+                            <span>{school}</span>
+                        </Panel>
+                    ))}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.onConfirm} appearance="primary">
-                        确定
-                    </Button>
-                    <Button onClick={onClose} appearance="subtle">
-                        取消
-                    </Button>
-                </Modal.Footer>
             </Modal>
         );
     }
