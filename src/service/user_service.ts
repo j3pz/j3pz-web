@@ -54,4 +54,19 @@ export class UserService {
         }).catch(errorHandler);
         return res?.data.data.status === 'success';
     }
+
+    static async verify(permalink: string, token: string): Promise<Resource<User>> {
+        const res = await axios.get(`${ENDPOINT}/user/verify/${permalink}/${token}`).catch(errorHandler);
+        return res?.data.data ?? {};
+    }
+
+    static async resetPassword(permalink: string, token: string, password: string, dryRun: boolean): Promise<boolean> {
+        const res = await axios.post(`${ENDPOINT}/user/reset`, {
+            permalink,
+            token,
+            password,
+            dryRun,
+        }).catch(errorHandler);
+        return res?.data.data.status === 'success';
+    }
 }
