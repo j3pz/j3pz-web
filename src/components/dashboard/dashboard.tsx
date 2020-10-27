@@ -9,6 +9,7 @@ import { faCogs, faGripVertical, faPresentation } from '@fortawesome/pro-regular
 import { $store, StoreProps } from '../../store';
 import { NewCaseGuide } from '../new_case_guide/new_case_guide';
 import { CaseList } from './case_list';
+import { UserSettings } from './user_settings';
 
 const iconStyle: CSSProperties = {
     position: 'absolute',
@@ -104,8 +105,8 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                     </Sidenav.Body>
                 </Sidenav>
                 <div style={{ paddingTop: 120, flex: 1 }}>
-
                     { logged && active === 'cases' && <CaseList store={$store} /> }
+                    { logged && active === 'settings' && <UserSettings store={$store} /> }
                 </div>
                 <NewCaseGuide show={create} onClose={() => { this.setState({ create: false }); }} />
             </main>
