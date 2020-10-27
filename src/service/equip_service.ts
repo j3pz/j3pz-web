@@ -20,4 +20,15 @@ export class EquipService {
         const res = await axios.get(`${ENDPOINT}/equip/${id}`).catch(errorHandler);
         return res?.data.data ?? {};
     }
+
+    static async searchEquip(name: string, category: Category, kungfu: KungFu): Promise<Resource<SimpleEquip>[]> {
+        const res = await axios.get(`${ENDPOINT}/equip`, {
+            params: {
+                name,
+                category,
+                kungfu,
+            },
+        }).catch(errorHandler);
+        return res?.data.data ?? [];
+    }
 }

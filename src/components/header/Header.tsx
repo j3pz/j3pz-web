@@ -26,9 +26,9 @@ const Header = ({ type = 'border', mode = 'acrylic' } : HeaderProps) => {
                             <a href="https://support.qq.com/products/105376" target="_blank" rel="noopener noreferrer">反馈</a>
                         </Nav.Item>
                     </Nav>
-                    {/* <Nav pullRight>
-                        <Nav.Item>Settings</Nav.Item>
-                    </Nav> */}
+                    <Nav pullRight>
+                        <Nav.Item><Link to="/dashboard">方案列表</Link></Nav.Item>
+                    </Nav>
                 </Navbar.Body>
             </Navbar>
         );

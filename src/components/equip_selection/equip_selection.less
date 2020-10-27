@@ -3,3 +3,35 @@
         float: right;
     }
 }
+.equip-custom-item {
+    display: inline-flex;
+    width: 30%;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 8px 0;
+    height: 40px;
+    background-color: #FFFFFF;
+
+    img {
+        display: inline-block;
+        height: 40px;
+        width: 40px;
+        margin-right: 4px;
+    }
+    div {
+        flex: 1 1 100%;
+        overflow: hidden;
+        b {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            width: 100%;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        span {
+            font-size: 12px;
+        }
+    }
+}
