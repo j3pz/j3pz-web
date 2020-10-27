@@ -2,12 +2,13 @@ import { faEnvelope, faUser } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
+import { navigate } from 'gatsby';
 import {
     Alert,
     Button, HelpBlock, Input, InputGroup,
 } from 'rsuite';
 import { UserService } from '../../service/user_service';
-import { StoreProps } from '../../store';
+import { $store, StoreProps } from '../../store';
 import { ChangePassword } from './change_password';
 
 interface UserSettingsState {
@@ -51,6 +52,12 @@ export class UserSettings extends Component<StoreProps, UserSettingsState> {
         });
     };
 
+    private logout = () => {
+        $store.user = null;
+        localStorage.removeItem('token');
+        navigate('/');
+    };
+
     render() {
         const { store } = this.props;
         const { passwordModal } = this.state;
@@ -85,6 +92,14 @@ export class UserSettings extends Component<StoreProps, UserSettingsState> {
                     onConfirm={this.changePassword}
                     onClose={() => this.setState({ passwordModal: false })}
                 />
+                <div className="label" style={{ marginTop: 12 }}>注销</div>
+                <Button
+                    appearance="primary"
+                    style={{ marginTop: 6 }}
+                    onClick={this.logout}
+                >
+                    退出登录
+                </Button>
             </div>
         );
     }
