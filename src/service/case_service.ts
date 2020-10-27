@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { transaction } from 'mobx';
-import { Position } from '../model/base';
+import { KungFu, Position } from '../model/base';
 import { CaseDetail, CaseInfo } from '../model/case_info';
 import { CaseModel } from '../model/case_model';
 import { Resource } from '../model/resource';
@@ -118,5 +118,23 @@ export class CaseService {
             headers: { Authorization: `Bearer ${token}` },
         }).catch(errorHandler);
         return res?.data.data.status === 'success';
+    }
+
+    static async create(kungfu: KungFu, name: string): Promise<Resource<CaseInfo> | false> {
+        const token = $store.user?.token ?? localStorage.getItem('token');
+        if (!token) {
+            directError('尚未登录');
+            return false;
+        }
+        const res = await axios.post(`${ENDPOINT}/case`, {
+            name,
+            kungfu,
+            equip: [],
+            effect: [],
+            talent: [],
+        }, {
+            headers: { Authorization: `Bearer ${token}` },
+        }).catch(errorHandler);
+        return res?.data.data ?? false;
     }
 }

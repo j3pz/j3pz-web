@@ -119,6 +119,25 @@ export const KungFu = {
 };
 export type KungFu = (typeof KungFu)[keyof typeof KungFu];
 
+export const schoolKungfuMap: { [k in School]?: KungFu[] } = {
+    [School.万花]: [KungFu.花间游, KungFu.离经易道],
+    [School.少林]: [KungFu.易筋经, KungFu.洗髓经],
+    [School.明教]: [KungFu.焚影圣诀, KungFu.明尊琉璃体],
+    [School.唐门]: [KungFu.天罗诡道, KungFu.惊羽诀],
+    [School.七秀]: [KungFu.冰心诀, KungFu.云裳心经],
+    [School.五毒]: [KungFu.毒经, KungFu.补天诀],
+    [School.纯阳]: [KungFu.紫霞功, KungFu.太虚剑意],
+    [School.天策]: [KungFu.傲血战意, KungFu.铁牢律],
+    [School.丐帮]: [KungFu.笑尘诀],
+    [School.藏剑]: [KungFu.山居剑意, KungFu.问水诀],
+    [School.苍云]: [KungFu.分山劲, KungFu.铁骨衣],
+    [School.长歌]: [KungFu.莫问, KungFu.相知],
+    [School.霸刀]: [KungFu.北傲诀],
+    [School.蓬莱]: [KungFu.凌海诀],
+    [School.凌雪]: [KungFu.隐龙诀],
+    [School.衍天]: [KungFu.太玄经],
+};
+
 export type EmbedStoneType = 'unified' | 'wood' | 'fire' | 'earth' | 'metal' | 'water';
 
 export const GamingRole = {

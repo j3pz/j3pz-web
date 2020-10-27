@@ -2,9 +2,40 @@
     width: 24%;
     display: inline-block;
     text-align: center;
-    cursor: pointer;
+    height: 108px;
 
+    div.school,
+    div.kungfu {
+        flex-direction: column;
+        justify-content: center;
+        height: 108px;
+    }
+
+    &:not(:hover) {
+        .school {
+            display: flex;
+        }
+        .kungfu {
+            display: none;
+        }
+    }
+    &:hover {
+        .school {
+            display: none;
+        }
+        .kungfu {
+            display: flex;
+        }
+    }
     span.jx3icon {
         font-size: 48px;
+    }
+    .kungfu-item {
+        cursor: pointer;
+        img {
+            width: 24px;
+            height: 24px;
+            margin: 4px;
+        }
     }
 }
