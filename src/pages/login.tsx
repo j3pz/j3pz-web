@@ -3,17 +3,21 @@ import { Link, navigate } from 'gatsby';
 import { Col, Container, Row } from 'react-grid-system';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+    Alert,
     Button,
     ButtonToolbar,
     Form, FormControl, FormGroup, HelpBlock, InputGroup,
     Schema,
 } from 'rsuite';
-import { faEnvelope, faLockAlt, faUserAlt } from '@fortawesome/pro-light-svg-icons';
+import {
+    faEnvelope, faLockAlt, faUserAlt,
+} from '@fortawesome/pro-light-svg-icons';
 import { SEO } from '../components/seo';
 import '../css/login.less';
 import { UserService } from '../service/user_service';
 import { User } from '../model/user';
 import { $store } from '../store';
+import { ResetPassword } from '../components/reset_password/reset_password';
 
 const { StringType } = Schema.Types;
 
@@ -37,6 +41,7 @@ const signInModel = Schema.Model({
 interface LoginPageState {
     mode: 'signin' | 'signup';
     requesting: boolean;
+    forget: boolean;
 }
 
 interface LoginForm {
@@ -57,6 +62,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         this.state = {
             mode: 'signup',
             requesting: false,
+            forget: false,
         };
     }
 
@@ -111,8 +117,17 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         });
     };
 
+    doReset = (email: string) => {
+        UserService.requestReset(email).then((res) => {
+            if (res) {
+                Alert.info('该邮箱会收到关于重置密码的进一步指引说明，请登录邮箱查看');
+            }
+        });
+        this.setState({ forget: false });
+    };
+
     render() {
-        const { mode, requesting } = this.state;
+        const { mode, requesting, forget } = this.state;
         return (
             <>
                 <SEO title="登录" />
@@ -148,8 +163,15 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                             />
                                         </InputGroup>
                                         <HelpBlock style={{ textAlign: 'right' }}>
-                                            <Link to="/password-reset">忘了密码？这里找回</Link>
+                                            <div onClick={() => { this.setState({ forget: true }); }} style={{ cursor: 'pointer' }}>
+                                                忘了密码？这里找回
+                                            </div>
                                         </HelpBlock>
+                                        <ResetPassword
+                                            show={forget}
+                                            onConfirm={this.doReset}
+                                            onClose={() => this.setState({ forget: false })}
+                                        />
                                     </FormGroup>
                                     <FormGroup>
                                         <ButtonToolbar>

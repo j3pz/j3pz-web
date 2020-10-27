@@ -69,6 +69,13 @@ export class UserService {
         return res?.data.data ?? {};
     }
 
+    static async requestReset(email: string): Promise<boolean> {
+        const res = await axios.get(`${ENDPOINT}/user/reset`, {
+            params: { email },
+        }).catch(errorHandler);
+        return res?.data.data.status === 'success';
+    }
+
     static async resetPassword(permalink: string, token: string, password: string, dryRun: boolean): Promise<boolean> {
         const res = await axios.post(`${ENDPOINT}/user/reset`, {
             permalink,
