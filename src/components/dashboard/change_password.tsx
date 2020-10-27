@@ -21,7 +21,6 @@ export class ChangePassword extends Component<ChangePasswordProps> {
         return (
             <Modal
                 show={show}
-                onHide={onClose}
                 style={{
                     height: '100%',
                     margin: '0 auto',
@@ -44,7 +43,7 @@ export class ChangePassword extends Component<ChangePasswordProps> {
                     <Input type="password" onChange={(val) => { this.password = val; }} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button appearance="default" onClick={this.props.onClose}>取消</Button>
+                    <Button appearance="default" onClick={onClose}>取消</Button>
                     <Button appearance="primary" onClick={this.onConfirm}>确认</Button>
                 </Modal.Footer>
             </Modal>

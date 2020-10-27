@@ -137,4 +137,16 @@ export class CaseService {
         }).catch(errorHandler);
         return res?.data.data ?? false;
     }
+
+    static async delete(id: string): Promise<boolean> {
+        const token = $store.user?.token ?? localStorage.getItem('token');
+        if (!token) {
+            directError('尚未登录');
+            return false;
+        }
+        const res = await axios.delete(`${ENDPOINT}/case/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        }).catch(errorHandler);
+        return res?.data.data.status === 'success';
+    }
 }
