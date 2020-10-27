@@ -46,7 +46,7 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
     newCase = () => {
         CaseService.create(this.state.kungfu!, this.name).then((res) => {
             if (res) {
-                navigate(`/app#${res.attributes.id}`);
+                navigate(`/app#${res.id}`);
             } else {
                 this.onConfirm();
             }
