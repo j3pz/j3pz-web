@@ -2,6 +2,7 @@ import { Link } from 'gatsby';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { FlexboxGrid, List } from 'rsuite';
+import { format, isSameDay, isSameYear } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/pro-solid-svg-icons';
 import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
@@ -38,6 +39,19 @@ export class CaseList extends Component<StoreProps> {
         return '';
     };
 
+    getTime = (date: string) => {
+        if (!date) return '';
+        const now = new Date();
+        const updateTime = new Date(date);
+        if (isSameDay(now, updateTime)) {
+            return format(updateTime, 'HH:mm');
+        }
+        if (isSameYear(now, updateTime)) {
+            return format(updateTime, 'MM月dd日 HH:mm');
+        }
+        return format(updateTime, 'YYYY年MM月dd日 HH:mm');
+    };
+
     render() {
         const list = CaseList.cache;
         return (
@@ -69,7 +83,7 @@ export class CaseList extends Component<StoreProps> {
                                 </FlexboxGridItem>
                                 {/* Update Time */}
                                 <FlexboxGridItem style={{ color: '#5A5A5B', flex: 1 }} className="case-item-col">
-                                    Update Time
+                                    {this.getTime(c.lastUpdate)}
                                     <i className={`jx3icon jx3icon-${this.getIcon(c.kungfu)} school-icon`} />
                                 </FlexboxGridItem>
                             </FlexboxGrid>

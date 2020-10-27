@@ -7,6 +7,7 @@ export class CaseModel implements CaseScheme, CaseInfo {
     public name: string;
     public kungfu: KungFu;
     public published: boolean;
+    public lastUpdate: string;
 
     // CaseScheme
     public equip: EquipScheme[] = [];

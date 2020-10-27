@@ -76,7 +76,7 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
                 </Modal.Header>
                 <Modal.Body>
                     {step === 1 && Object.entries(schoolAbbrMap).map(([school, abbr]) => (
-                        <Panel className="school-item" bodyFill>
+                        <Panel className="school-item" bodyFill key={abbr}>
                             <div className="school">
                                 <div>
                                     <span className={`jx3icon jx3icon-${abbr}`} />
@@ -85,7 +85,7 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
                             </div>
                             <div className="kungfu">
                                 {schoolKungfuMap[school].map((kf: KungFu) => (
-                                    <div className="kungfu-item" onClick={() => this.next(kf)}>
+                                    <div className="kungfu-item" onClick={() => this.next(kf)} key={kf}>
                                         <img src={`https://images.j3pz.com/imgs/school/${schoolIcons[kf]}.png`} alt={kf} />
                                         <span>{kf}</span>
                                     </div>

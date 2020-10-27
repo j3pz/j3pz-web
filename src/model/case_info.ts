@@ -10,6 +10,7 @@ export class CaseInfo {
     public name: string;
     public kungfu: KungFu;
     public published: boolean;
+    public lastUpdate: string;
 }
 
 export class CaseDetail extends CaseInfo {
