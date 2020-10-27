@@ -13,6 +13,15 @@ export class UserService {
         return res?.data.data;
     }
 
+    static async signup(email: string, password: string, name: string): Promise<Resource<User>> {
+        const res = await axios.post(`${ENDPOINT}/auth/signup`, {
+            email,
+            password,
+            name,
+        }).catch(errorHandler);
+        return res?.data.data;
+    }
+
     static async getUser(hasNotify: boolean): Promise<Resource<User> | false> {
         const token = $store.user?.token ?? localStorage.getItem('token');
         if (!token) {

@@ -100,6 +100,16 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         });
     };
 
+    doSignUp = () => {
+        this.setState({ requesting: true });
+        UserService.signup(this.formValue.email, this.formValue.password, this.formValue.name ?? '剑网3侠士').then((res) => {
+            this.setState({ requesting: false });
+            const user = User.fromJson(res.attributes);
+            $store.user = user;
+            localStorage.setItem('token', user.token);
+            navigate('/dashboard');
+        });
+    };
 
     render() {
         const { mode, requesting } = this.state;
@@ -206,7 +216,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                             <div className="sign-up-form">
                                 <p>创建新账号</p>
                                 <p>使用邮箱注册一个新的账号:</p>
-                                <Form fluid model={signUpModel} checkTrigger="blur">
+                                <Form fluid model={signUpModel} checkTrigger="blur" onChange={this.update}>
                                     <FormGroup>
                                         <InputGroup inside style={{ marginBottom: 24 }} size="lg">
                                             <InputGroup.Addon style={{ height: 42 }}>
@@ -245,6 +255,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                                 type="submit"
                                                 loading={requesting}
                                                 style={{ borderRadius: 24, minWidth: 200 }}
+                                                onClick={this.doSignUp}
                                             >
                                                 注 册
                                             </Button>
