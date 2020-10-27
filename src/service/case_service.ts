@@ -77,7 +77,7 @@ export class CaseService {
             directError('尚未登录');
             return false;
         }
-        axios.patch(`${ENDPOINT}/case/${id}`, {
+        await axios.patch(`${ENDPOINT}/case/${id}`, {
             name,
         }, {
             headers: { Authorization: `Bearer ${token}` },

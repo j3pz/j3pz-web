@@ -5,6 +5,7 @@ import {
     ControlLabel, Form, FormControl, FormGroup, Panel, PanelGroup, Popover, Toggle, Whisper,
 } from 'rsuite';
 import { CaseService } from '../../service/case_service';
+import { PreferenceService } from '../../service/preference_service';
 import { StoreProps } from '../../store';
 
 interface CaseSettingsState {
@@ -61,6 +62,7 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
                         checked={store.settings.autoStrengthen}
                         onChange={(value) => {
                             store.settings.autoStrengthen = value;
+                            PreferenceService.update({ strengthen: value });
                         }}
                     />
                     <div className="label">自动镶嵌</div>
@@ -75,13 +77,16 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
                                         <img
                                             key={`embed-option-${n}`}
                                             alt={`五行石候选${n}级`}
-                                            onClick={() => { store.settings.autoEmbed = n; }}
+                                            onClick={() => {
+                                                store.settings.autoEmbed = n;
+                                                PreferenceService.update({ magicStoneLevel: n });
+                                            }}
                                             className="embed-option"
                                             src={`https://images.j3pz.com/imgs/stones/${this.getImg(n)}.jpg`}
                                         />
                                     ))}
                             </Popover>
-                                )}
+                        )}
                     >
                         <img
                             alt="五行石自动镶嵌"

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, FlexboxGrid, Alert } from 'rsuite';
 import { observer } from 'mobx-react';
+import { transaction } from 'mobx';
 import { navigate } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faShareAlt } from '@fortawesome/pro-light-svg-icons';
@@ -11,6 +12,8 @@ import { SchoolDropdown } from '../school_dropdown/school_dropdown';
 import { CaseService } from '../../service/case_service';
 import { CaseDetail } from '../../model/case_info';
 import { EditorViewer } from '../viewer/editor_viewer';
+import { UserService } from '../../service/user_service';
+import { User } from '../../model/user';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -23,6 +26,17 @@ export class CoreEdit extends Component<StoreProps> {
                     CaseService.applyToStore(detail);
                 } else {
                     navigate('/dashboard');
+                }
+            });
+        }
+        if (!this.props.store.user) {
+            UserService.getUser(false).then((res) => {
+                if (res) {
+                    transaction(() => {
+                        $store.user = User.fromJson(res.attributes);
+                        $store.settings.autoStrengthen = !!res.attributes.preference.strengthen;
+                        $store.settings.autoEmbed = res.attributes.preference.magicStoneLevel;
+                    });
                 }
             });
         }
