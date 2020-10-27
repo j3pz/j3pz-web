@@ -69,7 +69,7 @@ export class TalentSelection extends Component<StoreProps, TalentSelectionState>
                     <Sidenav.Body>
                         <Nav>
                             {talents.map((talent, i) => {
-                                const idx = Math.max(0, talent.findIndex((t) => t.id === store.talents[i].id));
+                                const idx = Math.max(0, talent.findIndex((t) => t.id === store.talents[i]?.id));
                                 return (
                                     <TalentOptions
                                         idx={idx}

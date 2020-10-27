@@ -29,6 +29,7 @@ export class EquipEmbed extends Component<StoreProps> {
                 <div className="label">五行石镶嵌</div>
                 <div className="holes">
                     {currentEquip?.embedding.map((ops, i) => {
+                        if (i >= currentEquip.embed.count) return null;
                         const level = ops?.level ?? 0;
                         const img = this.getImg(level);
 

@@ -1,5 +1,5 @@
-import { number } from "prop-types";
-import { AttributeDecorator } from "./attribute";
+import { classToClass } from 'class-transformer';
+import { AttributeDecorator } from './attribute';
 
 export class DecoratedAttribute {
     [AttributeDecorator.PHYSICS] = 0;
@@ -28,4 +28,7 @@ export class DecoratedAttribute {
         this[AttributeDecorator.POISON] += value;
     }
 
+    clone() {
+        return classToClass(this);
+    }
 }

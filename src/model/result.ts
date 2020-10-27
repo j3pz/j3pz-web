@@ -4,33 +4,21 @@ import {
 import { Equip } from './equip';
 import { EmbedService } from '../service/embed_service';
 import { DecoratedAttribute } from './decorated_attribute';
+import { KungFuMeta } from './kungfu';
 
-export class Result {
+class ResultCore {
     // PrimaryAttribute
-    public vitality = 0;
-    public spunk = 0;
-    public spirit = 0;
-    public strength = 0;
-    public agility = 0;
+    public vitality = 38;
+    public spunk = 37;
+    public spirit = 38;
+    public strength = 37;
+    public agility = 38;
 
     // SecondaryAttribute
-    private otherPhysicsShield = 0;
-    private basicPhysicsShield = 0;
-    public set physicsShield(value: number) {
-        this.otherPhysicsShield = value;
-    }
-    public get physicsShield() {
-        return this.otherPhysicsShield + this.basicPhysicsShield;
-    }
-
-    private otherMagicShield = 0;
-    private basicMagicShield = 0;
-    public set magicShield(value: number) {
-        this.otherMagicShield = value;
-    }
-    public get magicShield() {
-        return this.otherMagicShield + this.basicMagicShield;
-    }
+    public physicsShield = 0;
+    public basicPhysicsShield = 0;
+    public magicShield = 0;
+    public basicMagicShield = 0;
 
     public dodge = 0;
     public parryBase = 0;
@@ -51,40 +39,100 @@ export class Result {
 
     public score = 0;
 
-    get health(): number {
-        return 0;
+    public health = 0;
+}
+
+export class Result {
+    constructor(private meta: KungFuMeta) {}
+    private core = new ResultCore();
+
+    public get vitality(): number {
+        return this.core.vitality;
+    }
+    public get spunk(): number {
+        return this.core.spunk;
+    }
+    public get spirit(): number {
+        return this.core.spirit;
+    }
+    public get strength(): number {
+        return this.core.strength;
+    }
+    public get agility(): number {
+        return this.core.agility;
     }
 
-    set health(value: number) {
+    public get physicsShield(): number {
+        return this.core.physicsShield + this.core.basicPhysicsShield + (this.meta.base.physicsShield ?? 0);
+    }
+    public get magicShield(): number {
+        return this.core.magicShield + this.core.basicMagicShield + (this.meta.base.magicShield ?? 0);
+    }
 
+    public get dodge(): number {
+        return this.core.dodge;
+    }
+    public get parryBase(): number {
+        return this.core.parryBase;
+    }
+    public get parryValue(): number {
+        return this.core.parryValue;
+    }
+    public get toughness(): number {
+        return this.core.toughness;
+    }
+
+    private get rawAttack(): number {
+        const [,decorator] = this.meta.decorator.find((d) => d[0] === 'attack') ?? ['attack', AttributeDecorator.ALL];
+        const decoratedAttack = this.core.attack.clone();
+        decoratedAttack.addMagic(0.18 * this.core.spunk);
+        decoratedAttack.addPhysics(0.15 * this.core.strength);
+        return decoratedAttack[decorator] + (this.meta.base.attack ?? 0);
+    }
+    public get baseAttack(): number {
+        return Math.round(this.rawAttack);
+    }
+    public get attack(): number {
+        return Math.round(this.rawAttack + this.core[this.meta.primaryAttribute] * (this.meta.factor.attack ?? 0));
+    }
+
+    get health(): number {
+        const cof = Math.round((this.meta.override.health ?? 1) * 1024) / 1024;
+        const health = (this.core.vitality * 10 + 23766) * cof
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.health ?? 0)
+            + this.core.health;
+        return Math.floor(health);
     }
 
     applyEquip(equip?: Equip) {
         if (equip) {
             PrimaryAttribute.forEach((key) => {
-                this[key] += equip[key] ?? 0;
-                this[key] += equip.getStrengthValue(equip[key]);
+                this.core[key] += equip[key] ?? 0;
+                this.core[key] += equip.getStrengthValue(equip[key]);
             });
             SecondaryAttribute
                 .filter((attribute) => !DecoratableAttribute.includes(attribute))
                 .forEach((key) => {
-                    this[key] += equip[key] ?? 0;
-                    this[key] += equip.getStrengthValue(equip[key]);
+                    this.core[key] += equip[key] ?? 0;
+                    this.core[key] += equip.getStrengthValue(equip[key]);
                 });
             MinorAttribute.forEach((key) => {
-                if (this[key] !== undefined) {
-                    this[key] += equip[key] ?? 0;
+                if (this.core[key] !== undefined) {
+                    this.core[key] += equip[key] ?? 0;
                 }
             });
 
             DecoratableAttribute.forEach((key) => {
                 const decorator = equip.decorators[key];
                 if (decorator === AttributeDecorator.ALL) {
-                    (this[key] as DecoratedAttribute).addAll(equip[key]);
+                    (this.core[key] as DecoratedAttribute).addAll(equip[key]);
+                    (this.core[key] as DecoratedAttribute).addAll(equip.getStrengthValue(equip[key]));
                 } else if (decorator === AttributeDecorator.MAGIC) {
-                    (this[key] as DecoratedAttribute).addMagic(equip[key]);
+                    (this.core[key] as DecoratedAttribute).addMagic(equip[key]);
+                    (this.core[key] as DecoratedAttribute).addMagic(equip.getStrengthValue(equip[key]));
                 } else {
-                    (this[key] as DecoratedAttribute)[decorator] += equip[key];
+                    (this.core[key] as DecoratedAttribute)[decorator] += equip[key];
+                    (this.core[key] as DecoratedAttribute)[decorator] += equip.getStrengthValue(equip[key]);
                 }
             });
 
@@ -101,10 +149,14 @@ export class Result {
                 const [attribute, decorator] = tuple;
                 const embedValue = EmbedService.getPlusValueByLevel(tuple, embedStone.level);
                 if (decorator === AttributeDecorator.NONE) {
-                    this[attribute] += embedValue;
+                    this.core[attribute] += embedValue;
+                } else if (decorator === AttributeDecorator.MAGIC) {
+                    (this.core[attribute] as DecoratedAttribute).addMagic(embedValue);
+                } else {
+                    (this.core[attribute] as DecoratedAttribute)[decorator] += embedValue;
                 }
             });
-            this.score += equip.score + equip.embedScore;
+            this.core.score += equip.score + equip.embedScore;
         }
         return this;
     }
