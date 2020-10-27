@@ -99,10 +99,12 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         this.setState({ requesting: true });
         UserService.login(this.formValue.email, this.formValue.password).then((res) => {
             this.setState({ requesting: false });
-            const user = User.fromJson(res.attributes);
-            $store.user = user;
-            localStorage.setItem('token', user.token);
-            navigate('/dashboard');
+            if (res) {
+                const user = User.fromJson(res.attributes);
+                $store.user = user;
+                localStorage.setItem('token', user.token);
+                navigate('/dashboard');
+            }
         });
     };
 
