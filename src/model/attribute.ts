@@ -125,4 +125,5 @@ export const ATTRIBUTE_SHORT_DESC = {
     mana: '内力',
     manaRecover: '内力恢复',
     // damageOffset: '',
+    score: '装分',
 };

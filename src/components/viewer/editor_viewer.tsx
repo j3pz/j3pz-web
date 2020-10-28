@@ -5,18 +5,21 @@ import React, { Component } from 'react';
 import {
     Layer, Stage, Text, Rect, Group,
 } from 'react-konva';
-import { DecoratorTuple, AttributeDecorator, ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
+import { ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import { GamingRole, schoolAbbrMap } from '../../model/base';
 import { StoreProps } from '../../store';
 import { schoolIcons } from '../../utils/school_icon';
 import { CanvasImage } from '../canvas_image/canvas_image';
 import './editor_viewer.less';
 import { ResultService } from '../../service/result_service';
+import { Result } from '../../model/result';
 
 interface EditorViewerState {
     width: number;
     height: number;
 }
+
+type ResultTuple = [keyof Result, keyof Result | null];
 
 @observer
 export class EditorViewer extends Component<StoreProps, EditorViewerState> {
@@ -46,58 +49,58 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
         this.setState({ width, height });
     };
 
-    private getDisplayAttributes(): DecoratorTuple[] {
+    private getDisplayAttributes(): ResultTuple[] {
         const { kungfuMeta } = this.props.store;
         if (!kungfuMeta) return [];
-        const attributes: DecoratorTuple[] = [];
+        const attributes: ResultTuple[] = [];
         // 气血
-        attributes.push(['health', AttributeDecorator.NONE]);
+        attributes.push(['health', null]);
         // 基础属性
-        attributes.push([kungfuMeta.primaryAttribute, AttributeDecorator.NONE]);
+        attributes.push([kungfuMeta.primaryAttribute, null]);
         // 攻击/治疗
         if (kungfuMeta.role === GamingRole.DAMAGE_DEALER) {
-            attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'attack') ?? ['attack', AttributeDecorator.ALL]);
+            attributes.push(['attack', 'baseAttack']);
         } else if (kungfuMeta.role === GamingRole.HEALER) {
-            attributes.push(['heal', AttributeDecorator.NONE]);
+            attributes.push(['heal', null]);
         }
 
         if (kungfuMeta.role !== GamingRole.TANK) {
             // 会心
-            attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'crit') ?? ['crit', AttributeDecorator.ALL]);
+            attributes.push(['critRate', 'crit']);
             // 会心效果
-            attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'critEffect') ?? ['critEffect', AttributeDecorator.ALL]);
+            attributes.push(['critEffectRate', 'critEffect']);
         }
 
         if (kungfuMeta.role === GamingRole.DAMAGE_DEALER) {
             // 破防
-            attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'overcome') ?? ['overcome', AttributeDecorator.ALL]);
+            attributes.push(['overcomeRate', 'overcome']);
             // 破防
-            attributes.push(['surplus', AttributeDecorator.NONE]);
+            attributes.push(['surplus', 'surplusDamage']);
         }
 
-        // 命中
-        // attributes.push(kungfuMeta.decorator.find((d) => d[0] === 'hit') ?? ['hit', AttributeDecorator.ALL]);
         // 急速
-        attributes.push(['haste', AttributeDecorator.NONE]);
+        attributes.push(['hasteRate', 'haste']);
         // 无双
-        attributes.push(['strain', AttributeDecorator.NONE]);
+        attributes.push(['strainRate', 'strain']);
         // 内防
-        attributes.push(['physicsShield', AttributeDecorator.NONE]);
+        attributes.push(['physicsShieldRate', 'physicsShield']);
         // 外防
-        attributes.push(['magicShield', AttributeDecorator.NONE]);
+        attributes.push(['magicShieldRate', 'magicShield']);
 
         if (kungfuMeta.role === GamingRole.TANK) {
             // 闪避
-            attributes.push(['dodge', AttributeDecorator.NONE]);
+            attributes.push(['dodgeRate', 'dodge']);
             // 招架
-            attributes.push(['parryBase', AttributeDecorator.NONE]);
+            attributes.push(['parryBaseRate', 'parryBase']);
             // 拆招
-            attributes.push(['parryValue', AttributeDecorator.NONE]);
+            attributes.push(['parryValue', null]);
         }
         // 御劲
-        attributes.push(['toughness', AttributeDecorator.NONE]);
+        attributes.push(['toughnessRate', 'toughness']);
         // 化劲
-        attributes.push(['huajing', AttributeDecorator.NONE]);
+        attributes.push(['huajingRate', 'huajing']);
+        // 装分
+        attributes.push(['score', null]);
 
         return attributes;
     }
@@ -107,7 +110,6 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
         const { width, height } = this.state;
         const { kungfuMeta, kungfu } = this.props.store;
         const result = ResultService.calc(this.props.store);
-        console.log('score:', result.score);
         return (
             <div
                 className="result-view"
@@ -175,10 +177,10 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                         />
                     </Layer>
                     <Layer name="texts">
-                        {attributes.map(([attribute, decorator], i) => {
+                        {attributes.map(([attribute, tipAttribute], i) => {
                             const titleProps: TextConfig = {
                                 fill: '#FFFF00',
-                                text: ATTRIBUTE_SHORT_DESC[attribute],
+                                text: ATTRIBUTE_SHORT_DESC[tipAttribute ?? ''] ?? ATTRIBUTE_SHORT_DESC[attribute],
                                 fontFamily: '"Microsoft YaHei", 微软雅黑, Roboto, sans-serif',
                                 fontSize: 24,
                                 x: ((width - 32) / 4) * (i % 4) + 16,
@@ -192,9 +194,10 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
                             };
                             const numberProps: TextConfig = {
                                 ...titleProps,
-                                text: `${result[attribute]?.[decorator] ?? result[attribute] ?? 0}`,
+                                text: `${result[attribute] ?? 0}`,
                                 fill: '#FFFFFF',
                                 y: titleProps.y! + 36,
+                                fontSize: 20,
                             };
 
                             return (

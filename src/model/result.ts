@@ -46,6 +46,7 @@ class ResultCore {
 export class Result {
     constructor(private meta: KungFuMeta) {}
     private core = new ResultCore();
+    private globalCof = 205 * 110 - 18800;
 
     public get vitality(): number {
         return this.core.vitality;
@@ -64,23 +65,47 @@ export class Result {
     }
 
     public get physicsShield(): number {
-        return this.core.physicsShield + this.core.basicPhysicsShield + (this.meta.base.physicsShield ?? 0);
+        return this.core.physicsShield + this.core.basicPhysicsShield
+            + (this.meta.base.physicsShield ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.physicsShield ?? 0);
+    }
+    public get physicsShieldRate(): string {
+        const cof = 5.091 * this.globalCof;
+        return `${((this.physicsShield / (this.physicsShield + cof)) * 100).toFixed(2)}%`;
     }
     public get magicShield(): number {
-        return this.core.magicShield + this.core.basicMagicShield + (this.meta.base.magicShield ?? 0);
+        return this.core.magicShield + this.core.basicMagicShield
+            + (this.meta.base.magicShield ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.magicShield ?? 0);
+    }
+    public get magicShieldRate(): string {
+        const cof = 5.091 * this.globalCof;
+        return `${((this.magicShield / (this.magicShield + cof)) * 100).toFixed(2)}%`;
     }
 
     public get dodge(): number {
         return this.core.dodge;
     }
+    public get dodgeRate(): string {
+        const cof = 4.628 * this.globalCof;
+        return `${((this.dodge / (cof + this.dodge)) * 100).toFixed(2)}%`;
+    }
     public get parryBase(): number {
         return this.core.parryBase;
+    }
+    public get parryBaseRate(): string {
+        const cof = 4.345 * this.globalCof;
+        return `${(3 + (this.parryBase / (cof + this.parryBase)) * 100).toFixed(2)}%`;
     }
     public get parryValue(): number {
         return this.core.parryValue;
     }
     public get toughness(): number {
         return this.core.toughness;
+    }
+    public get toughnessRate(): string {
+        const cof = 2.557 * this.globalCof;
+        return `${((this.toughness / (this.toughness + cof)) * 100).toFixed(2)}%`;
     }
 
     private get rawAttack(): number {
@@ -113,11 +138,21 @@ export class Result {
         return Math.round(crit);
     }
 
+    public get critRate(): string {
+        const cof = (9.530 * this.globalCof) / 100;
+        return `${(this.crit / cof).toFixed(2)}%`;
+    }
+
     public get critEffect(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'critEffect') ?? ['critEffect', AttributeDecorator.ALL];
         const critEffect = this.core.critEffect[decorator] + (this.meta.base.critEffect ?? 0)
             + this.core[this.meta.primaryAttribute] * (this.meta.factor.critEffect ?? 0);
         return Math.round(critEffect);
+    }
+
+    public get critEffectRate(): string {
+        const cof = (3.335 * this.globalCof) / 100;
+        return `${(175 + this.critEffect / cof).toFixed(2)}%`;
     }
 
     public get overcome(): number {
@@ -130,11 +165,21 @@ export class Result {
         return Math.round(overcome);
     }
 
+    public get overcomeRate(): string {
+        const cof = (9.530 * this.globalCof) / 100;
+        return `${(this.overcome / cof).toFixed(2)}%`;
+    }
+
     public get hit(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'hit') ?? ['hit', AttributeDecorator.ALL];
         const hit = this.core.hit[decorator] + (this.meta.base.hit ?? 0)
             + this.core[this.meta.primaryAttribute] * (this.meta.factor.hit ?? 0);
         return Math.round(hit);
+    }
+
+    public get hitRate(): string {
+        const cof = (6.931 * this.globalCof) / 100;
+        return `${(100 + this.hit / cof).toFixed(2)}%`;
     }
 
     public get surplus(): number {
@@ -143,10 +188,20 @@ export class Result {
         return Math.round(surplus);
     }
 
+    public get surplusDamage(): number {
+        const cof = 14.504 * this.globalCof;
+        return Math.floor(cof * this.surplus);
+    }
+
     public get strain(): number {
         const strain = this.core.strain + (this.meta.base.strain ?? 0)
             + this.core[this.meta.primaryAttribute] * (this.meta.factor.strain ?? 0);
         return Math.round(strain);
+    }
+
+    public get strainRate(): string {
+        const cof = (9.189 * this.globalCof) / 100;
+        return `${(this.strain / cof).toFixed(2)}%`;
     }
 
     public get haste(): number {
@@ -155,10 +210,20 @@ export class Result {
         return Math.round(haste);
     }
 
+    public get hasteRate(): string {
+        const cof = (11.695 * this.globalCof) / 100;
+        return `${(Math.min(this.haste / cof, 25)).toFixed(2)}%`;
+    }
+
     public get huajing(): number {
         const huajing = this.core.huajing + (this.meta.base.huajing ?? 0)
             + this.core[this.meta.primaryAttribute] * (this.meta.factor.huajing ?? 0);
         return Math.round(huajing);
+    }
+
+    public get huajingRate(): string {
+        const cof = 1.380 * this.globalCof;
+        return `${((this.huajing / (cof + this.huajing)) * 100).toFixed(2)}%`;
     }
 
     public get health(): number {
