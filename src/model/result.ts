@@ -289,7 +289,10 @@ export class Result {
                     && attrib.requiredQuantity <= EmbedService.totalCount;
                 if (active) {
                     const { key, value, decorator } = attrib;
-                    this.add(key, value, decorator);
+                    const keys = key.split('|');
+                    keys.forEach((k) => {
+                        this.add(k, value, decorator);
+                    });
                 }
             });
         }
