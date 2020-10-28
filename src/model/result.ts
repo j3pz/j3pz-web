@@ -96,12 +96,80 @@ export class Result {
         return Math.round(this.rawAttack + this.core[this.meta.primaryAttribute] * (this.meta.factor.attack ?? 0));
     }
 
-    get health(): number {
+    public get heal(): number {
+        const heal = this.core.heal + (this.meta.base.heal ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.heal ?? 0);
+        return Math.round(heal);
+    }
+
+    public get crit(): number {
+        const [,decorator] = this.meta.decorator.find((d) => d[0] === 'crit') ?? ['crit', AttributeDecorator.ALL];
+        const decoratedCrit = this.core.crit.clone();
+        decoratedCrit.addMagic(0.64 * this.core.spirit);
+        decoratedCrit.addPhysics(0.64 * this.core.agility);
+        const crit = decoratedCrit[decorator] + (this.meta.base.crit ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.crit ?? 0);
+        return Math.round(crit);
+    }
+
+    public get critEffect(): number {
+        const [,decorator] = this.meta.decorator.find((d) => d[0] === 'critEffect') ?? ['critEffect', AttributeDecorator.ALL];
+        const critEffect = this.core.critEffect[decorator] + (this.meta.base.critEffect ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.critEffect ?? 0);
+        return Math.round(critEffect);
+    }
+
+    public get overcome(): number {
+        const [,decorator] = this.meta.decorator.find((d) => d[0] === 'overcome') ?? ['overcome', AttributeDecorator.ALL];
+        const decoratedOvercome = this.core.overcome.clone();
+        decoratedOvercome.addMagic(0.3 * this.core.spunk);
+        decoratedOvercome.addPhysics(0.3 * this.core.strength);
+        const overcome = decoratedOvercome[decorator] + (this.meta.base.overcome ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.overcome ?? 0);
+        return Math.round(overcome);
+    }
+
+    public get hit(): number {
+        const [,decorator] = this.meta.decorator.find((d) => d[0] === 'hit') ?? ['hit', AttributeDecorator.ALL];
+        const hit = this.core.hit[decorator] + (this.meta.base.hit ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.hit ?? 0);
+        return Math.round(hit);
+    }
+
+    public get surplus(): number {
+        const surplus = this.core.surplus + (this.meta.base.surplus ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.surplus ?? 0);
+        return Math.round(surplus);
+    }
+
+    public get strain(): number {
+        const strain = this.core.strain + (this.meta.base.strain ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.strain ?? 0);
+        return Math.round(strain);
+    }
+
+    public get haste(): number {
+        const haste = this.core.haste + (this.meta.base.haste ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.haste ?? 0);
+        return Math.round(haste);
+    }
+
+    public get huajing(): number {
+        const huajing = this.core.huajing + (this.meta.base.huajing ?? 0)
+            + this.core[this.meta.primaryAttribute] * (this.meta.factor.huajing ?? 0);
+        return Math.round(huajing);
+    }
+
+    public get health(): number {
         const cof = Math.round((this.meta.override.health ?? 1) * 1024) / 1024;
         const health = (this.core.vitality * 10 + 23766) * cof
             + this.core[this.meta.primaryAttribute] * (this.meta.factor.health ?? 0)
             + this.core.health;
         return Math.floor(health);
+    }
+
+    public get score(): number {
+        return this.core.score;
     }
 
     applyEquip(equip?: Equip) {
@@ -156,7 +224,7 @@ export class Result {
                     (this.core[attribute] as DecoratedAttribute)[decorator] += embedValue;
                 }
             });
-            this.core.score += equip.score + equip.embedScore;
+            this.core.score += equip.score + equip.getStrengthValue(equip.score) + equip.embedScore;
         }
         return this;
     }

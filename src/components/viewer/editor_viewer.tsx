@@ -107,6 +107,7 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
         const { width, height } = this.state;
         const { kungfuMeta, kungfu } = this.props.store;
         const result = ResultService.calc(this.props.store);
+        console.log('score:', result.score);
         return (
             <div
                 className="result-view"
