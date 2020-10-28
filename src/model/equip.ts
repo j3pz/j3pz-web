@@ -123,7 +123,9 @@ export class Equip {
 
     get embedScore(): number {
         const stoneScore = [0, 10.56, 21.12, 31.68, 42.24, 52.8, 63.36, 84.48, 109.12];
-        return Math.round(this.embedding.reduce((score, ops) => score + stoneScore[ops?.level ?? 0], 0));
+        return Math.round(this.embedding
+            .filter((ops) => ops.index < this.embed.count)
+            .reduce((score, ops) => score + stoneScore[ops?.level ?? 0], 0));
     }
 
     get sourceDescription(): string {

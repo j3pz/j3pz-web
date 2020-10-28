@@ -17,6 +17,7 @@ import { SettingsService } from '../../service/settings_service';
 import { SimpleEquip } from '../../model/simple_equip';
 import { CollectionService } from '../../service/collection_service';
 import { SearchEquip } from './search_equip';
+import { EmbedService } from '../../service/embed_service';
 
 interface EquipSelectionState {
     tags: AttributeTag[];
@@ -90,6 +91,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                 }
                 store.equips[currentPosition] = finalEquip;
                 CollectionService.updateCollection(store);
+                EmbedService.update(store);
             });
         });
     };
