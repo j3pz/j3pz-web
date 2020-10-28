@@ -8,66 +8,79 @@ import { KungFuMeta } from './kungfu';
 import { Stone } from './stone';
 
 class ResultCore {
+    constructor(private initValue: number) {}
     // PrimaryAttribute
-    public vitality = 38;
-    public spunk = 37;
-    public spirit = 38;
-    public strength = 37;
-    public agility = 38;
+    public vitality = this.initValue;
+    public spunk = this.initValue;
+    public spirit = this.initValue;
+    public strength = this.initValue;
+    public agility = this.initValue;
 
     // SecondaryAttribute
-    public physicsShield = 0;
-    public basicPhysicsShield = 0;
-    public magicShield = 0;
-    public basicMagicShield = 0;
+    public physicsShield = this.initValue;
+    public basicPhysicsShield = this.initValue;
+    public magicShield = this.initValue;
+    public basicMagicShield = this.initValue;
 
-    public dodge = 0;
-    public parryBase = 0;
-    public parryValue = 0;
-    public toughness = 0;
+    public dodge = this.initValue;
+    public parryBase = this.initValue;
+    public parryValue = this.initValue;
+    public toughness = this.initValue;
 
-    public attack = new DecoratedAttribute();
-    public heal = 0;
-    public crit = new DecoratedAttribute();
-    public critEffect = new DecoratedAttribute();
-    public overcome = new DecoratedAttribute();
-    public hit = new DecoratedAttribute();
-    public surplus = 0;
-    public strain = 0;
-    public haste = 0;
-    public threat = 0;
-    public huajing = 0;
+    public attack = new DecoratedAttribute(this.initValue);
+    public heal = this.initValue;
+    public crit = new DecoratedAttribute(this.initValue);
+    public critEffect = new DecoratedAttribute(this.initValue);
+    public overcome = new DecoratedAttribute(this.initValue);
+    public hit = new DecoratedAttribute(this.initValue);
+    public surplus = this.initValue;
+    public strain = this.initValue;
+    public haste = this.initValue;
+    public threat = this.initValue;
+    public huajing = this.initValue;
 
-    public score = 0;
+    public score = this.initValue;
 
-    public health = 0;
+    public health = this.initValue;
 }
 
 export class Result {
-    constructor(private meta: KungFuMeta) {}
-    private core = new ResultCore();
+    constructor(private meta: KungFuMeta) {
+        // 体型数据
+        this.core.vitality = 38;
+        this.core.spunk = 37;
+        this.core.spirit = 38;
+        this.core.strength = 37;
+        this.core.agility = 38;
+    }
+
+    private core = new ResultCore(0);
+    private percent = new ResultCore(1);
+    private rate = new ResultCore(0);
+    private extra = new ResultCore(0);
+
     private globalCof = 205 * 110 - 18800;
 
     public get vitality(): number {
-        return this.core.vitality;
+        return Math.round(this.core.vitality * this.percent.vitality);
     }
     public get spunk(): number {
-        return this.core.spunk;
+        return Math.round(this.core.spunk * this.percent.spunk);
     }
     public get spirit(): number {
-        return this.core.spirit;
+        return Math.round(this.core.spirit * this.percent.spirit);
     }
     public get strength(): number {
-        return this.core.strength;
+        return Math.round(this.core.strength * this.percent.strength);
     }
     public get agility(): number {
-        return this.core.agility;
+        return Math.round(this.core.agility * this.percent.agility);
     }
 
     public get physicsShield(): number {
         return this.core.physicsShield + this.core.basicPhysicsShield
             + (this.meta.base.physicsShield ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.physicsShield ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.physicsShield ?? 0);
     }
     public get physicsShieldRate(): string {
         const cof = 5.091 * this.globalCof;
@@ -76,7 +89,7 @@ export class Result {
     public get magicShield(): number {
         return this.core.magicShield + this.core.basicMagicShield
             + (this.meta.base.magicShield ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.magicShield ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.magicShield ?? 0);
     }
     public get magicShieldRate(): string {
         const cof = 5.091 * this.globalCof;
@@ -111,30 +124,30 @@ export class Result {
     private get rawAttack(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'attack') ?? ['attack', AttributeDecorator.ALL];
         const decoratedAttack = this.core.attack.clone();
-        decoratedAttack.addMagic(0.18 * this.core.spunk);
-        decoratedAttack.addPhysics(0.15 * this.core.strength);
+        decoratedAttack.addMagic(0.18 * this.spunk);
+        decoratedAttack.addPhysics(0.15 * this.strength);
         return decoratedAttack[decorator] + (this.meta.base.attack ?? 0);
     }
     public get baseAttack(): number {
         return Math.round(this.rawAttack);
     }
     public get attack(): number {
-        return Math.round(this.rawAttack + this.core[this.meta.primaryAttribute] * (this.meta.factor.attack ?? 0));
+        return Math.round(this.rawAttack + this[this.meta.primaryAttribute] * (this.meta.factor.attack ?? 0));
     }
 
     public get heal(): number {
         const heal = this.core.heal + (this.meta.base.heal ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.heal ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.heal ?? 0);
         return Math.round(heal);
     }
 
     public get crit(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'crit') ?? ['crit', AttributeDecorator.ALL];
         const decoratedCrit = this.core.crit.clone();
-        decoratedCrit.addMagic(0.64 * this.core.spirit);
-        decoratedCrit.addPhysics(0.64 * this.core.agility);
+        decoratedCrit.addMagic(0.64 * this.spirit);
+        decoratedCrit.addPhysics(0.64 * this.agility);
         const crit = decoratedCrit[decorator] + (this.meta.base.crit ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.crit ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.crit ?? 0);
         return Math.round(crit);
     }
 
@@ -146,7 +159,7 @@ export class Result {
     public get critEffect(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'critEffect') ?? ['critEffect', AttributeDecorator.ALL];
         const critEffect = this.core.critEffect[decorator] + (this.meta.base.critEffect ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.critEffect ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.critEffect ?? 0);
         return Math.round(critEffect);
     }
 
@@ -158,10 +171,10 @@ export class Result {
     public get overcome(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'overcome') ?? ['overcome', AttributeDecorator.ALL];
         const decoratedOvercome = this.core.overcome.clone();
-        decoratedOvercome.addMagic(0.3 * this.core.spunk);
-        decoratedOvercome.addPhysics(0.3 * this.core.strength);
+        decoratedOvercome.addMagic(0.3 * this.spunk);
+        decoratedOvercome.addPhysics(0.3 * this.strength);
         const overcome = decoratedOvercome[decorator] + (this.meta.base.overcome ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.overcome ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.overcome ?? 0);
         return Math.round(overcome);
     }
 
@@ -173,7 +186,7 @@ export class Result {
     public get hit(): number {
         const [,decorator] = this.meta.decorator.find((d) => d[0] === 'hit') ?? ['hit', AttributeDecorator.ALL];
         const hit = this.core.hit[decorator] + (this.meta.base.hit ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.hit ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.hit ?? 0);
         return Math.round(hit);
     }
 
@@ -184,7 +197,7 @@ export class Result {
 
     public get surplus(): number {
         const surplus = this.core.surplus + (this.meta.base.surplus ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.surplus ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.surplus ?? 0);
         return Math.round(surplus);
     }
 
@@ -195,7 +208,7 @@ export class Result {
 
     public get strain(): number {
         const strain = this.core.strain + (this.meta.base.strain ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.strain ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.strain ?? 0);
         return Math.round(strain);
     }
 
@@ -206,7 +219,7 @@ export class Result {
 
     public get haste(): number {
         const haste = this.core.haste + (this.meta.base.haste ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.haste ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.haste ?? 0);
         return Math.round(haste);
     }
 
@@ -217,7 +230,7 @@ export class Result {
 
     public get huajing(): number {
         const huajing = this.core.huajing + (this.meta.base.huajing ?? 0)
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.huajing ?? 0);
+            + this[this.meta.primaryAttribute] * (this.meta.factor.huajing ?? 0);
         return Math.round(huajing);
     }
 
@@ -228,8 +241,8 @@ export class Result {
 
     public get health(): number {
         const cof = Math.round((this.meta.override.health ?? 1) * 1024) / 1024;
-        const health = (this.core.vitality * 10 + 23766) * cof
-            + this.core[this.meta.primaryAttribute] * (this.meta.factor.health ?? 0)
+        const health = (this.vitality * 10 + 23766) * cof
+            + this[this.meta.primaryAttribute] * (this.meta.factor.health ?? 0)
             + this.core.health;
         return Math.floor(health);
     }
@@ -241,18 +254,18 @@ export class Result {
     public applyEquip(equip?: Equip): Result {
         if (equip) {
             PrimaryAttribute.forEach((key) => {
-                this.core[key] += equip[key] ?? 0;
-                this.core[key] += equip.getStrengthValue(equip[key]);
+                this.add(key, equip[key] ?? 0);
+                this.add(key, equip.getStrengthValue(equip[key]) ?? 0);
             });
             SecondaryAttribute
                 .filter((attribute) => !DecoratableAttribute.includes(attribute))
                 .forEach((key) => {
-                    this.core[key] += equip[key] ?? 0;
-                    this.core[key] += equip.getStrengthValue(equip[key]);
+                    this.add(key, equip[key] ?? 0);
+                    this.add(key, equip.getStrengthValue(equip[key]) ?? 0);
                 });
             MinorAttribute.forEach((key) => {
                 if (this.core[key] !== undefined) {
-                    this.core[key] += equip[key] ?? 0;
+                    this.add(key, equip[key] ?? 0);
                 }
             });
 
@@ -299,15 +312,26 @@ export class Result {
         return this;
     }
 
-    private add(key, value, decorator) {
+    private add(attributeKey: string, attributeValue: number, decorator: AttributeDecorator = AttributeDecorator.NONE) {
+        let to = this.core;
+        let key = attributeKey;
+        let value = attributeValue;
+        if (key.endsWith('Rate')) {
+            to = this.rate;
+            key = attributeKey.replace('Rate', '');
+        } else if (key.endsWith('Percent')) {
+            to = this.percent;
+            key = attributeKey.replace('Percent', '');
+            value = attributeValue / 1024;
+        }
         if (decorator === AttributeDecorator.NONE) {
-            this.core[key] += value;
+            to[key] += value;
         } else if (decorator === AttributeDecorator.ALL) {
-            (this.core[key] as DecoratedAttribute).addAll(value);
+            (to[key] as DecoratedAttribute).addAll(value);
         } else if (decorator === AttributeDecorator.MAGIC) {
-            (this.core[key] as DecoratedAttribute).addMagic(value);
+            (to[key] as DecoratedAttribute).addMagic(value);
         } else {
-            (this.core[key] as DecoratedAttribute)[decorator] += value;
+            (to[key] as DecoratedAttribute)[decorator] += value;
         }
     }
 }

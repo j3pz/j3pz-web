@@ -3,6 +3,7 @@ import { KungFu } from './base';
 import { CaseScheme } from './case_scheme';
 import { Enhance } from './enhance';
 import { Equip } from './equip';
+import { KungFuMeta } from './kungfu';
 import { Stone } from './stone';
 import { Talent } from './talent';
 
@@ -29,6 +30,8 @@ export class CaseDetail extends CaseInfo {
 
     @Type(() => CaseScheme)
     public scheme: CaseScheme;
+
+    public kungfuMeta: KungFuMeta;
 
     static fromJson(object: Object): CaseDetail {
         const detail = plainToClass(CaseDetail, object);

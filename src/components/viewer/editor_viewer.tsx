@@ -80,8 +80,10 @@ export class EditorViewer extends Component<StoreProps, EditorViewerState> {
 
         // 急速
         attributes.push(['hasteRate', 'haste']);
-        // 无双
-        attributes.push(['strainRate', 'strain']);
+        if (kungfuMeta.role !== GamingRole.HEALER) {
+            // 无双
+            attributes.push(['strainRate', 'strain']);
+        }
         // 内防
         attributes.push(['physicsShieldRate', 'physicsShield']);
         // 外防

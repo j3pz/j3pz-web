@@ -2,13 +2,15 @@ import { classToClass } from 'class-transformer';
 import { AttributeDecorator } from './attribute';
 
 export class DecoratedAttribute {
-    [AttributeDecorator.PHYSICS] = 0;
-    [AttributeDecorator.MAGIC] = 0;
-    [AttributeDecorator.LUNAR] = 0;
-    [AttributeDecorator.SOLAR] = 0;
-    [AttributeDecorator.SOLAR_LUNAR] = 0;
-    [AttributeDecorator.NEUTRAL] = 0;
-    [AttributeDecorator.POISON] = 0;
+    constructor(private initValue: number) {}
+
+    [AttributeDecorator.PHYSICS] = this.initValue;
+    [AttributeDecorator.MAGIC] = this.initValue;
+    [AttributeDecorator.LUNAR] = this.initValue;
+    [AttributeDecorator.SOLAR] = this.initValue;
+    [AttributeDecorator.SOLAR_LUNAR] = this.initValue;
+    [AttributeDecorator.NEUTRAL] = this.initValue;
+    [AttributeDecorator.POISON] = this.initValue;
 
     addAll(value: number) {
         this.addPhysics(value);

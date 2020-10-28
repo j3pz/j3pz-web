@@ -44,6 +44,10 @@ export class CaseService {
                 id: detail.id,
                 name: detail.name,
             };
+            $store.equips = {};
+            $store.stones = {};
+            $store.kungfu = detail.kungfu;
+            $store.kungfuMeta = detail.kungfuMeta;
             detail.scheme.equip.forEach((equipScheme) => {
                 const equip = detail.equip.find((e) => e.id === equipScheme.id);
                 const enhance = detail.enhance.find((e) => e.id === equipScheme.enhance);

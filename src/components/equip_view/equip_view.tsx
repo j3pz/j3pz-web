@@ -186,7 +186,11 @@ function EquipView({ equip, stone }: EquipViewProps) {
                                 {i === 0
                                     ? <img src={`https://icons.j3pz.com/${stone.icon}.png`} className="slot" alt="" />
                                     : <span className="slot" />}
-                                <span>{DECORATOR_DESC[attrib.decorator] + ATTRIBUTE_DESC[attrib.key] + attrib.value}</span>
+                                <span>
+                                    {DECORATOR_DESC[attrib.decorator] + ATTRIBUTE_DESC[attrib.key]
+                                    + (attrib.key.endsWith('Percent') || attrib.key.endsWith('Coefficient')
+                                        ? `${Math.round(attrib.value / 10.24)}%` : attrib.value)}
+                                </span>
                             </li>
                         );
                     })}
