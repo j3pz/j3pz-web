@@ -61,7 +61,7 @@ export class Equip {
     public embedding: EmbedOps[] = [];
     public attributeStone: Stone;
     public strengthLevel = 0;
-    public enhance: Enhance;
+    public enhance: Enhance | null = null;
 
     constructor(category?: Category) {
         if (category) this.category = category;
@@ -95,13 +95,15 @@ export class Equip {
         return this;
     }
 
-    public setEnhance(enhance?: Enhance): Equip {
+    public setEnhance(enhance?: Enhance | null): Equip {
         if (enhance) {
             const equip = classToClass(this);
             equip.enhance = enhance;
             return equip;
         }
-        return this;
+        const equip = classToClass(this);
+        equip.enhance = null;
+        return equip;
     }
 
     public clone(): Equip {

@@ -289,6 +289,11 @@ export class Result {
                 const embedValue = EmbedService.getPlusValueByLevel(tuple, embedStone.level);
                 this.add(attribute, embedValue, decorator);
             });
+
+            equip.enhance?.attribute.forEach((key, i) => {
+                const value = equip.enhance!.value[i] ?? equip.enhance!.value[0];
+                this.add(key, +value, equip.enhance!.decorator);
+            });
             this.core.score += equip.score + equip.getStrengthValue(equip.score) + equip.embedScore;
         }
         return this;

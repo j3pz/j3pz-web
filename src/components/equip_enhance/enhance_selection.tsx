@@ -48,6 +48,15 @@ export class EnhanceSelection extends Component<StoreProps> {
         });
     };
 
+    private removeEnhance = () => {
+        const { store } = this.props;
+        const currentPosition = store.activeEquipNav;
+        const currentEquip = store.equips[currentPosition];
+        if (currentEquip) {
+            store.equips[currentPosition] = currentEquip.setEnhance(null);
+        }
+    };
+
     render() {
         const { store } = this.props;
         const raw = this.cache.get(store.activeEquipNav) ?? [];
@@ -61,12 +70,14 @@ export class EnhanceSelection extends Component<StoreProps> {
                     size="lg"
                     placeholder="选择附魔"
                     onOpen={this.handleUpdate}
+                    onClean={this.removeEnhance}
                     labelKey="name"
                     valueKey="id"
                     disabled={!currentEquip}
                     virtualized={false}
                     searchable={false}
                     onSelect={this.setEnhance}
+                    value={currentEquip?.enhance?.id}
                     renderMenu={(menu) => {
                         if (raw.length === 0) {
                             return (
