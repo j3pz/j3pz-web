@@ -84,7 +84,7 @@ export class Equip {
     }
 
     public setEmbed(idx: number, level: number): Equip {
-        if (idx <= this.embed.count && level >= 0) {
+        if (idx < this.embed.count && level >= 0) {
             const equip = classToClass(this);
             equip.embedding[idx] = {
                 index: idx,
