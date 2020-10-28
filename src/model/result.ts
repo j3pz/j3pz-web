@@ -5,6 +5,7 @@ import { Equip } from './equip';
 import { EmbedService } from '../service/embed_service';
 import { DecoratedAttribute } from './decorated_attribute';
 import { KungFuMeta } from './kungfu';
+import { Stone } from './stone';
 
 class ResultCore {
     // PrimaryAttribute
@@ -172,7 +173,7 @@ export class Result {
         return this.core.score;
     }
 
-    applyEquip(equip?: Equip) {
+    public applyEquip(equip?: Equip): Result {
         if (equip) {
             PrimaryAttribute.forEach((key) => {
                 this.core[key] += equip[key] ?? 0;
@@ -192,16 +193,8 @@ export class Result {
 
             DecoratableAttribute.forEach((key) => {
                 const decorator = equip.decorators[key];
-                if (decorator === AttributeDecorator.ALL) {
-                    (this.core[key] as DecoratedAttribute).addAll(equip[key]);
-                    (this.core[key] as DecoratedAttribute).addAll(equip.getStrengthValue(equip[key]));
-                } else if (decorator === AttributeDecorator.MAGIC) {
-                    (this.core[key] as DecoratedAttribute).addMagic(equip[key]);
-                    (this.core[key] as DecoratedAttribute).addMagic(equip.getStrengthValue(equip[key]));
-                } else {
-                    (this.core[key] as DecoratedAttribute)[decorator] += equip[key];
-                    (this.core[key] as DecoratedAttribute)[decorator] += equip.getStrengthValue(equip[key]);
-                }
+                this.add(key, equip[key] ?? 0, decorator);
+                this.add(key, equip.getStrengthValue(equip[key]) ?? 0, decorator);
             });
 
             [1, 2, 3].forEach((n) => {
@@ -216,16 +209,37 @@ export class Result {
                 const tuple = equip.embed.attributes[n - 1];
                 const [attribute, decorator] = tuple;
                 const embedValue = EmbedService.getPlusValueByLevel(tuple, embedStone.level);
-                if (decorator === AttributeDecorator.NONE) {
-                    this.core[attribute] += embedValue;
-                } else if (decorator === AttributeDecorator.MAGIC) {
-                    (this.core[attribute] as DecoratedAttribute).addMagic(embedValue);
-                } else {
-                    (this.core[attribute] as DecoratedAttribute)[decorator] += embedValue;
-                }
+                this.add(attribute, embedValue, decorator);
             });
             this.core.score += equip.score + equip.getStrengthValue(equip.score) + equip.embedScore;
         }
         return this;
+    }
+
+    public applyStone(stone?: Stone): Result {
+        if (stone) {
+            this.core.score += stone.level * 308;
+            stone.attributes.forEach((attrib) => {
+                const active = attrib.requiredLevel <= EmbedService.totalLevel
+                    && attrib.requiredQuantity <= EmbedService.totalCount;
+                if (active) {
+                    const { key, value, decorator } = attrib;
+                    this.add(key, value, decorator);
+                }
+            });
+        }
+        return this;
+    }
+
+    private add(key, value, decorator) {
+        if (decorator === AttributeDecorator.NONE) {
+            this.core[key] += value;
+        } else if (decorator === AttributeDecorator.ALL) {
+            (this.core[key] as DecoratedAttribute).addAll(value);
+        } else if (decorator === AttributeDecorator.MAGIC) {
+            (this.core[key] as DecoratedAttribute).addMagic(value);
+        } else {
+            (this.core[key] as DecoratedAttribute)[decorator] += value;
+        }
     }
 }

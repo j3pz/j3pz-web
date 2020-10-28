@@ -14,6 +14,7 @@ import { CaseDetail } from '../../model/case_info';
 import { EditorViewer } from '../viewer/editor_viewer';
 import { UserService } from '../../service/user_service';
 import { User } from '../../model/user';
+import { EmbedService } from '../../service/embed_service';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -24,6 +25,7 @@ export class CoreEdit extends Component<StoreProps> {
                 if (res) {
                     const detail = CaseDetail.fromJson(res.attributes);
                     CaseService.applyToStore(detail);
+                    EmbedService.update($store);
                 } else {
                     navigate('/dashboard');
                 }

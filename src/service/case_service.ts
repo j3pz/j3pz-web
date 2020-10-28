@@ -3,6 +3,7 @@ import { transaction } from 'mobx';
 import { KungFu, Position } from '../model/base';
 import { CaseDetail, CaseInfo } from '../model/case_info';
 import { CaseModel } from '../model/case_model';
+import { EquipScheme } from '../model/case_scheme';
 import { Resource } from '../model/resource';
 import { Talent } from '../model/talent';
 import { $store, EditState } from '../store';
@@ -60,6 +61,13 @@ export class CaseService {
                     } else {
                         $store.equips.ring_2 = nextEquip;
                     }
+
+                    if (equipScheme.stone) {
+                        const stone = detail.stone.find((s) => s.id === equipScheme.stone);
+                        if (stone) {
+                            $store.stones[equip.category as Position] = stone;
+                        }
+                    }
                 }
             });
             CollectionService.updateCollection($store);
@@ -99,7 +107,7 @@ export class CaseService {
 
         Object.values(store.equips).forEach((equip) => {
             if (equip) {
-                caseModel.equip.push({
+                const scheme: EquipScheme = {
                     id: equip.id,
                     category: equip.category,
                     strengthen: equip.strengthLevel,
@@ -108,7 +116,11 @@ export class CaseService {
                         type: 'unified',
                         level: ops?.level ?? 0,
                     })),
-                });
+                };
+                if (store.stones[equip.category]) {
+                    scheme.stone = store.stones[equip.category].id;
+                }
+                caseModel.equip.push(scheme);
             }
         });
         caseModel.talent = store.talents.map((t) => t.id);

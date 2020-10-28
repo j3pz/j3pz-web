@@ -13,9 +13,8 @@ export class ResultService {
             school: School.万花,
             primaryAttribute: 'spunk',
         });
-        Object.values(store.equips).reduce((res, equip) => {
-            return res.applyEquip(equip);
-        }, result);
+        Object.values(store.equips).reduce((res, equip) => res.applyEquip(equip), result);
+        Object.values(store.stones).reduce((res, stone) => res.applyStone(stone), result);
         return result;
     }
 }

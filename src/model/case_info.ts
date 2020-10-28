@@ -3,6 +3,7 @@ import { KungFu } from './base';
 import { CaseScheme } from './case_scheme';
 import { Enhance } from './enhance';
 import { Equip } from './equip';
+import { Stone } from './stone';
 import { Talent } from './talent';
 
 export class CaseInfo {
@@ -22,6 +23,9 @@ export class CaseDetail extends CaseInfo {
 
     @Type(() => Talent)
     public talent: Talent[];
+
+    @Type(() => Stone)
+    public stone: Stone[];
 
     @Type(() => CaseScheme)
     public scheme: CaseScheme;
