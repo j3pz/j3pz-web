@@ -15,6 +15,7 @@ import { EditorViewer } from '../viewer/editor_viewer';
 import { UserService } from '../../service/user_service';
 import { User } from '../../model/user';
 import { EmbedService } from '../../service/embed_service';
+import { ShareModal } from '../share/share_modal';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -52,6 +53,7 @@ export class CoreEdit extends Component<StoreProps> {
     };
 
     onCaseEvent = (key: string) => {
+        const { store } = this.props;
         switch (key) {
             case 'save':
                 CaseService.save($store).then((res) => {
@@ -59,6 +61,9 @@ export class CoreEdit extends Component<StoreProps> {
                         Alert.success('保存成功');
                     }
                 });
+                break;
+            case 'share':
+                store.showShare = true;
                 break;
             default: break;
         }
@@ -102,11 +107,12 @@ export class CoreEdit extends Component<StoreProps> {
                             <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} /> */}
                             <Nav.Item icon={<FontAwesomeIcon icon={faSave} />} eventKey="save" />
                             {/* <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} /> */}
-                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} />} />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} />} eventKey="share" />
                         </Nav>
                         { store.kungfuMeta && <EditorViewer store={$store} />}
                     </FlexboxGrid.Item>
                 </FlexboxGrid>
+                <ShareModal store={$store} />
             </main>
         );
     }
