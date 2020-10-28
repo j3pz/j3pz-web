@@ -4,7 +4,7 @@ import { EquipSet } from '../model/equip_set';
 import { SimpleEquip } from '../model/simple_equip';
 import { EditState } from '../store';
 
-interface Collection extends EquipSet {
+export interface Collection extends EquipSet {
     equips: Partial<Record<Position, (SimpleEquip & { active?: boolean })[]>>;
 }
 
@@ -36,7 +36,7 @@ export class CollectionService {
     static getEffects(equip: Equip) {
         const collection = this.collections.get(equip.set?.id);
         if (!collection) return [];
-        const active = this.getActiveCount(equip);
+        const active = this.getActiveCount(collection);
         return Object.values(collection.setEffect)
             .map((setEffect) => ({
                 id: setEffect.id,
@@ -46,10 +46,15 @@ export class CollectionService {
             }));
     }
 
-    static getActiveCount(equip: Equip): number {
+    static getActiveCountByEquip(equip: Equip): number {
         const collection = this.collections.get(equip.set?.id);
+        return this.getActiveCount(collection);
+    }
+
+    static getActiveCount(collection?: Collection): number {
         if (!collection) return 0;
-        return Object.values(collection.equips).reduce((active, equipList = []) => active + equipList?.filter((e) => e.active).length, 0);
+        return Object.values(collection.equips)
+            .reduce((active, equipList = []) => active + equipList?.filter((e) => e.active).length, 0);
     }
 
     static updateCollection(store: EditState) {

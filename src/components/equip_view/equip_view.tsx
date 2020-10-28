@@ -207,7 +207,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
             {/* 装备套装汇总信息 */}
             {equip.set && (
             <li className="quality">
-                {`${equip.set.name}(${CollectionService.getActiveCount(equip)}/${CollectionService.getEquips(equip).length})`}
+                {`${equip.set.name}(${CollectionService.getActiveCountByEquip(equip)}/${CollectionService.getEquips(equip).length})`}
             </li>
             )}
             {/* 装备套装激活信息 */}

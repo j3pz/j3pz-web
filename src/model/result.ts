@@ -3,6 +3,7 @@ import {
 } from './attribute';
 import { Equip } from './equip';
 import { EmbedService } from '../service/embed_service';
+import { Collection, CollectionService } from '../service/collection_service';
 import { DecoratedAttribute } from './decorated_attribute';
 import { KungFuMeta } from './kungfu';
 import { Stone } from './stone';
@@ -314,6 +315,21 @@ export class Result {
                 }
             });
         }
+        return this;
+    }
+
+    public applyCollection(collection: Collection): Result {
+        const activeCount = CollectionService.getActiveCount(collection);
+        collection.setEffect.forEach((s) => {
+            const active = s.requirement <= activeCount;
+            if (active) {
+                s.effect.attribute.forEach((key, i) => {
+                    const value = s.effect.value[i] ?? s.effect.value[0];
+                    const decorator = s.effect.decorator[i] ?? s.effect.decorator[0];
+                    this.add(key, +value, decorator);
+                });
+            }
+        });
         return this;
     }
 
