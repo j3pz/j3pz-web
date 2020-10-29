@@ -5,6 +5,7 @@ import { TalentSelection } from '../talent_selection/talent_selection';
 import { BuildingState } from '../empty_states/building';
 import { $store } from '../../store';
 import { CaseSettings } from '../case_settings/case_settings';
+import { Panel, PanelGroup } from 'rsuite';
 
 @observer
 export class CaseTab extends Component {
@@ -15,7 +16,14 @@ export class CaseTab extends Component {
                 <Container style={{ flex: 1, paddingTop: 12 }}>
                     <Row>
                         <Col sm={12} md={6}>
-                            <BuildingState />
+                            <PanelGroup>
+                                <Panel header="阵法">
+                                    <BuildingState />
+                                </Panel>
+                                <Panel header="小吃小药">
+                                    <BuildingState />
+                                </Panel>
+                            </PanelGroup>
                         </Col>
                         <Col sm={12} md={6}>
                             <CaseSettings store={$store} />

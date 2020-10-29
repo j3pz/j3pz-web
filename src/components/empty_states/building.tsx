@@ -23,7 +23,7 @@ function BuildingState() {
                     textAlign: 'center',
                 }}
             >
-                尚在建设中
+                临时下线，后续重新开发
             </span>
         </div>
     );
