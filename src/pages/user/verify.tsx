@@ -20,7 +20,7 @@ export default class VerifyPage extends Component<{}, { pending: boolean; valid:
 
     componentDidMount() {
         const permalink = getUrlParameter('permalink');
-        const token = getUrlParameter('permalink');
+        const token = getUrlParameter('token');
         if (permalink && token) {
             UserService.verify(permalink, token).then((res) => {
                 if (res.attributes) {
