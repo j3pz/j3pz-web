@@ -203,7 +203,7 @@ export class Result {
     }
 
     public get surplusDamage(): number {
-        const cof = 14.504 * this.globalCof;
+        const cof = (14.504 * this.globalCof) / 100;
         return Math.floor(cof * this.surplus);
     }
 

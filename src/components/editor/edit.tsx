@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Nav, FlexboxGrid, Alert } from 'rsuite';
+import {
+    Nav, FlexboxGrid, Alert, Toggle,
+} from 'rsuite';
 import { observer } from 'mobx-react';
 import { transaction } from 'mobx';
 import { navigate } from 'gatsby';
@@ -108,6 +110,16 @@ export class CoreEdit extends Component<StoreProps> {
                             <Nav.Item icon={<FontAwesomeIcon icon={faSave} />} eventKey="save" />
                             {/* <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} /> */}
                             <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} />} eventKey="share" />
+                            <Nav.Item style={{ float: 'right' }}>
+                                <Toggle
+                                    checked={store.showAllAttributes}
+                                    checkedChildren="所有"
+                                    unCheckedChildren="相关"
+                                    onChange={(checked) => { store.showAllAttributes = checked; }}
+                                    style={{ marginRight: 4 }}
+                                />
+                                查看所有属性
+                            </Nav.Item>
                         </Nav>
                         { store.kungfuMeta && <EditorViewer store={$store} />}
                     </FlexboxGrid.Item>

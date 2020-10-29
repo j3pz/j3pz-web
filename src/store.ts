@@ -13,6 +13,7 @@ export interface EditState {
     tab: AppTab;
     equipNavExpanded: boolean;
     showShare: boolean;
+    showAllAttributes: boolean;
     activeEquipNav: Position;
     kungfu: KungFu;
     kungfuMeta: KungFuMeta | null;
@@ -39,6 +40,7 @@ export const $store = observable<EditState>({
     tab: AppTab.EQUIP,
     equipNavExpanded: true,
     showShare: false,
+    showAllAttributes: false,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,
     kungfuMeta: null,
