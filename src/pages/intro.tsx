@@ -5,9 +5,8 @@ import { SEO } from '../components/seo';
 
 const NotFoundPage = () => (
     <Main>
-        <SEO title="404: Not found" />
-        <h1>NOT FOUND</h1>
-        <p>链接似乎有误</p>
+        <SEO title="使用说明" />
+        <h1>大侠请稍等，作者正在努力撰写本文</h1>
     </Main>
 );
 
