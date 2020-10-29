@@ -48,6 +48,7 @@ export class UserSettings extends Component<StoreProps, UserSettingsState> {
         UserService.updateUser({ oldPassword: old, password }).then((res) => {
             if (res) {
                 Alert.success('更新成功');
+                this.setState({ passwordModal: false });
             }
         });
     };

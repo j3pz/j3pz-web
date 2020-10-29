@@ -26,6 +26,7 @@ export class ChangePassword extends Component<ChangePasswordProps> {
                     margin: '0 auto',
                 }}
                 size="sm"
+                onHide={onClose}
                 dialogStyle={{
                     height: '100%',
                     display: 'flex',
