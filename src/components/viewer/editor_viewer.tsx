@@ -91,11 +91,11 @@ export class EditorViewer extends Component<StoreProps> {
                 className="result-view"
             >
                 <div className="label"><b>基础</b></div>
-                {this.basicAttributes.map(([key, tips]) => <ResultItem attrib={key} tips={tips} result={result} />)}
+                {this.basicAttributes.map(([key, tips]) => <ResultItem key={key} attrib={key} tips={tips} result={result} />)}
                 <div className="label"><b>伤害</b></div>
-                {this.damageAttributes.map(([key, tips]) => <ResultItem attrib={key} tips={tips} result={result} />)}
+                {this.damageAttributes.map(([key, tips]) => <ResultItem key={key} attrib={key} tips={tips} result={result} />)}
                 <div className="label"><b>生存</b></div>
-                {this.defenseAttributes.map(([key, tips]) => <ResultItem attrib={key} tips={tips} result={result} />)}
+                {this.defenseAttributes.map(([key, tips]) => <ResultItem key={key} attrib={key} tips={tips} result={result} />)}
             </div>
         );
     }
