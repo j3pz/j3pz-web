@@ -23,7 +23,7 @@ function BuildingState() {
                     textAlign: 'center',
                 }}
             >
-                临时下线，后续重新开发
+                临时下线，后续重新开放
             </span>
         </div>
     );
