@@ -5,8 +5,11 @@ import {
     Layer, Stage, Text, Rect, Group,
 } from 'react-konva';
 import { ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
-import { GamingRole, schoolAbbrMap } from '../../model/base';
+import {
+    GamingRole, Position, School, schoolAbbrMap,
+} from '../../model/base';
 import { Result } from '../../model/result';
+import { Stone } from '../../model/stone';
 import { ResultService } from '../../service/result_service';
 import { StoreProps } from '../../store';
 import { schoolIcons } from '../../utils/school_icon';
@@ -76,7 +79,7 @@ export class ShareImage extends Component<StoreProps> {
 
     render() {
         const {
-            kungfuMeta, kungfu, caseInfo, user, equips,
+            kungfuMeta, kungfu, caseInfo, user, equips, stones, talents,
         } = this.props.store;
         const attributes = this.getDisplayAttributes();
 
@@ -96,8 +99,8 @@ export class ShareImage extends Component<StoreProps> {
                             src="https://images.j3pz.com/imgs/share_print.png"
                             width={140}
                             height={48}
-                            x={8}
-                            y={472}
+                            x={764}
+                            y={24}
                         />
                         <CanvasImage
                             src={`https://images.j3pz.com/imgs/school/${schoolAbbrMap[kungfuMeta!.school]}/jn.png`}
@@ -117,7 +120,7 @@ export class ShareImage extends Component<StoreProps> {
                             x={16}
                             y={112}
                             width={360 - 16 * 2}
-                            height={kungfuMeta!.role === GamingRole.DAMAGE_DEALER ? 342 : 262}
+                            height={kungfuMeta!.role === GamingRole.DAMAGE_DEALER ? 302 : 232}
                             fill="white"
                             opacity={0.3}
                             shadowColor="white"
@@ -126,29 +129,126 @@ export class ShareImage extends Component<StoreProps> {
                         />
                     </Layer>
 
-                    <Layer name="equips">
-                        {Object.values(equips).map((equip, i) => (
-                            <Group>
-                                <Rect
-                                    x={380 + (i % 2) * 250}
-                                    y={24 + Math.floor(i / 2) * 64}
-                                    strokeWidth={1}
-                                    stroke="#FFFFFF"
-                                    height={48}
-                                    width={240}
+                    <Layer name="talents">
+                        {talents.map((talent, i) => (
+                            <Group key={`talent-${talent.id}`}>
+                                <CanvasImage
+                                    src={`https://icons.j3pz.com/${talent.icon}.png`}
+                                    x={14 + (i % 6) * 54 + 12}
+                                    y={420 + Math.floor(i / 6) * 52}
+                                    cornerRadius={4}
+                                    width={30}
+                                    height={30}
+                                />
+                                <Text
+                                    text={talent.name}
+                                    fontSize={12}
+                                    x={14 + (i % 6) * 54}
+                                    width={54}
+                                    fill="#FFFFFF"
+                                    y={420 + Math.floor(i / 6) * 52 + 32}
+                                    align="center"
                                 />
                             </Group>
                         ))}
                     </Layer>
 
+                    <Layer name="equips">
+                        {Object.values(Position).map((pos, i) => {
+                            const equip = equips[pos];
+                            let isWeapon = false;
+                            let index = i;
+
+                            if (pos === Position.TERTIARY_WEAPON && kungfuMeta!.school !== School.藏剑) {
+                                return null;
+                            }
+                            if (pos === Position.TERTIARY_WEAPON || pos === Position.PRIMARY_WEAPON) {
+                                isWeapon = true;
+                                index += 1;
+                            }
+
+                            const x = 380 + (index % 2) * 270;
+                            const y = 104 + Math.floor(index / 2) * 56;
+
+                            return (
+                                <Group key={`equip-${equip?.id ?? 'empty'}-${index}`}>
+                                    <Rect
+                                        x={x}
+                                        y={y}
+                                        strokeWidth={1}
+                                        stroke="#FFFFFF"
+                                        opacity={0.3}
+                                        cornerRadius={4}
+                                        height={isWeapon ? 68 : 48}
+                                        width={250}
+                                    />
+
+                                    <CanvasImage
+                                        src={equip
+                                            ? `https://icons.j3pz.com/${equip.icon}.png`
+                                            : 'https://images.j3pz.com/imgs/stones/empty-slot.jpg'}
+                                        width={40}
+                                        height={40}
+                                        cornerRadius={4}
+                                        x={x + 4}
+                                        y={y + 4}
+                                    />
+
+                                    <Text
+                                        text={equip ? `${equip.name}(${equip.strengthLevel})` : '未选装备'}
+                                        fontSize={16}
+                                        fontStyle="bold"
+                                        fill="#FFFFFF"
+                                        x={x + 52}
+                                        y={y + 4}
+                                    />
+
+                                    {equip && equip.embedding.filter((ops) => ops.index < equip.embed.count).map((ops, j, all) => (
+                                        <CanvasImage
+                                            key={`equip-${equip.id}-embedding-${ops.index}`}
+                                            src={ops.level > 0
+                                                ? `https://images.j3pz.com/imgs/stones/0-${ops.level}.jpg`
+                                                : 'https://images.j3pz.com/imgs/stones/empty-slot.jpg'}
+                                            width={18}
+                                            height={18}
+                                            cornerRadius={2}
+                                            x={x + 248 - (all.length - j) * 20}
+                                            y={y + 6}
+                                        />
+                                    ))}
+
+                                    {equip?.enhance && (
+                                        <Text
+                                            text={equip.enhance.name}
+                                            x={x + 52}
+                                            y={y + 28}
+                                            fontSize={14}
+                                            fill="#EDDC87"
+                                        />
+                                    )}
+
+                                    {equip && isWeapon && (
+                                        <Text
+                                            text={(stones[pos] as Stone).name ?? ''}
+                                            x={x + 52}
+                                            y={y + 48}
+                                            fontSize={14}
+                                            fill="#52A7EE"
+                                        />
+                                    )}
+                                </Group>
+                            );
+                        })}
+                    </Layer>
+
                     <Layer name="texts">
                         <Text
-                            text={caseInfo.name.slice(0, 6)}
+                            text={caseInfo.name.length > 15 ? `${caseInfo.name.slice(0, 14)}...` : caseInfo.name}
                             fontFamily="STKaiti, 华文楷体, sans-serif"
                             fill="#FFFFFF"
                             fontSize={40}
                             x={108}
-                            width={240}
+                            width={600}
                             y={24}
                         />
                         <Text
@@ -169,12 +269,12 @@ export class ShareImage extends Component<StoreProps> {
                         />
                         {attributes.map(([attribute, tipAttribute], i) => {
                             const titleProps: TextConfig = {
-                                fill: '#FFFF00',
+                                fill: '#EDDC87',
                                 text: ATTRIBUTE_SHORT_DESC[tipAttribute ?? ''] ?? ATTRIBUTE_SHORT_DESC[attribute],
                                 fontFamily: '"Microsoft YaHei", 微软雅黑, Roboto, sans-serif',
                                 fontSize: 24,
                                 x: ((360 - 32) / 4) * (i % 4) + 16,
-                                y: 124 + Math.floor(i / 4) * 80,
+                                y: 124 + Math.floor(i / 4) * 70,
                                 width: (360 - 32) / 4,
                                 height: 32,
                                 verticalAlign: 'middle',

@@ -1,6 +1,6 @@
 import { ImageConfig } from 'konva/types/shapes/Image';
 import React, { Component } from 'react';
-import { Image as KonvaImage } from 'react-konva';
+import { Group, Image as KonvaImage } from 'react-konva';
 
 interface CanvasImageState {
     image: HTMLImageElement | null;
@@ -8,6 +8,7 @@ interface CanvasImageState {
 
 interface CanvasImageProps {
     src: string;
+    cornerRadius?: number;
 }
 
 export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 'image'>, CanvasImageState> {
@@ -45,12 +46,33 @@ export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 
         if (!this.state.image) {
             return null;
         }
-        const { src, ...rest } = this.props;
-        return (
+        const { src, cornerRadius: r, ...rest } = this.props;
+        const {
+            x, y, width: w, height: h,
+        } = rest;
+        const image = (
             <KonvaImage
                 image={this.state.image}
                 {...rest}
             />
         );
+        if (r) {
+            return (
+                <Group
+                    clipFunc={(ctx) => {
+                        ctx.beginPath();
+                        ctx.moveTo(x + r, y);
+                        ctx.arcTo(x + w, y, x + w, y + h, r);
+                        ctx.arcTo(x + w, y + h, x, y + h, r);
+                        ctx.arcTo(x, y + h, x, y, r);
+                        ctx.arcTo(x, y, x + w, y, r);
+                        ctx.closePath();
+                    }}
+                >
+                    {image}
+                </Group>
+            );
+        }
+        return image;
     }
 }
