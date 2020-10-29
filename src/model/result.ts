@@ -7,6 +7,7 @@ import { Collection, CollectionService } from '../service/collection_service';
 import { DecoratedAttribute } from './decorated_attribute';
 import { KungFuMeta } from './kungfu';
 import { Stone } from './stone';
+import { Category, KungFu } from './base';
 
 class ResultCore {
     constructor(private initValue: number) {}
@@ -46,7 +47,7 @@ class ResultCore {
 }
 
 export class Result {
-    constructor(private meta: KungFuMeta) {
+    constructor(private meta: KungFuMeta, private kungfu: KungFu) {
         // 体型数据
         this.core.vitality = 38;
         this.core.spunk = 37;
@@ -249,11 +250,19 @@ export class Result {
     }
 
     public get score(): number {
-        return this.core.score;
+        return Math.floor(this.core.score);
     }
 
     public applyEquip(equip?: Equip): Result {
         if (equip) {
+            if (this.kungfu === KungFu.问水诀 && equip.category === Category.TERTIARY_WEAPON) {
+                this.core.score += (equip.score + equip.getStrengthValue(equip.score) + equip.embedScore) / 2;
+                return this;
+            }
+            if (this.kungfu === KungFu.山居剑意 && equip.category === Category.PRIMARY_WEAPON) {
+                this.core.score += (equip.score + equip.getStrengthValue(equip.score) + equip.embedScore) / 2;
+                return this;
+            }
             PrimaryAttribute.forEach((key) => {
                 this.add(key, equip[key] ?? 0);
                 this.add(key, equip.getStrengthValue(equip[key]) ?? 0);

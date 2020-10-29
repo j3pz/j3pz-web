@@ -13,7 +13,7 @@ export class ResultService {
             role: GamingRole.DAMAGE_DEALER,
             school: School.万花,
             primaryAttribute: 'spunk',
-        });
+        }, store.kungfu);
         Object.values(store.equips).reduce((res, equip) => res.applyEquip(equip), result);
         Object.values(store.stones).reduce((res, stone) => res.applyStone(stone), result);
         [...CollectionService.collections.values()].reduce((res, collection) => res.applyCollection(collection), result);
