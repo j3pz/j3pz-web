@@ -1,6 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import './tools_sidebar.less';
 import { Link } from 'gatsby';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTachometerAlt } from '@fortawesome/pro-duotone-svg-icons';
 import { Footer } from '../footer/Footer';
 
 interface ToolsSidebarProps {
@@ -16,9 +18,9 @@ function ToolsSidebar({ children, header = 0 } : PropsWithChildren<ToolsSidebarP
             <aside style={{ width: 60 }} className="tools-sidebar">
                 <nav>
                     <Link to="/tools/haste" title="加速宝典" className="tool-item">
-                        <div className="fad fa-tachometer-alt" />
+                        <FontAwesomeIcon icon={faTachometerAlt} />
                     </Link>
-                    <Link to="/tools/prediction" title="瑰石列表" className="tool-item">
+                    {/* <Link to="/tools/prediction" title="瑰石列表" className="tool-item">
                         <div className="fad fa-gem" />
                     </Link>
                     <Link to="/tools/furniture" title="家具图鉴" className="tool-item">
@@ -26,7 +28,7 @@ function ToolsSidebar({ children, header = 0 } : PropsWithChildren<ToolsSidebarP
                     </Link>
                     <Link to="/tools/achivement" title="成就百科" className="tool-item">
                         <div className="fad fa-ribbon" />
-                    </Link>
+                    </Link> */}
                 </nav>
             </aside>
             <main className="tools-content">

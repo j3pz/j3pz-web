@@ -85,6 +85,10 @@
     display: flex;
     justify-content: space-between;
 
+    .disabled {
+        pointer-events: none;
+    }
+
     .tools-item {
         width: 128px;
         height: 128px;
@@ -93,7 +97,6 @@
         text-decoration: none;
         cursor: pointer;
         .icon {
-            font-size: 64px;
             margin: 12px auto;
             width: 112px;
             text-align: center;

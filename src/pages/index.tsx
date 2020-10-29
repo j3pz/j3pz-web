@@ -2,6 +2,10 @@ import React from 'react';
 
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faCouch, faGem, faRibbon, faTachometerAlt,
+} from '@fortawesome/pro-duotone-svg-icons';
 import { Button } from 'rsuite';
 import { SEO } from '../components/seo';
 import { Card } from '../components/ui/Card';
@@ -52,8 +56,8 @@ const IndexPage = () => {
                         <div className="text">支持各种常规和非常规的配装方式，混搭装，大旗装，挖掘配装新思路</div>
                         <div className="title right">战斗属性</div>
                         <div className="text right">设置阵眼、小药、战斗属性，避免属性溢出，最大化装备收益</div>
-                        <div className="title">全平台支持</div>
-                        <div className="text">可在 Android、iOS、网页和微信小程序中使用，随时随地，不错过任何一次灵感</div>
+                        {/* <div className="title">全平台支持</div>
+                        <div className="text">可在 Android、iOS、网页和微信小程序中使用，随时随地，不错过任何一次灵感</div> */}
                     </div>
                 </div>
                 <div className="tools">
@@ -63,25 +67,25 @@ const IndexPage = () => {
                     <div className="tools-row">
                         <Link to="/tools/haste">
                             <Card className="tools-item">
-                                <div className="icon fad fa-tachometer-alt" />
+                                <FontAwesomeIcon icon={faTachometerAlt} size="4x" className="icon" />
                                 <div className="text">加速宝典</div>
                             </Card>
                         </Link>
-                        <Link to="/tools/prediction">
+                        <Link to="/tools/prediction" className="disabled">
                             <Card className="tools-item">
-                                <div className="icon fad fa-gem" />
+                                <FontAwesomeIcon icon={faGem} size="4x" className="icon" color="#CCC" />
                                 <div className="text">瑰石列表</div>
                             </Card>
                         </Link>
-                        <Link to="/tools/furniture">
+                        <Link to="/tools/furniture" className="disabled">
                             <Card className="tools-item">
-                                <div className="icon fad fa-couch" />
+                                <FontAwesomeIcon icon={faCouch} size="4x" className="icon" color="#CCC" />
                                 <div className="text">家具图鉴</div>
                             </Card>
                         </Link>
-                        <Link to="/tools/achivement">
+                        <Link to="/tools/achivement" className="disabled">
                             <Card className="tools-item">
-                                <div className="icon fad fa-ribbon" />
+                                <FontAwesomeIcon icon={faRibbon} size="4x" className="icon" color="#CCC" />
                                 <div className="text">成就百科</div>
                             </Card>
                         </Link>
