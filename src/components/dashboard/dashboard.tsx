@@ -5,7 +5,7 @@ import {
 } from 'rsuite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
-import { faCogs, faGripVertical, faPresentation } from '@fortawesome/pro-regular-svg-icons';
+import { faCogs, faGripVertical } from '@fortawesome/pro-regular-svg-icons';
 import { $store, StoreProps } from '../../store';
 import { NewCaseGuide } from '../new_case_guide/new_case_guide';
 import { CaseList } from './case_list';
@@ -89,12 +89,12 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                             >
                                 配装方案
                             </Nav.Item>
-                            <Nav.Item
+                            {/* <Nav.Item
                                 eventKey="published"
                                 icon={<FontAwesomeIcon icon={faPresentation} style={iconStyle} />}
                             >
                                 发布方案
-                            </Nav.Item>
+                            </Nav.Item> */}
                             <Nav.Item
                                 eventKey="settings"
                                 icon={<FontAwesomeIcon icon={faCogs} style={iconStyle} />}

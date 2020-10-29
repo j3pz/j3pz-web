@@ -20,14 +20,14 @@ const Header = ({ type = 'border', mode = 'acrylic' } : HeaderProps) => {
                 </Navbar.Header>
                 <Navbar.Body>
                     <Nav>
-                        <Nav.Item componentClass="button"><Link to="/intro">使用说明</Link></Nav.Item>
-                        <Nav.Item componentClass="button"><Link to="/changelog">更新记录</Link></Nav.Item>
-                        <Nav.Item componentClass="button">
-                            <a href="https://support.qq.com/products/105376" target="_blank" rel="noopener noreferrer">反馈</a>
-                        </Nav.Item>
+                        {/* <Nav.Item componentClass="button"><Link to="/intro">使用说明</Link></Nav.Item>
+                        <Nav.Item componentClass="button"><Link to="/changelog">更新记录</Link></Nav.Item> */}
+                        <a href="https://support.qq.com/products/105376" target="_blank" rel="noopener noreferrer">
+                            <Nav.Item componentClass="button">反馈</Nav.Item>
+                        </a>
                     </Nav>
                     <Nav pullRight>
-                        <Nav.Item><Link to="/dashboard">方案列表</Link></Nav.Item>
+                        <Link to="/dashboard"><Nav.Item>方案列表</Nav.Item></Link>
                     </Nav>
                 </Navbar.Body>
             </Navbar>

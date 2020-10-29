@@ -23,16 +23,17 @@ function Footer({ background = '#FAFAFA' }: FooterProps) {
                                 <Col className="link-list" xs={4}>
                                     <div className="list-header">关于</div>
                                     <Link to="about" className="list-item">这是什么</Link>
-                                    <Link to="changelog" className="list-item">更新记录</Link>
+                                    {/* <Link to="changelog" className="list-item">更新记录</Link> */}
                                     <Link to="credit" className="list-item">致谢</Link>
                                 </Col>
                                 <Col className="link-list" xs={4}>
                                     <div className="list-header">产品</div>
-                                    <div className="list-item">Android 应用</div>
+                                    <div className="list-item">即将上线</div>
+                                    {/* <div className="list-item">Android 应用</div>
                                     <div className="list-item">iOS 应用</div>
                                     <div className="list-item">微信小程序</div>
                                     <div className="list-item">PWA</div>
-                                    <div className="list-item">开放 API</div>
+                                    <div className="list-item">开放 API</div> */}
                                 </Col>
                                 <Col className="link-list" xs={4}>
                                     <div className="list-header">资源</div>

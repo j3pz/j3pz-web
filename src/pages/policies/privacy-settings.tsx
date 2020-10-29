@@ -19,7 +19,7 @@ const PrivacySettingsPage = () => (
                     <Toggle size="lg" />
                 </Col>
             </Row>
-            <h5 className="label">本地存储</h5>
+            {/* <h5 className="label">本地存储</h5>
             <Row nogutter style={{ marginTop: 24 }}>
                 <Col xs={12} sm={8}>
                     允许配装器在您的浏览器中存储一些信息来帮助配装器在您下次访问时识别您。
@@ -28,7 +28,7 @@ const PrivacySettingsPage = () => (
                 <Col xs={12} sm={4} style={{ textAlign: 'end' }}>
                     <Toggle size="lg" />
                 </Col>
-            </Row>
+            </Row> */}
         </Container>
         <div style={{ margin: 48 }} />
         <Footer />
