@@ -19,6 +19,8 @@ type ResultTuple = [keyof Result, keyof Result | null];
 
 @observer
 export class ShareImage extends Component<StoreProps> {
+    private stage;
+
     private getDisplayAttributes(): ResultTuple[] {
         const { kungfuMeta } = this.props.store;
         if (!kungfuMeta) return [];
@@ -77,6 +79,17 @@ export class ShareImage extends Component<StoreProps> {
         return attributes;
     }
 
+    saveImage() {
+        const { caseInfo } = this.props.store;
+        const uri = this.stage.toDataURL();
+        const link = document.createElement('a');
+        link.download = `j3pz_${caseInfo.name}.png`;
+        link.href = uri;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     render() {
         const {
             kungfuMeta, kungfu, caseInfo, user, equips, stones, talents,
@@ -86,7 +99,7 @@ export class ShareImage extends Component<StoreProps> {
         const result = ResultService.calc(this.props.store);
         return (
             <div>
-                <Stage width={928} height={522}>
+                <Stage width={928} height={522} ref={(node) => { this.stage = node; }}>
                     <Layer name="background">
                         <CanvasImage
                             src={`https://images.j3pz.com/imgs/school/${schoolAbbrMap[kungfuMeta!.school]}/bg.jpg`}
@@ -272,7 +285,7 @@ export class ShareImage extends Component<StoreProps> {
                                 fill: '#EDDC87',
                                 text: ATTRIBUTE_SHORT_DESC[tipAttribute ?? ''] ?? ATTRIBUTE_SHORT_DESC[attribute],
                                 fontFamily: '"Microsoft YaHei", 微软雅黑, Roboto, sans-serif',
-                                fontSize: 24,
+                                fontSize: 22,
                                 x: ((360 - 32) / 4) * (i % 4) + 16,
                                 y: 124 + Math.floor(i / 4) * 70,
                                 width: (360 - 32) / 4,

@@ -35,6 +35,7 @@ export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 
     loadImage() {
         this.image = new window.Image();
         this.image.src = this.props.src;
+        this.image.crossOrigin = 'Anonymous';
         this.image.addEventListener('load', this.handleLoad);
     }
     handleLoad = () => {
