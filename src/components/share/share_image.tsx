@@ -242,7 +242,7 @@ export class ShareImage extends Component<StoreProps> {
 
                                     {equip && isWeapon && (
                                         <Text
-                                            text={(stones[pos] as Stone).name ?? ''}
+                                            text={(stones[pos] as Stone)?.name ?? ''}
                                             x={x + 52}
                                             y={y + 48}
                                             fontSize={14}
