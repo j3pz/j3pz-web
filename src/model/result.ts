@@ -8,6 +8,7 @@ import { DecoratedAttribute } from './decorated_attribute';
 import { KungFuMeta } from './kungfu';
 import { Stone } from './stone';
 import { Category, KungFu } from './base';
+import { Effect } from './effect';
 
 class ResultCore {
     constructor(private initValue: number) {}
@@ -338,6 +339,15 @@ export class Result {
                     this.add(key, +value, decorator);
                 });
             }
+        });
+        return this;
+    }
+
+    public applyEffect(effect: Effect): Result {
+        effect.attribute.forEach((key, i) => {
+            const value = effect.value[i] ?? effect.value[0];
+            const decorator = effect.decorator[i] ?? effect.decorator[0];
+            this.add(key, +value, decorator);
         });
         return this;
     }

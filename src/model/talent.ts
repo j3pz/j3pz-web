@@ -1,5 +1,6 @@
-import { plainToClass } from 'class-transformer';
+import { plainToClass, Type } from 'class-transformer';
 import { KungFu } from './base';
+import { Effect } from './effect';
 
 export class Talent {
     public id: number;
@@ -9,6 +10,9 @@ export class Talent {
     public description: string;
     public icon: number;
     public version: string;
+
+    @Type(() => Effect)
+    public effect: Effect;
 
     // public effect?: Effect;
 

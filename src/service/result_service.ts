@@ -17,6 +17,12 @@ export class ResultService {
         Object.values(store.equips).reduce((res, equip) => res.applyEquip(equip), result);
         Object.values(store.stones).reduce((res, stone) => res.applyStone(stone), result);
         [...CollectionService.collections.values()].reduce((res, collection) => res.applyCollection(collection), result);
+        Object.values(store.talents).reduce((res, talent) => {
+            if (talent.effect) {
+                res.applyEffect(talent.effect);
+            }
+            return res;
+        }, result);
         return result;
     }
 }
