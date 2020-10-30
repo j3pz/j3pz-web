@@ -15,7 +15,7 @@ exports.onCreateWebpackConfig = ({ actions, stage }) => {
                     project: 'j3pzweb',
 
                     // webpack specific configuration
-                    include: 'src',
+                    include: 'public',
                     ignore: ['node_modules'],
                 }),
             ],
