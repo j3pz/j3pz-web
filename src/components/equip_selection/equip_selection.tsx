@@ -38,8 +38,8 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
         this.state = {
             tags: [],
             minQuality: 3000,
-            maxQuality: 5000,
-            range: [4000, 5000],
+            maxQuality: 5300,
+            range: [4000, 5300],
             selectOnly: 'all',
             custom: false,
         };
@@ -173,7 +173,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                     min={minQuality}
                     max={maxQuality}
                     style={{ marginTop: 12 }}
-                    step={10}
+                    step={25}
                     onChange={this.handleRange}
                 />
                 <div style={{ margin: 12 }} />
