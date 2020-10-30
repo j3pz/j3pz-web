@@ -24,6 +24,8 @@ jobs:
           FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: npm run build
+      - name: Clan
+        run: rm public/*.js.map
       - name: Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
