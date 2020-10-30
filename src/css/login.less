@@ -57,6 +57,23 @@
                 font-size: 16px;
             }
         }
+
+        .form-splitline {
+            margin: 24px 0;
+            color: #8E8E93;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            &::before,
+            &::after {
+                content: '';
+                border-top: 1px solid #8E8E93;
+                margin: 0 24px;
+                flex: 1 0 24px;
+            }
+        }
     }
 
 }

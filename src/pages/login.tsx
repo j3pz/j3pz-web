@@ -292,6 +292,8 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                                         </HelpBlock>
                                     </FormGroup>
                                 </Form>
+                                <div className="form-splitline">或者</div>
+                                <Link to="/app">无需注册，直接使用</Link>
                             </div>
                         </Col>
                         )}
