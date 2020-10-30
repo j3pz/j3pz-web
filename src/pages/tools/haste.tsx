@@ -49,7 +49,7 @@ export default class HastePage extends Component<{}, HastePageState> {
         let hastePercentLimit = 0;
         let level = 0;
         let lastTime = (Number(skillTime) + 0.1).toFixed(2);
-        const hasteCof = 188.309;
+        const hasteCof = 438.5625;
         for (let i = 0; hastePercentLimit < 25; i += 1) {
             const baseHaste = (i / hasteCof) * 10.24;
             const totalHaste = Math.floor(baseHaste) + Math.floor(extra);
