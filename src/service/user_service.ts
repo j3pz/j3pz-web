@@ -5,7 +5,8 @@ import { $store } from '../store';
 import { directError, ENDPOINT, errorHandler } from './base';
 
 export class UserService {
-    static async login(email: string, password: string): Promise<Resource<User>> {
+    static async login(email: string, password: string): Promise<Resource<User> | false> {
+        if (!email || !password) return false;
         const res = await axios.post(`${ENDPOINT}/auth/login`, {
             email,
             password,
@@ -13,7 +14,8 @@ export class UserService {
         return res?.data.data;
     }
 
-    static async signup(email: string, password: string, name: string): Promise<Resource<User>> {
+    static async signup(email: string, password: string, name: string): Promise<Resource<User> | false> {
+        if (!email || !password || !name) return false;
         const res = await axios.post(`${ENDPOINT}/auth/signup`, {
             email,
             password,

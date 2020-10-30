@@ -112,10 +112,12 @@ export default class LoginPage extends Component<{}, LoginPageState> {
         this.setState({ requesting: true });
         UserService.signup(this.formValue.email, this.formValue.password, this.formValue.name ?? '剑网3侠士').then((res) => {
             this.setState({ requesting: false });
-            const user = User.fromJson(res.attributes);
-            $store.user = user;
-            localStorage.setItem('token', user.token);
-            navigate('/dashboard');
+            if (res) {
+                const user = User.fromJson(res.attributes);
+                $store.user = user;
+                localStorage.setItem('token', user.token);
+                navigate('/dashboard');
+            }
         });
     };
 
