@@ -11,6 +11,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.15.1",
     "@fortawesome/pro-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@sentry/gatsby": "^5.27.2",
     "axios": "^0.20.0",
     "class-transformer": "^0.3.1",
     "date-fns": "^2.16.1",
@@ -60,7 +61,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "NODE_ENV=production gatsby build",
     "develop": "gatsby develop -H 0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",

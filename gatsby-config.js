@@ -37,6 +37,13 @@ module.exports = {
             },
         },
         {
+            resolve: '@sentry/gatsby',
+            options: {
+                dsn: 'https://ff7dc3938bf84f339d410d2a67659428@o182745.ingest.sentry.io/5498631',
+                sampleRate: 0.7,
+            },
+        },
+        {
             resolve: 'gatsby-plugin-google-analytics',
             options: {
                 // The property ID; the tracking code won't be generated without it
