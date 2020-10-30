@@ -48,12 +48,12 @@ export class EditorViewer extends Component<StoreProps> {
         if (showAllAttributes || kungfuMeta.role === GamingRole.DAMAGE_DEALER) {
             // 破防
             attributes.push(['overcomeRate', 'overcome']);
-            // 破招
-            attributes.push(['surplus', null]);
         }
         if (showAllAttributes || kungfuMeta.role !== GamingRole.HEALER) {
             // 无双
             attributes.push(['strainRate', 'strain']);
+            // 破招
+            attributes.push(['surplus', null]);
         }
         return attributes;
     }

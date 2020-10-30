@@ -4,6 +4,7 @@ import { AttributeDecorator } from './attribute';
 export class DecoratedAttribute {
     constructor(private initValue: number) {}
 
+    [AttributeDecorator.ALL] = this.initValue;
     [AttributeDecorator.PHYSICS] = this.initValue;
     [AttributeDecorator.MAGIC] = this.initValue;
     [AttributeDecorator.LUNAR] = this.initValue;
@@ -13,6 +14,7 @@ export class DecoratedAttribute {
     [AttributeDecorator.POISON] = this.initValue;
 
     addAll(value: number) {
+        this[AttributeDecorator.ALL] += value;
         this.addPhysics(value);
         this.addMagic(value);
     }
