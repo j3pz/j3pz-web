@@ -107,9 +107,9 @@ export class CoreEdit extends Component<StoreProps> {
                         <Nav appearance="subtle" style={{ height: 36 }} onSelect={this.onCaseEvent}>
                             {/* <Nav.Item icon={<FontAwesomeIcon icon={faUndo} />} />
                             <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} /> */}
-                            <Nav.Item icon={<FontAwesomeIcon icon={faSave} />} eventKey="save" />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faSave} size="lg" />} eventKey="save"> 保存</Nav.Item>
                             {/* <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} /> */}
-                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} />} eventKey="share" />
+                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} size="lg" />} eventKey="share"> 分享</Nav.Item>
                             <Nav.Item style={{ float: 'right' }}>
                                 <Toggle
                                     checked={store.showAllAttributes}
