@@ -1,10 +1,13 @@
+import { transaction } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import {
     Alert,
+    Button,
     ControlLabel, Form, FormControl, FormGroup, Panel, PanelGroup, Popover, Toggle, Whisper,
 } from 'rsuite';
 import { CaseService } from '../../service/case_service';
+import { EmbedService } from '../../service/embed_service';
 import { PreferenceService } from '../../service/preference_service';
 import { StoreProps } from '../../store';
 
@@ -29,6 +32,31 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
             if (res) {
                 Alert.success('更名成功');
             }
+        });
+    };
+
+    setStrenthenForAll = () => {
+        const { store } = this.props;
+        transaction(() => {
+            Object.entries(store.equips).forEach(([key, equip]) => {
+                store.equips[key] = equip?.setStrengthLevel(equip.strengthen);
+            });
+            Alert.success('精炼已完成');
+        });
+    };
+
+    embedAll = () => {
+        const { store } = this.props;
+        transaction(() => {
+            Object.entries(store.equips).forEach(([key, equip]) => {
+                [0, 1, 2].forEach((n) => {
+                    if ((equip?.embedding[n]?.level ?? 0) < store.settings.autoEmbed) {
+                        store.equips[key] = store.equips[key]?.setEmbed(n, store.settings.autoEmbed);
+                    }
+                });
+            });
+            EmbedService.update(store);
+            Alert.success('精炼已完成');
         });
     };
 
@@ -65,6 +93,14 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
                             PreferenceService.update({ strengthen: value });
                         }}
                     />
+                    <Button
+                        onClick={this.setStrenthenForAll}
+                        style={{ marginLeft: 12 }}
+                        appearance="ghost"
+                        size="sm"
+                    >
+                        全部满精炼
+                    </Button>
                     <div className="label">自动镶嵌</div>
                     <Whisper
                         trigger="click"
@@ -94,6 +130,14 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
                             src={`https://images.j3pz.com/imgs/stones/${this.getImg(store.settings.autoEmbed)}.jpg`}
                         />
                     </Whisper>
+                    <Button
+                        onClick={this.embedAll}
+                        style={{ marginLeft: 12 }}
+                        appearance="ghost"
+                        size="sm"
+                    >
+                        全部镶嵌
+                    </Button>
                 </Panel>
             </PanelGroup>
         );
