@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Nav, FlexboxGrid, Alert, Toggle,
+    Nav, FlexboxGrid, Alert, Toggle, Notification,
 } from 'rsuite';
 import { observer } from 'mobx-react';
 import { transaction } from 'mobx';
@@ -18,6 +18,7 @@ import { UserService } from '../../service/user_service';
 import { User } from '../../model/user';
 import { EmbedService } from '../../service/embed_service';
 import { ShareModal } from '../share/share_modal';
+import { SettingsService } from '../../service/settings_service';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -33,6 +34,8 @@ export class CoreEdit extends Component<StoreProps> {
                     navigate('/dashboard');
                 }
             });
+        } else {
+            Alert.warning('这是一个临时界面，配装方案仅能在电脑上进行修改而无法保存。', 10000);
         }
         if (!this.props.store.user) {
             UserService.getUser(false).then((res) => {
@@ -45,6 +48,19 @@ export class CoreEdit extends Component<StoreProps> {
                 }
             });
         }
+        SettingsService.getAnnouncement().then((res) => {
+            const checkedVersion = localStorage.getItem('announcement');
+            if (res?.version && res?.version !== checkedVersion) {
+                Notification.open({
+                    key: 'announcement',
+                    title: res.title ?? '公告',
+                    description: res.content,
+                    duration: 0,
+                    placement: 'bottomEnd',
+                });
+                localStorage.setItem('announcement', res.version);
+            }
+        });
     }
 
     switchTab = (key: AppTab) => {
@@ -109,7 +125,7 @@ export class CoreEdit extends Component<StoreProps> {
                             <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} /> */}
                             <Nav.Item icon={<FontAwesomeIcon icon={faSave} size="lg" />} eventKey="save"> 保存</Nav.Item>
                             {/* <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} /> */}
-                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} size="lg" />} eventKey="share"> 分享</Nav.Item>
+                            <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} size="lg" />} eventKey="share"> 导出</Nav.Item>
                             <Nav.Item style={{ float: 'right' }}>
                                 <Toggle
                                     checked={store.showAllAttributes}
