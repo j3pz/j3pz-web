@@ -120,7 +120,7 @@ export class Result {
         return this.core.toughness;
     }
     public get toughnessRate(): string {
-        const cof = 2.557 * this.globalCof;
+        const cof = 9.530 * this.globalCof;
         return `${((this.toughness / (this.toughness + cof)) * 100).toFixed(2)}%`;
     }
 
