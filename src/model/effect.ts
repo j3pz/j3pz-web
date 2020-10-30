@@ -6,11 +6,11 @@ export type EffectTrigger = 'Usage' | 'Passive' | 'Condition';
 export class Effect {
     public id: number;
 
-    public attribute: Attribute[];
+    public attribute: Attribute[] | null;
 
-    public decorator: AttributeDecorator[];
+    public decorator: AttributeDecorator[] | null;
 
-    public value: number[];
+    public value: number[] | null;
 
     public trigger: EffectTrigger;
 

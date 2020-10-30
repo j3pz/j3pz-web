@@ -333,9 +333,9 @@ export class Result {
         collection.setEffect.forEach((s) => {
             const active = s.requirement <= activeCount;
             if (active) {
-                s.effect.attribute.forEach((key, i) => {
-                    const value = s.effect.value[i] ?? s.effect.value[0];
-                    const decorator = s.effect.decorator[i] ?? s.effect.decorator[0];
+                s.effect.attribute?.forEach((key, i) => {
+                    const value = s.effect.value![i] ?? s.effect.value![0];
+                    const decorator = s.effect.decorator![i] ?? s.effect.decorator![0];
                     this.add(key, +value, decorator);
                 });
             }
@@ -344,9 +344,9 @@ export class Result {
     }
 
     public applyEffect(effect: Effect): Result {
-        effect.attribute.forEach((key, i) => {
-            const value = effect.value[i] ?? effect.value[0];
-            const decorator = effect.decorator[i] ?? effect.decorator[0];
+        effect.attribute?.forEach((key, i) => {
+            const value = effect.value![i] ?? effect.value![0];
+            const decorator = effect.decorator![i] ?? effect.decorator![0];
             this.add(key, +value, decorator);
         });
         return this;

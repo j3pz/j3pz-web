@@ -20,7 +20,7 @@ export default class ResetPage extends Component<{}, { pending: boolean; valid: 
 
     componentDidMount() {
         const permalink = getUrlParameter('permalink');
-        const token = getUrlParameter('permalink');
+        const token = getUrlParameter('token');
         if (permalink && token) {
             UserService.resetPassword(permalink, token, '', true).then((res) => {
                 if (res) {
