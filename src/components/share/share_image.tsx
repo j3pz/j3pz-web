@@ -129,9 +129,6 @@ export class ShareImage extends Component<StoreProps> {
                             width={40}
                             height={40}
                         />
-                    </Layer>
-
-                    <Layer name="talents">
                         {talents.map((talent, i) => (
                             <Group key={`talent-${talent.id}`}>
                                 <CanvasImage
@@ -153,9 +150,6 @@ export class ShareImage extends Component<StoreProps> {
                                 />
                             </Group>
                         ))}
-                    </Layer>
-
-                    <Layer name="equips">
                         {Object.values(Position).map((pos, i) => {
                             const equip = equips[pos];
                             let isWeapon = false;
@@ -221,7 +215,7 @@ export class ShareImage extends Component<StoreProps> {
                                         />
                                     )}
 
-                                    {equip && equip.embedding.filter((ops) => ops.index < equip.embed.count).map((ops, j, all) => (
+                                    {equip && equip.embedding.filter((ops) => ops.index < equip.embed.count).map((ops, j) => (
                                         <CanvasImage
                                             key={`equip-${equip.id}-embedding-${ops.index}`}
                                             src={ops.level > 0
@@ -267,9 +261,6 @@ export class ShareImage extends Component<StoreProps> {
                                 </Group>
                             );
                         })}
-                    </Layer>
-
-                    <Layer name="texts">
                         <Text
                             text={caseInfo.name.length > 9 ? `${caseInfo.name.slice(0, 8)}...` : caseInfo.name}
                             fontFamily="STKaiti, 华文楷体, sans-serif"

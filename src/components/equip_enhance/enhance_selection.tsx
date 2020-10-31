@@ -70,6 +70,7 @@ export class EnhanceSelection extends Component<StoreProps> {
                     size="lg"
                     placeholder="选择附魔"
                     onOpen={this.handleUpdate}
+                    placement="topStart"
                     onClean={this.removeEnhance}
                     labelKey="name"
                     valueKey="id"
