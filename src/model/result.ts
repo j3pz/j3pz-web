@@ -100,24 +100,24 @@ export class Result {
     }
 
     public get dodge(): number {
-        return this.core.dodge;
+        return this.core.dodge + this[this.meta.primaryAttribute] * (this.meta.factor.dodge ?? 0);
     }
     public get dodgeRate(): string {
         const cof = 4.628 * this.globalCof;
         return `${((this.dodge / (cof + this.dodge)) * 100).toFixed(2)}%`;
     }
     public get parryBase(): number {
-        return this.core.parryBase;
+        return this.core.parryBase + this[this.meta.primaryAttribute] * (this.meta.factor.parryBase ?? 0);
     }
     public get parryBaseRate(): string {
         const cof = 4.345 * this.globalCof;
         return `${(3 + (this.parryBase / (cof + this.parryBase)) * 100).toFixed(2)}%`;
     }
     public get parryValue(): number {
-        return this.core.parryValue;
+        return this.core.parryValue + this[this.meta.primaryAttribute] * (this.meta.factor.parryValue ?? 0);
     }
     public get toughness(): number {
-        return this.core.toughness;
+        return this.core.toughness + this[this.meta.primaryAttribute] * (this.meta.factor.toughness ?? 0);
     }
     public get toughnessRate(): string {
         const cof = 9.530 * this.globalCof;
