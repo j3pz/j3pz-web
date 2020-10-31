@@ -97,6 +97,7 @@ export const ATTRIBUTE_DESC = {
     mana: '最大内力上限提高',
     manaRecover: '每秒内力恢复提升',
     // damageOffset: '',
+    damageBase: '武器伤害提高',
 };
 export const ATTRIBUTE_SHORT_DESC = {
     // PrimaryAttribute
