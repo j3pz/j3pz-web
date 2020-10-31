@@ -30,7 +30,12 @@ module.exports = {
             ignoredNodes: ['JSXElement', 'JSXElement > *', 'JSXAttribute', 'JSXIdentifier', 'JSXNamespacedName', 'JSXMemberExpression', 'JSXSpreadAttribute', 'JSXExpressionContainer', 'JSXOpeningElement', 'JSXClosingElement', 'JSXFragment', 'JSXOpeningFragment', 'JSXClosingFragment', 'JSXText', 'JSXEmptyExpression', 'JSXSpreadChild'],
             ignoreComments: false,
         }],
-        'max-len': ['error', 140],
+        'max-len': ['error', 140, {
+            "ignoreUrls": true,
+            "ignoreStrings": true,
+            "ignoreTemplateLiterals": true,
+            "ignoreRegExpLiterals": true,
+        }],
         'max-classes-per-file': ['error', 2],
         'lines-between-class-members': 'off',
         'react/destructuring-assignment': 'off',

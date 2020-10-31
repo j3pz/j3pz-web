@@ -21,10 +21,10 @@ export type ExtraAttribute = 'health' | 'healthRecover' | 'mana' | 'manaRecover'
 
 export type Attribute = PrimaryAttribute | SecondaryAttribute | MinorAttribute | ExtraAttribute;
 export type AttributeTag =
-    'physicsShield' | 'magicShield' | 'dodge' | 'parryBase' | 'toughness' |
+    'physicsShield' | 'magicShield' | 'dodge' | 'parryBase' | 'toughness' | 'heal' |
     'crit' | 'overcome' | 'surplus' | 'strain' | 'haste' | 'huajing';
 export const AttributeTag: AttributeTag[] = [
-    'physicsShield', 'magicShield', 'dodge', 'parryBase', 'toughness',
+    'physicsShield', 'magicShield', 'dodge', 'parryBase', 'toughness', 'heal',
     'crit', 'overcome', 'surplus', 'strain', 'haste', 'huajing',
 ];
 

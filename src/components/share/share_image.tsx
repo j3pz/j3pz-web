@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {
     Layer, Stage, Text, Rect, Group,
 } from 'react-konva';
-import { ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
+import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import {
     GamingRole, Position, School, schoolAbbrMap,
 } from '../../model/base';
@@ -74,7 +74,7 @@ export class ShareImage extends Component<StoreProps> {
         // 化劲
         attributes.push(['huajingRate', 'huajing']);
         // 装分
-        attributes.push(['score', null]);
+        // attributes.push(['score', null]);
 
         return attributes;
     }
@@ -110,10 +110,10 @@ export class ShareImage extends Component<StoreProps> {
                         />
                         <CanvasImage
                             src="https://images.j3pz.com/imgs/share_print.png"
-                            width={140}
-                            height={48}
-                            x={764}
-                            y={24}
+                            width={70}
+                            height={24}
+                            x={6}
+                            y={492}
                         />
                         <CanvasImage
                             src={`https://images.j3pz.com/imgs/school/${schoolAbbrMap[kungfuMeta!.school]}/jn.png`}
@@ -129,17 +129,6 @@ export class ShareImage extends Component<StoreProps> {
                             width={40}
                             height={40}
                         />
-                        <Rect
-                            x={16}
-                            y={112}
-                            width={360 - 16 * 2}
-                            height={kungfuMeta!.role === GamingRole.DAMAGE_DEALER ? 302 : 232}
-                            fill="white"
-                            opacity={0.3}
-                            shadowColor="white"
-                            shadowOpacity={0.12}
-                            shadowBlur={8}
-                        />
                     </Layer>
 
                     <Layer name="talents">
@@ -147,8 +136,8 @@ export class ShareImage extends Component<StoreProps> {
                             <Group key={`talent-${talent.id}`}>
                                 <CanvasImage
                                     src={`https://icons.j3pz.com/${talent.icon}.png`}
-                                    x={14 + (i % 6) * 54 + 12}
-                                    y={420 + Math.floor(i / 6) * 52}
+                                    x={16 + (i % 6) * 66 + 12}
+                                    y={370 + Math.floor(i / 6) * 52}
                                     cornerRadius={4}
                                     width={30}
                                     height={30}
@@ -156,10 +145,10 @@ export class ShareImage extends Component<StoreProps> {
                                 <Text
                                     text={talent.name}
                                     fontSize={12}
-                                    x={14 + (i % 6) * 54}
+                                    x={16 + (i % 6) * 66}
                                     width={54}
                                     fill="#FFFFFF"
-                                    y={420 + Math.floor(i / 6) * 52 + 32}
+                                    y={370 + Math.floor(i / 6) * 52 + 32}
                                     align="center"
                                 />
                             </Group>
@@ -170,18 +159,24 @@ export class ShareImage extends Component<StoreProps> {
                         {Object.values(Position).map((pos, i) => {
                             const equip = equips[pos];
                             let isWeapon = false;
-                            let index = i;
+                            const index = i;
 
                             if (pos === Position.TERTIARY_WEAPON && kungfuMeta!.school !== School.藏剑) {
                                 return null;
                             }
                             if (pos === Position.TERTIARY_WEAPON || pos === Position.PRIMARY_WEAPON) {
                                 isWeapon = true;
-                                index += 1;
                             }
 
-                            const x = 380 + (index % 2) * 270;
-                            const y = 104 + Math.floor(index / 2) * 56;
+                            const x = 436;
+                            let y = 12 + index * (kungfuMeta!.school === School.藏剑 ? 36 : 38);
+                            if (pos === Position.TERTIARY_WEAPON) {
+                                y += 14;
+                            }
+
+
+                            const tags = AttributeTag.filter((key) => equip?.[key] > 0)
+                                .filter((t, j, list) => t !== 'heal' || (t === 'heal' && list.length === 1));
 
                             return (
                                 <Group key={`equip-${equip?.id ?? 'empty'}-${index}`}>
@@ -192,29 +187,39 @@ export class ShareImage extends Component<StoreProps> {
                                         stroke="#FFFFFF"
                                         opacity={0.3}
                                         cornerRadius={4}
-                                        height={isWeapon ? 68 : 48}
-                                        width={250}
+                                        height={isWeapon ? 46 : 32}
+                                        width={480}
                                     />
 
                                     <CanvasImage
                                         src={equip
                                             ? `https://icons.j3pz.com/${equip.icon}.png`
                                             : 'https://images.j3pz.com/imgs/stones/empty-slot.jpg'}
-                                        width={40}
-                                        height={40}
-                                        cornerRadius={4}
-                                        x={x + 4}
-                                        y={y + 4}
+                                        width={28}
+                                        height={28}
+                                        cornerRadius={2}
+                                        x={x + 2}
+                                        y={y + 2}
                                     />
 
                                     <Text
                                         text={equip ? `${equip.name}(${equip.strengthLevel})` : '未选装备'}
-                                        fontSize={16}
+                                        fontSize={12}
                                         fontStyle="bold"
                                         fill="#FFFFFF"
-                                        x={x + 52}
+                                        x={x + 32}
                                         y={y + 4}
                                     />
+                                    {equip && (
+                                        <Text
+                                            text={`${equip.quality} ${tags.map((t) => ATTRIBUTE_SHORT_DESC[t]).join(' ')}`}
+                                            fontSize={10}
+                                            fill="#FFFFFF"
+                                            fonsStyle="light"
+                                            x={x + 32}
+                                            y={y + 19}
+                                        />
+                                    )}
 
                                     {equip && equip.embedding.filter((ops) => ops.index < equip.embed.count).map((ops, j, all) => (
                                         <CanvasImage
@@ -222,10 +227,10 @@ export class ShareImage extends Component<StoreProps> {
                                             src={ops.level > 0
                                                 ? `https://images.j3pz.com/imgs/stones/0-${ops.level}.jpg`
                                                 : 'https://images.j3pz.com/imgs/stones/empty-slot.jpg'}
-                                            width={18}
-                                            height={18}
+                                            width={16}
+                                            height={16}
                                             cornerRadius={2}
-                                            x={x + 248 - (all.length - j) * 20}
+                                            x={x + 150 + j * 18}
                                             y={y + 6}
                                         />
                                     ))}
@@ -233,20 +238,30 @@ export class ShareImage extends Component<StoreProps> {
                                     {equip?.enhance && (
                                         <Text
                                             text={equip.enhance.name}
-                                            x={x + 52}
-                                            y={y + 28}
-                                            fontSize={14}
-                                            fill="#EDDC87"
+                                            x={x + 220}
+                                            y={y + 4}
+                                            fontSize={12}
+                                            fill="#52A7EE"
+                                        />
+                                    )}
+
+                                    {(equip?.source.length ?? 0) > 0 && (
+                                        <Text
+                                            text={equip!.sourceDescription.split('\n').join(',').slice(0, 30)}
+                                            x={x + 220}
+                                            y={y + 16}
+                                            fontSize={12}
+                                            fill="#FFFFFF"
                                         />
                                     )}
 
                                     {equip && isWeapon && (
                                         <Text
                                             text={(stones[pos] as Stone)?.name ?? ''}
-                                            x={x + 52}
-                                            y={y + 48}
-                                            fontSize={14}
-                                            fill="#52A7EE"
+                                            x={x + 220}
+                                            y={y + 32}
+                                            fontSize={12}
+                                            fill="#EDDC87"
                                         />
                                     )}
                                 </Group>
@@ -256,20 +271,23 @@ export class ShareImage extends Component<StoreProps> {
 
                     <Layer name="texts">
                         <Text
-                            text={caseInfo.name.length > 15 ? `${caseInfo.name.slice(0, 14)}...` : caseInfo.name}
+                            text={caseInfo.name.length > 9 ? `${caseInfo.name.slice(0, 8)}...` : caseInfo.name}
                             fontFamily="STKaiti, 华文楷体, sans-serif"
                             fill="#FFFFFF"
-                            fontSize={40}
-                            x={108}
-                            width={600}
+                            align="center"
+                            fontSize={32}
+                            x={118}
+                            width={300}
                             y={24}
                         />
                         <Text
-                            text={`@${user?.name ?? '配装器用户'}`}
+                            text={`by ${user?.name ?? '配装器用户'}`}
                             fontFamily="STKaiti, 华文楷体, sans-serif"
                             fill="#FFFFFF"
-                            fontSize={24}
-                            x={110}
+                            align="center"
+                            fontSize={16}
+                            width={300}
+                            x={118}
                             y={70}
                         />
                         <Text
@@ -280,15 +298,24 @@ export class ShareImage extends Component<StoreProps> {
                             y={83.5}
                             fontSize={16}
                         />
+                        <Text
+                            text="奇穴"
+                            x={18}
+                            fill="#FFFFFF"
+                            align="center"
+                            width={52}
+                            y={346}
+                            fontSize={14}
+                        />
                         {attributes.map(([attribute, tipAttribute], i) => {
                             const titleProps: TextConfig = {
                                 fill: '#EDDC87',
                                 text: ATTRIBUTE_SHORT_DESC[tipAttribute ?? ''] ?? ATTRIBUTE_SHORT_DESC[attribute],
                                 fontFamily: '"Microsoft YaHei", 微软雅黑, Roboto, sans-serif',
-                                fontSize: 22,
-                                x: ((360 - 32) / 4) * (i % 4) + 16,
-                                y: 124 + Math.floor(i / 4) * 70,
-                                width: (360 - 32) / 4,
+                                fontSize: 16,
+                                x: ((420 - 32) / 5) * (i % 5) + 16,
+                                y: 124 + Math.floor(i / 5) * 60,
+                                width: (420 - 32) / 5,
                                 height: 32,
                                 verticalAlign: 'middle',
                                 align: 'center',
@@ -297,10 +324,10 @@ export class ShareImage extends Component<StoreProps> {
                             };
                             const numberProps: TextConfig = {
                                 ...titleProps,
-                                text: `${result[attribute] ?? 0}`,
+                                text: `${result[attribute] ?? 0}${tipAttribute && result[tipAttribute] ? `\n(${result[tipAttribute]})` : ''}`,
                                 fill: '#FFFFFF',
-                                y: titleProps.y! + 36,
-                                fontSize: 18,
+                                y: titleProps.y! + 24,
+                                fontSize: 12,
                             };
 
                             return (
