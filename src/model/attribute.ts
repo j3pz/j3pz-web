@@ -96,6 +96,7 @@ export const ATTRIBUTE_DESC = {
     healthRecover: '每秒回复气血',
     mana: '最大内力上限提高',
     manaRecover: '每秒内力恢复提升',
+    manaCost: '减少内力消耗',
     // damageOffset: '',
     damageBase: '武器伤害提高',
 };

@@ -188,7 +188,7 @@ function EquipView({ equip, stone }: EquipViewProps) {
                                     : <span className="slot" />}
                                 <span>
                                     {DECORATOR_DESC[attrib.decorator] + ATTRIBUTE_DESC[attrib.key]
-                                    + (attrib.key.endsWith('Percent') || attrib.key.endsWith('Coefficient')
+                                    + (attrib.key.endsWith('Percent') || attrib.key.endsWith('Coefficient') || attrib.key.endsWith('Cost')
                                         ? `${Math.round(attrib.value / 10.24)}%` : attrib.value)}
                                 </span>
                             </li>

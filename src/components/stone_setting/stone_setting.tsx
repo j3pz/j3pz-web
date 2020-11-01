@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { SelectPicker, TagPicker } from 'rsuite';
+import {
+    Button, FlexboxGrid, List, Modal, Tag, TagGroup,
+} from 'rsuite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileSearch } from '@fortawesome/pro-light-svg-icons';
+import { faFileSearch, faTimes } from '@fortawesome/pro-light-svg-icons';
+import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
 import { StoreProps } from '../../store';
 import { KungFu } from '../../model/base';
 import { StoneService } from '../../service/stone_service';
@@ -12,9 +15,11 @@ import './stone_setting.less';
 import { Attribute, AttributeDecorator } from '../../model/attribute';
 
 interface StoneSettingState {
-    tags: (SimpleStoneAttribute & { label: string })[];
+    tags: SimpleStoneAttribute[];
     disabledTags: string[];
+    selectedTags: SimpleStoneAttribute[];
     stones: Stone[];
+    modal: boolean;
 }
 
 @observer
@@ -26,8 +31,10 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
         this.currentKungfu = props.store.kungfu;
         this.state = {
             tags: [],
+            selectedTags: [],
             disabledTags: [],
             stones: [],
+            modal: false,
         };
     }
 
@@ -42,19 +49,18 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
         }
     }
 
-    listStones = (values: string[]) => {
-        if (values.length === 0) {
-            this.setState({ stones: [], disabledTags: [] });
+    listStones = (tags: SimpleStoneAttribute[]) => {
+        if (tags.length === 0) {
+            this.setState({ stones: [], disabledTags: [], selectedTags: [] });
             return;
         }
-        const [attributes, decorators] = values.reduce((acc, value) => {
-            const [attribute, decorator] = value.split('-');
-            acc[0].push(attribute as Attribute);
-            acc[1].push(decorator as AttributeDecorator);
+        const [attributes, decorators] = tags.reduce((acc, tag) => {
+            acc[0].push(tag.key);
+            acc[1].push(tag.decorator);
             return acc;
         }, [[], []] as [Attribute[], AttributeDecorator[]]);
         StoneService.listStones(attributes, decorators).then((availableStones) => {
-            const availableAttributes = new Set(this.state.tags.map((t) => t.label));
+            const availableAttributes = new Set(this.state.tags.map((t) => t.identity()));
             const stones = availableStones.map((s) => {
                 s.attributes.attributes.forEach((a) => {
                     availableAttributes.delete(`${a.key}-${a.decorator}`);
@@ -62,7 +68,7 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
                 return s.attributes;
             });
 
-            this.setState({ stones, disabledTags: [...availableAttributes] });
+            this.setState({ stones, disabledTags: [...availableAttributes], selectedTags: tags });
         });
     };
 
@@ -75,23 +81,36 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
         StoneService.getStone(id).then((stone) => {
             const { store } = this.props;
             store.stones[store.activeEquipNav] = Stone.fromJson(stone.attributes);
+            this.setState({ modal: false });
         });
     };
 
     updateTags() {
         StoneService.listTags(this.currentKungfu).then((tags) => {
             this.setState({
-                tags: tags.map((t) => ({
-                    ...t.attributes,
-                    label: `${t.attributes.key}-${t.attributes.decorator}`,
-                })),
+                tags: tags.map((t) => SimpleStoneAttribute.fromJson(t.attributes)),
             });
         });
     }
 
+    handleTagSelect(tag: SimpleStoneAttribute) {
+        const { selectedTags } = this.state;
+        const tags = [...selectedTags];
+        const idx = tags.findIndex((t) => t.identity() === tag.identity());
+        if (idx >= 0) {
+            tags.splice(idx, 1);
+        } else {
+            tags.push(tag);
+        }
+
+        this.listStones(tags);
+    }
+
     render() {
         const { store } = this.props;
-        const { tags, stones, disabledTags } = this.state;
+        const {
+            tags, stones, disabledTags, selectedTags, modal,
+        } = this.state;
         const currentEquip = store.equips[store.activeEquipNav];
         if (currentEquip?.category !== 'primaryWeapon' && currentEquip?.category !== 'tertiaryWeapon') {
             return null;
@@ -99,57 +118,94 @@ export class StoneSetting extends Component<StoreProps, StoneSettingState> {
         return (
             <>
                 <div className="label stone-setting">五彩石镶嵌</div>
-                <TagPicker
-                    size="lg"
-                    style={{ minHeight: 42, marginBottom: 12 }}
-                    data={tags}
-                    block
-                    labelKey="name"
-                    valueKey="label"
-                    placement="topStart"
-                    placeholder="选择五彩石属性"
-                    disabledItemValues={disabledTags}
-                    searchable={false}
-                    onSelect={this.listStones}
-                    onClean={() => this.listStones([])}
-                    tagProps={{ closable: false }}
-                />
-                <SelectPicker
-                    size="lg"
-                    data={stones}
-                    labelKey="name"
-                    valueKey="id"
-                    block
-                    searchable={false}
-                    placement="topStart"
-                    placeholder="选择五彩石"
-                    onSelect={this.selectStone}
-                    onClean={this.removeStone}
-                    virtualized={false}
-                    renderMenu={(menu) => {
-                        if (stones.length === 0) {
-                            return (
-                                <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
-                                    <FontAwesomeIcon icon={faFileSearch} />
-                                    {' '}
-                                    没有符合条件的五彩石
-                                </p>
-                            );
-                        }
-                        return menu;
+                <Modal
+                    show={modal}
+                    style={{
+                        height: '100%',
+                        margin: '0 auto',
                     }}
-                    // @ts-ignore
-                    renderMenuItem={(label, item: Stone) => (
-                        <div className="equip-select-item" key={item.id}>
-                            <div>
-                                <b>{item.name}</b>
-                            </div>
-                            <div>
-                                <i>{item.attributes.map((a) => a.name).join(' ')}</i>
-                            </div>
-                        </div>
-                    )}
-                />
+                    onHide={() => { this.setState(({ modal: false })); }}
+                    size="lg"
+                    dialogStyle={{
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Modal.Header>
+                        <Modal.Title>五彩石选择</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <FlexboxGrid style={{ height: 500 }}>
+                            <FlexboxGridItem colspan={12}>
+                                <div className="label">选择想要的属性(无需按顺序选择)</div>
+                                <TagGroup>
+                                    {tags.map((t) => (
+                                        <Tag
+                                            onClick={() => this.handleTagSelect(t)}
+                                            style={{ cursor: 'pointer' }}
+                                            className={disabledTags.includes(t.identity()) ? 'tag-disabled' : ''}
+                                            color={selectedTags.includes(t) ? 'red' : 'blue'}
+                                        >
+                                            {t.name}
+                                        </Tag>
+                                    ))}
+                                </TagGroup>
+                            </FlexboxGridItem>
+                            <FlexboxGridItem colspan={12} style={{ height: '100%', overflow: 'auto' }}>
+                                <div className="label">可用五彩石, 鼠标点击对应五彩石可进行选择</div>
+                                <List>
+                                    {stones.length === 0 ? (
+                                        <p style={{ padding: 4, color: '#999', textAlign: 'center' }}>
+                                            <FontAwesomeIcon icon={faFileSearch} />
+                                            {' '}
+                                            没有符合条件的五彩石
+                                        </p>
+                                    ) : Object.entries(stones.reduce((acc, cur) => {
+                                        const name = cur.name.replace(/\((.)\)/, '');
+                                        if (acc[name]) {
+                                            acc[name].push(cur);
+                                        } else {
+                                            acc[name] = [cur];
+                                        }
+                                        return acc;
+                                    }, {} as { [k: string]: Stone[]})).map(([name, items]) => (
+                                        <List.Item>
+                                            <FlexboxGrid className="equip-select-item" key={name}>
+                                                <FlexboxGridItem colspan={16}>
+                                                    <div>
+                                                        <b>{name}</b>
+                                                    </div>
+                                                    <div>
+                                                        <i>{items[0].attributes.map((a) => a.name).join(' ')}</i>
+                                                    </div>
+                                                </FlexboxGridItem>
+                                                <FlexboxGridItem>
+                                                    {items.map((stone) => (
+                                                        <img
+                                                            src={`https://icons.j3pz.com/${stone.icon}.png`}
+                                                            alt={stone.name}
+                                                            title={stone.name}
+                                                            onClick={() => this.selectStone(stone.id)}
+                                                            style={{
+                                                                width: 28, height: 28, borderRadius: 4, cursor: 'pointer', margin: 2,
+                                                            }}
+                                                        />
+                                                    ))}
+                                                </FlexboxGridItem>
+                                            </FlexboxGrid>
+                                        </List.Item>
+                                    ))}
+                                </List>
+                            </FlexboxGridItem>
+                        </FlexboxGrid>
+                    </Modal.Body>
+                </Modal>
+                <Button onClick={() => this.setState({ modal: true })} appearance="ghost">更换五彩石</Button>
+                <Button onClick={this.removeStone} style={{ marginLeft: 4 }} appearance="primary">
+                    <FontAwesomeIcon icon={faTimes} />
+                </Button>
             </>
         );
     }
