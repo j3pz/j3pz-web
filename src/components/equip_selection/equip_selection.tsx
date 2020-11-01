@@ -80,15 +80,20 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             const equip = Equip.fromJson(res.attributes);
             transaction(() => {
                 let finalEquip = equip;
-                if (store.settings.autoStrengthen) {
+                const oldEquip = store.equips[currentPosition];
+                if (!oldEquip && store.settings.autoStrengthen) {
                     finalEquip = finalEquip.setStrengthLevel(equip.strengthen);
                 }
-                if (store.settings.autoEmbed > 0) {
-                    const level = store.settings.autoEmbed;
-                    finalEquip = finalEquip.setEmbed(0, level)
-                        .setEmbed(1, level)
-                        .setEmbed(2, level);
+                if (oldEquip) {
+                    finalEquip = finalEquip.setStrengthLevel(oldEquip.strengthLevel);
                 }
+                if (oldEquip?.enhance) {
+                    finalEquip = finalEquip.setEnhance(oldEquip.enhance);
+                }
+                const level = store.settings.autoEmbed;
+                finalEquip = finalEquip.setEmbed(0, oldEquip?.embedding[0]?.level ?? level)
+                    .setEmbed(1, oldEquip?.embedding[1]?.level ?? level)
+                    .setEmbed(2, oldEquip?.embedding[2]?.level ?? level);
                 store.equips[currentPosition] = finalEquip;
                 CollectionService.updateCollection(store);
                 EmbedService.update(store);
