@@ -138,6 +138,9 @@ export class Result {
         return Math.round(this.rawAttack + this[this.meta.primaryAttribute] * (this.meta.factor.attack ?? 0));
     }
 
+    public get baseHeal(): number {
+        return this.core.heal + (this.meta.base.heal ?? 0);
+    }
     public get heal(): number {
         const heal = this.core.heal + (this.meta.base.heal ?? 0)
             + this[this.meta.primaryAttribute] * (this.meta.factor.heal ?? 0);

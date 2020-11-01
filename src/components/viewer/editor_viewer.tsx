@@ -32,7 +32,7 @@ export class EditorViewer extends Component<StoreProps> {
             attributes.push(['attack', 'baseAttack']);
         }
         if (showAllAttributes || kungfuMeta.role === GamingRole.HEALER) {
-            attributes.push(['heal', null]);
+            attributes.push(['heal', 'baseHeal']);
         }
         if (showAllAttributes) {
             attributes.push(['hitRate', 'hit']);

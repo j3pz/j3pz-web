@@ -33,7 +33,7 @@ export class ShareImage extends Component<StoreProps> {
         if (kungfuMeta.role === GamingRole.DAMAGE_DEALER) {
             attributes.push(['attack', 'baseAttack']);
         } else if (kungfuMeta.role === GamingRole.HEALER) {
-            attributes.push(['heal', null]);
+            attributes.push(['heal', 'baseHeal']);
         }
 
         if (kungfuMeta.role !== GamingRole.TANK) {
