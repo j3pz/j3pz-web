@@ -90,7 +90,7 @@ export default class HastePage extends Component<{}, HastePageState> {
                                         id="skill-time"
                                         value={skillTime}
                                         onChange={this.handleSkillTimeChange}
-                                        step={0.5}
+                                        step={0.1}
                                         min={0.5}
                                     />
                                     <HelpBlock>表示技能正读条时间，或持续性伤害技能的每跳时间，或引导读条的每跳时间</HelpBlock>
