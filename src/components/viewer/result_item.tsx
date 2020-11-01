@@ -11,6 +11,7 @@ interface ResultItemProps {
 
 const TIPS_DESC = {
     baseAttack: '基础攻击',
+    baseHeal: '基础治疗',
     hit: '命中等级',
     crit: '会心等级',
     critEffect: '会心效果等级',
