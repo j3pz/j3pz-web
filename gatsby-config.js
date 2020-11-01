@@ -44,6 +44,7 @@ module.exports = {
                 ignoreErrors: [
                     "Can't find variable: jsConnectBridge",
                     '$ is not defined',
+                    "Cannot read property 'nodeName' of null",
                     "Cannot read property 'getBoundingClientRect' of undefined",
                 ],
             },

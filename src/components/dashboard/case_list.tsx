@@ -75,7 +75,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
         if (isSameYear(now, updateTime)) {
             return format(updateTime, 'MM月dd日 HH:mm');
         }
-        return format(updateTime, 'YYYY年MM月dd日 HH:mm');
+        return format(updateTime, 'yyyy年MM月dd日 HH:mm');
     };
 
     private deleteCase = (caseInfo: CaseInfo) => {
