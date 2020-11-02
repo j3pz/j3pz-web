@@ -37,7 +37,7 @@
     "react-helmet": "^6.0.0",
     "react-konva": "^16.13.0-6",
     "reflect-metadata": "^0.1.13",
-    "rsuite": "^4.8.1",
+    "rsuite": "^4.8.4",
     "use-image": "^1.0.6"
   },
   "devDependencies": {
