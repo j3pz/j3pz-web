@@ -9,7 +9,7 @@ import { faFileSearch, faSpinner } from '@fortawesome/pro-light-svg-icons';
 import { StoreProps } from '../../store';
 import { AttributeTag, ATTRIBUTE_SHORT_DESC } from '../../model/attribute';
 import { EquipService } from '../../service/equip_service';
-import { KungFu, Position } from '../../model/base';
+import { GamingRole, KungFu, Position } from '../../model/base';
 import { navLib } from '../equip_tab/equip_nav';
 import { Equip } from '../../model/equip';
 import './equip_selection.less';
@@ -27,6 +27,12 @@ interface EquipSelectionState {
     selectOnly: 'pve' | 'pvp' | 'all';
     custom: boolean;
 }
+
+const TAG_BY_ROLE: {[k in GamingRole]: AttributeTag[]} = {
+    [GamingRole.DAMAGE_DEALER]: ['crit', 'overcome', 'surplus', 'strain', 'haste', 'toughness'],
+    [GamingRole.HEALER]: ['heal', 'crit', 'haste', 'toughness'],
+    [GamingRole.TANK]: ['physicsShield', 'magicShield', 'dodge', 'parryBase', 'toughness', 'surplus', 'strain', 'haste'],
+};
 
 @observer
 export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
@@ -138,6 +144,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
         const { store } = this.props;
         const raw = this.cache.get(store.activeEquipNav) ?? [];
         const equips = this.getFilteredEquips();
+        const role = store.kungfuMeta?.role ?? GamingRole.DAMAGE_DEALER;
         return (
             <div style={{ maxWidth: 400 }}>
                 <CheckboxGroup
@@ -148,7 +155,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                         this.setState({ tags: value });
                     }}
                 >
-                    {AttributeTag.filter((t) => t !== 'huajing')
+                    {TAG_BY_ROLE[role].filter((t) => t !== 'huajing')
                         .map((key) => <Checkbox value={key} key={key}>{ATTRIBUTE_SHORT_DESC[key]}</Checkbox>)}
                 </CheckboxGroup>
                 <div style={{ margin: 12 }} />
