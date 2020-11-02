@@ -37,3 +37,16 @@ export class Talent {
         return this;
     }
 }
+
+export class TalentRecommend {
+    public id: number;
+    public kungfu: KungFu;
+    public name: string;
+    @Type(() => Talent)
+    public talents: Talent[];
+
+    static fromJson(json: Object): TalentRecommend {
+        const recommend = plainToClass(TalentRecommend, json);
+        return recommend;
+    }
+}

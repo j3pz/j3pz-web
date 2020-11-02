@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Col, Container, Row } from 'react-grid-system';
+import { Panel, PanelGroup } from 'rsuite';
 import { TalentSelection } from '../talent_selection/talent_selection';
 import { BuildingState } from '../empty_states/building';
 import { $store } from '../../store';
 import { CaseSettings } from '../case_settings/case_settings';
-import { Panel, PanelGroup } from 'rsuite';
+import { TalentRecommends } from '../talent_recommends/talent_recommends';
 
 @observer
 export class CaseTab extends Component {
@@ -16,7 +17,10 @@ export class CaseTab extends Component {
                 <Container style={{ flex: 1, paddingTop: 12 }}>
                     <Row>
                         <Col sm={12} md={6}>
-                            <PanelGroup>
+                            <PanelGroup bordered accordion>
+                                <Panel header="推荐奇穴" defaultExpanded>
+                                    <TalentRecommends store={$store} />
+                                </Panel>
                                 <Panel header="阵法">
                                     <BuildingState />
                                 </Panel>
