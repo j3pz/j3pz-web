@@ -81,18 +81,20 @@ export class Result {
     }
 
     public get physicsShield(): number {
-        return this.core.physicsShield + this.core.basicPhysicsShield
+        const shield = this.core.physicsShield + this.core.basicPhysicsShield
             + (this.meta.base.physicsShield ?? 0)
             + this[this.meta.primaryAttribute] * (this.meta.factor.physicsShield ?? 0);
+        return Math.round(shield);
     }
     public get physicsShieldRate(): string {
         const cof = 5.091 * this.globalCof;
         return `${((this.physicsShield / (this.physicsShield + cof)) * 100).toFixed(2)}%`;
     }
     public get magicShield(): number {
-        return this.core.magicShield + this.core.basicMagicShield
+        const shield = this.core.magicShield + this.core.basicMagicShield
             + (this.meta.base.magicShield ?? 0)
             + this[this.meta.primaryAttribute] * (this.meta.factor.magicShield ?? 0);
+        return Math.round(shield);
     }
     public get magicShieldRate(): string {
         const cof = 5.091 * this.globalCof;
@@ -100,24 +102,24 @@ export class Result {
     }
 
     public get dodge(): number {
-        return this.core.dodge + this[this.meta.primaryAttribute] * (this.meta.factor.dodge ?? 0);
+        return Math.round(this.core.dodge + this[this.meta.primaryAttribute] * (this.meta.factor.dodge ?? 0));
     }
     public get dodgeRate(): string {
         const cof = 4.628 * this.globalCof;
         return `${((this.dodge / (cof + this.dodge)) * 100).toFixed(2)}%`;
     }
     public get parryBase(): number {
-        return this.core.parryBase + this[this.meta.primaryAttribute] * (this.meta.factor.parryBase ?? 0);
+        return Math.round(this.core.parryBase + this[this.meta.primaryAttribute] * (this.meta.factor.parryBase ?? 0));
     }
     public get parryBaseRate(): string {
         const cof = 4.345 * this.globalCof;
         return `${(3 + (this.parryBase / (cof + this.parryBase)) * 100).toFixed(2)}%`;
     }
     public get parryValue(): number {
-        return this.core.parryValue + this[this.meta.primaryAttribute] * (this.meta.factor.parryValue ?? 0);
+        return Math.round(this.core.parryValue + this[this.meta.primaryAttribute] * (this.meta.factor.parryValue ?? 0));
     }
     public get toughness(): number {
-        return this.core.toughness + this[this.meta.primaryAttribute] * (this.meta.factor.toughness ?? 0);
+        return Math.round(this.core.toughness + this[this.meta.primaryAttribute] * (this.meta.factor.toughness ?? 0));
     }
     public get toughnessRate(): string {
         const cof = 9.530 * this.globalCof;
