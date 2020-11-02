@@ -241,11 +241,14 @@ export class ShareImage extends Component<StoreProps> {
 
                                     {(equip?.source.length ?? 0) > 0 && (
                                         <Text
-                                            text={equip!.sourceDescription.split('\n').join(',').slice(0, 30)}
+                                            text={equip!.sourceDescription.split('\n').join(',')}
                                             x={x + 220}
-                                            y={y + 16}
+                                            y={y + 18}
+                                            width={275}
                                             fontSize={12}
                                             fill="#FFFFFF"
+                                            ellipsis
+                                            wrap="none"
                                         />
                                     )}
 
@@ -262,7 +265,7 @@ export class ShareImage extends Component<StoreProps> {
                             );
                         })}
                         <Text
-                            text={caseInfo.name.length > 9 ? `${caseInfo.name.slice(0, 8)}...` : caseInfo.name}
+                            text={caseInfo.name}
                             fontFamily="STKaiti, 华文楷体, sans-serif"
                             fill="#FFFFFF"
                             align="center"
@@ -270,6 +273,8 @@ export class ShareImage extends Component<StoreProps> {
                             x={118}
                             width={300}
                             y={24}
+                            ellipsis
+                            wrap="none"
                         />
                         <Text
                             text={`by ${user?.name ?? '配装器用户'}`}
