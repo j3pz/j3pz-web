@@ -79,7 +79,7 @@ export class Equip {
 
     public setStrengthLevel(level: number): Equip {
         const equip = classToClass(this);
-        equip.strengthLevel = level;
+        equip.strengthLevel = Math.min(equip.strengthen, level);
         return equip;
     }
 
