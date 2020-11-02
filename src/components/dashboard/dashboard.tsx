@@ -48,7 +48,7 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
 
     render() {
         const { active, create } = this.state;
-        const { logged } = this.props;
+        const { logged, store } = this.props;
         return (
             <main
                 style={{
@@ -99,7 +99,8 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                                 eventKey="settings"
                                 icon={<FontAwesomeIcon icon={faCogs} style={iconStyle} />}
                             >
-                                设置
+                                个人设置
+                                {!store.user?.activate ? '(待激活)' : ''}
                             </Nav.Item>
                         </Nav>
                     </Sidenav.Body>
