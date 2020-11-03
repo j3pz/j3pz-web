@@ -45,7 +45,12 @@ export default class NewCasePage extends Component<{}, NewCasePageState> {
     };
 
     newCase = () => {
-        CaseService.create(this.state.kungfu!, this.state.name).then((res) => {
+        let { name } = this.state;
+        const { kungfu } = this.state;
+        if (name === '') {
+            name = `${kungfu}配装`;
+        }
+        CaseService.create(kungfu!, name).then((res) => {
             if (res) {
                 navigate(`/app#${res.id}`);
             }
