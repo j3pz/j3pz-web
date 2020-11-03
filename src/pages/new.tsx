@@ -17,7 +17,6 @@ interface NewCasePageState {
 }
 
 export default class NewCasePage extends Component<{}, NewCasePageState> {
-    name: string;
     constructor(props) {
         super(props);
         this.state = {
@@ -46,7 +45,7 @@ export default class NewCasePage extends Component<{}, NewCasePageState> {
     };
 
     newCase = () => {
-        CaseService.create(this.state.kungfu!, this.name).then((res) => {
+        CaseService.create(this.state.kungfu!, this.state.name).then((res) => {
             if (res) {
                 navigate(`/app#${res.id}`);
             }
