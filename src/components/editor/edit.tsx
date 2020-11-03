@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Nav, FlexboxGrid, Alert, Toggle, Notification, IconButton,
+    Nav, FlexboxGrid, Alert, Toggle, Notification, IconButton, Whisper, Popover,
 } from 'rsuite';
 import { observer } from 'mobx-react';
 import { transaction } from 'mobx';
@@ -162,14 +162,25 @@ export class CoreEdit extends Component<StoreProps> {
                             </div>
                         </FlexboxGrid.Item>
                         <FlexboxGrid.Item>
-                            <IconButton
-                                icon={<FontAwesomeIcon icon={faListUl} size="2x" />}
-                                circle
-                                size="lg"
-                                appearance="primary"
-                                className="new-case"
-                                // onClick={this.showNewCaseGuide}
-                            />
+                            <Whisper
+                                trigger="click"
+                                enterable
+                                placement="top"
+                                speaker={(
+                                    <Popover>
+                                        <EditorViewer store={$store} />
+                                    </Popover>
+                                )}
+                            >
+                                <IconButton
+                                    icon={<FontAwesomeIcon icon={faListUl} size="2x" />}
+                                    circle
+                                    size="lg"
+                                    appearance="primary"
+                                    className="new-case"
+                                    // onClick={this.showNewCaseGuide}
+                                />
+                            </Whisper>
                         </FlexboxGrid.Item>
                         <FlexboxGrid.Item>
                             <div

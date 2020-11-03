@@ -7,6 +7,7 @@ import './editor_viewer.less';
 import { ResultService } from '../../service/result_service';
 import { Result } from '../../model/result';
 import { ResultItem } from './result_item';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 type ResultTuple = [keyof Result, keyof Result | null];
 
@@ -86,9 +87,15 @@ export class EditorViewer extends Component<StoreProps> {
 
     render() {
         const result = ResultService.calc(this.props.store);
+        const isMobile = PlatformUtil.isMobile();
+        let height = 500;
+        if (typeof window === 'object') {
+            height = window.screen.height * 0.6;
+        }
         return (
             <div
                 className="result-view"
+                style={isMobile ? { height } : {}}
             >
                 <div className="label"><b>基础</b></div>
                 {this.basicAttributes.map(([key, tips]) => <ResultItem key={key} attrib={key} tips={tips} result={result} />)}
