@@ -81,8 +81,8 @@ export default class ResetPage extends Component<{}, { pending: boolean; valid: 
                     {!pending && valid && (
                         <div style={{ margin: 'auto' }}>
                             <div>新密码</div>
-                            <Input type="password" onChange={(val) => { this.password = val; }} />
-                            <Button appearance="primary" onClick={this.reset}>确认</Button>
+                            <Input type="password" size="lg" onChange={(val) => { this.password = val; }} />
+                            <Button appearance="primary" onClick={this.reset} style={{ marginLeft: 12 }}>确认</Button>
                         </div>
                     )}
                 </main>
