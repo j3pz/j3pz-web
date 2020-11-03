@@ -200,6 +200,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                     valueKey="id"
                     searchable={false}
                     placeholder="选取装备..."
+                    placement="autoVertical"
                     virtualized={false}
                     value={store.equips[store.activeEquipNav]?.id}
                     renderMenu={(menu) => {
