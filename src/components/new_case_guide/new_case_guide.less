@@ -1,5 +1,11 @@
+@import '../../css/global.less';
+
 .school-item {
     width: 24%;
+
+    &.mobile {
+        width: 33%;
+    }
     display: inline-block;
     text-align: center;
     height: 108px;
@@ -19,7 +25,7 @@
             display: none;
         }
     }
-    &:hover {
+    &:not(.mobile):hover {
         .school {
             display: none;
         }
@@ -30,12 +36,39 @@
     span.jx3icon {
         font-size: 48px;
     }
+    span.school-name {
+        font-size: 16px;
+    }
     .kungfu-item {
         cursor: pointer;
         img {
             width: 24px;
             height: 24px;
             margin: 4px;
+        }
+    }
+}
+
+.kungfu {
+    display: flex;
+    justify-content: space-around;
+    margin: 12px 0;
+}
+.kungfu-item.mobile {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 48px;
+        height: 48px;
+    }
+    span {
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 24px;
+
+        &.active {
+            color: @base-color;
         }
     }
 }

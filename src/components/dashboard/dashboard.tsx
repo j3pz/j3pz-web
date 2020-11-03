@@ -1,5 +1,6 @@
 import React, { Component, CSSProperties } from 'react';
 import { observer } from 'mobx-react';
+import { navigate } from 'gatsby';
 import {
     Button, FlexboxGrid, IconButton, Nav, Sidenav,
 } from 'rsuite';
@@ -46,7 +47,11 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
     }
 
     showNewCaseGuide = () => {
-        this.setState({ create: true });
+        if (PlatformUtil.isMobile()) {
+            navigate('/new');
+        } else {
+            this.setState({ create: true });
+        }
     };
 
     render() {
