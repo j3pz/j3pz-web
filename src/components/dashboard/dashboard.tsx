@@ -13,7 +13,7 @@ import { NewCaseGuide } from '../new_case_guide/new_case_guide';
 import { CaseList } from './case_list';
 import { UserSettings } from './user_settings';
 import { PlatformUtil } from '../../utils/platform_utils';
-import './dashboard.less';
+import '../../css/bottom-bar.less';
 
 const iconStyle: CSSProperties = {
     position: 'absolute',

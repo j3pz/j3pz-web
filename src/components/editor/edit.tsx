@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {
-    Nav, FlexboxGrid, Alert, Toggle, Notification,
+    Nav, FlexboxGrid, Alert, Toggle, Notification, IconButton,
 } from 'rsuite';
 import { observer } from 'mobx-react';
 import { transaction } from 'mobx';
 import { navigate } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave, faShareAlt } from '@fortawesome/pro-light-svg-icons';
+import { faDrawCircle, faListUl, faSwords } from '@fortawesome/pro-regular-svg-icons';
 import { $store, StoreProps, AppTab } from '../../store';
 import { EquipTab } from '../equip_tab/equip_tab';
 import { CaseTab } from '../case_tab/case_tab';
@@ -20,6 +21,7 @@ import { EmbedService } from '../../service/embed_service';
 import { ShareModal } from '../share/share_modal';
 import { SettingsService } from '../../service/settings_service';
 import { PlatformUtil } from '../../utils/platform_utils';
+import '../../css/bottom-bar.less';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -100,6 +102,7 @@ export class CoreEdit extends Component<StoreProps> {
                     left: 0,
                     right: 0,
                     bottom: 0,
+                    paddingBottom: isMobile ? 60 : 0,
                 }}
             >
                 <FlexboxGrid style={{ height: '100%', flexWrap: 'nowrap' }}>
@@ -147,6 +150,38 @@ export class CoreEdit extends Component<StoreProps> {
                     )}
                 </FlexboxGrid>
                 <ShareModal store={$store} />
+                { isMobile && (
+                    <FlexboxGrid className="bottom-bar" justify="space-around">
+                        <FlexboxGrid.Item>
+                            <div
+                                className={`bottom-bar-item ${store.tab === AppTab.EQUIP ? 'active' : ''}`}
+                                onClick={() => { this.switchTab(AppTab.EQUIP); }}
+                            >
+                                <FontAwesomeIcon icon={faSwords} size="2x" />
+                                <span>装备设置</span>
+                            </div>
+                        </FlexboxGrid.Item>
+                        <FlexboxGrid.Item>
+                            <IconButton
+                                icon={<FontAwesomeIcon icon={faListUl} size="2x" />}
+                                circle
+                                size="lg"
+                                appearance="primary"
+                                className="new-case"
+                                // onClick={this.showNewCaseGuide}
+                            />
+                        </FlexboxGrid.Item>
+                        <FlexboxGrid.Item>
+                            <div
+                                className={`bottom-bar-item ${store.tab === AppTab.CASE ? 'active' : ''}`}
+                                onClick={() => { this.switchTab(AppTab.CASE); }}
+                            >
+                                <FontAwesomeIcon icon={faDrawCircle} size="2x" />
+                                <span>方案设置</span>
+                            </div>
+                        </FlexboxGrid.Item>
+                    </FlexboxGrid>
+                )}
             </main>
         );
     }
