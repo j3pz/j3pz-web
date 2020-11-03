@@ -38,7 +38,7 @@ export class CoreEdit extends Component<StoreProps> {
                 }
             });
         } else {
-            Alert.warning('这是一个临时界面，配装方案仅能在电脑上进行修改而无法保存。', 10000);
+            Alert.warning('这是一个临时界面，配装方案仅能在当前设备上进行修改而无法保存。', 10000);
         }
         if (!this.props.store.user) {
             UserService.getUser(false).then((res) => {

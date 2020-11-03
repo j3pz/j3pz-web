@@ -45,6 +45,7 @@ const EquipOverlay = React.forwardRef<HTMLDivElement, EquipOverlayProps>(({ styl
         borderRadius: 4,
         position: 'absolute',
         boxShadow: '0 3px 6px -2px rgba(0, 0, 0, 0.6)',
+        zIndex: 99,
     };
     return (
         <div {...rest} style={styles} ref={ref}>
@@ -106,7 +107,7 @@ export class EquipNav extends Component<StoreProps> {
                                     <Nav.Item eventKey={key} key={key} className={isMobile ? 'mobile-equip-item' : ''}>
                                         <Whisper
                                             delayHide={1}
-                                            trigger="hover"
+                                            trigger={isMobile ? [] : 'hover'}
                                             speaker={(props, ref) => {
                                                 const { left, top } = props;
                                                 return <EquipOverlay style={{ left, top }} equip={equip} ref={ref} />;
