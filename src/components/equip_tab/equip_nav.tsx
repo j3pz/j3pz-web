@@ -1,6 +1,8 @@
 import React, { Component, CSSProperties } from 'react';
 import { observer } from 'mobx-react';
 import { Sidenav, Nav, Whisper } from 'rsuite';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowToLeft, faArrowToRight } from '@fortawesome/pro-regular-svg-icons';
 import { StoreProps } from '../../store';
 import {
     Category, Position, CATEGORY_DESC, KungFu,
@@ -8,6 +10,7 @@ import {
 import './equip_nav.less';
 import { EquipView } from '../equip_view/equip_view';
 import { Equip } from '../../model/equip';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 interface NavInfo {
     category: Category;
@@ -42,6 +45,7 @@ const EquipOverlay = React.forwardRef<HTMLDivElement, EquipOverlayProps>(({ styl
         borderRadius: 4,
         position: 'absolute',
         boxShadow: '0 3px 6px -2px rgba(0, 0, 0, 0.6)',
+        zIndex: 99,
     };
     return (
         <div {...rest} style={styles} ref={ref}>
@@ -53,23 +57,42 @@ const EquipOverlay = React.forwardRef<HTMLDivElement, EquipOverlayProps>(({ styl
 
 @observer
 export class EquipNav extends Component<StoreProps> {
-    changeNav = (key: Position) => {
+    changeNav = (key: Position | 'toggle') => {
         const { store } = this.props;
+        if (key === 'toggle') {
+            store.equipNavExpanded = !store.equipNavExpanded;
+            return;
+        }
         store.activeEquipNav = key;
     };
 
     render() {
         const { store } = this.props;
+        const isMobile = PlatformUtil.isMobile();
         return (
-            <div style={{ width: store.equipNavExpanded ? 240 : 64, height: '100%' }}>
+            <div style={{ width: store.equipNavExpanded ? 240 : 64, height: '100%', zIndex: 10 }}>
                 <Sidenav
-                    style={{ height: '100%', overflow: 'auto', borderRight: '1px solid #CCCCCC' }}
+                    style={{
+                        height: '100%',
+                        overflow: 'auto',
+                        borderRight: '1px solid #CCCCCC',
+                    }}
                     onSelect={this.changeNav}
                     activeKey={store.activeEquipNav}
                     appearance="subtle"
                 >
                     <Sidenav.Body>
                         <Nav>
+                            {isMobile && (
+                                <Nav.Item eventKey="toggle">
+                                    <FontAwesomeIcon
+                                        icon={store.equipNavExpanded ? faArrowToLeft : faArrowToRight}
+                                        className="equip-icon"
+                                        size="lg"
+                                        style={{ left: 10, top: 0 }}
+                                    />
+                                </Nav.Item>
+                            )}
                             {Object.values(Position).map((key) => {
                                 if (key === Position.TERTIARY_WEAPON
                                     && store.kungfu !== KungFu.山居剑意
@@ -81,10 +104,10 @@ export class EquipNav extends Component<StoreProps> {
                                 const name = CATEGORY_DESC[category];
                                 const equip = store.equips[key];
                                 return (
-                                    <Nav.Item eventKey={key} key={key}>
+                                    <Nav.Item eventKey={key} key={key} className={isMobile ? 'mobile-equip-item' : ''}>
                                         <Whisper
                                             delayHide={1}
-                                            trigger="hover"
+                                            trigger={isMobile ? [] : 'hover'}
                                             speaker={(props, ref) => {
                                                 const { left, top } = props;
                                                 return <EquipOverlay style={{ left, top }} equip={equip} ref={ref} />;
@@ -99,8 +122,8 @@ export class EquipNav extends Component<StoreProps> {
                                                 alt={equip?.name ?? name}
                                             />
                                         </Whisper>
-                                        <div className={equip?.id ? 'equip-type' : 'equip-full'}>{name}</div>
-                                        { equip?.id && <div className="equip-name">{equip.name}</div> }
+                                        <div className={equip?.id ? 'equip-type' : 'equip-full'} style={{ opacity: store.equipNavExpanded ? 1 : 0 }}>{name}</div>
+                                        { equip?.id && <div className="equip-name" style={{ opacity: store.equipNavExpanded ? 1 : 0 }}>{equip.name}</div>}
                                     </Nav.Item>
                                 );
                             })}

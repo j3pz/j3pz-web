@@ -21,6 +21,7 @@ import './case_list.less';
 import { schoolIcons } from '../../utils/school_icon';
 import { DeleteConfirm } from './delete_confirm';
 import { RenameCase } from './rename_case';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 interface CaseListState {
     del: boolean;
@@ -126,16 +127,18 @@ export class CaseList extends Component<StoreProps, CaseListState> {
     render() {
         const list = CaseList.cache;
         const { del, rename, name } = this.state;
+        const isMobile = PlatformUtil.isMobile();
+        const itemPadding = isMobile ? 8 : 36;
         return (
             <div>
-                <FlexboxGrid style={{ padding: '8px 36px' }}>
+                <FlexboxGrid style={{ padding: `8px ${itemPadding}px` }}>
                     <FlexboxGridItem style={{ width: 60 }} />
                     <FlexboxGridItem colspan={12}>名称</FlexboxGridItem>
                     <FlexboxGridItem colspan={6}>更新时间</FlexboxGridItem>
                 </FlexboxGrid>
                 <List hover size="lg">
                     {list.map((c) => (
-                        <List.Item key={`case-${c.id}`} style={{ paddingLeft: 36, paddingRight: 36 }} className="case-item">
+                        <List.Item key={`case-${c.id}`} style={{ paddingLeft: itemPadding, paddingRight: itemPadding }} className="case-item">
                             <FlexboxGrid align="middle">
                                 {/* Icon */}
                                 <FlexboxGridItem style={{ width: 60 }}>
@@ -149,6 +152,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                                 <FlexboxGridItem colspan={12} className="case-item-col">
                                     <div style={{ fontSize: 14, color: '#5A5A5B' }}>{c.kungfu}</div>
                                     <Link to={`/app#${c.id}`} style={{ fontSize: 20, color: '#333334' }}>{c.name}</Link>
+                                    {!isMobile && (
                                     <div className="case-more" style={{ right: 36 }}>
                                         <Whisper
                                             trigger="hover"
@@ -158,6 +162,8 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                                             <FontAwesomeIcon icon={faTrash} onClick={() => { this.deleteCase(c); }} />
                                         </Whisper>
                                     </div>
+                                    )}
+                                    {!isMobile && (
                                     <div className="case-more" style={{ right: 72 }}>
                                         <Whisper
                                             trigger="hover"
@@ -167,11 +173,12 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                                             <FontAwesomeIcon icon={faEdit} onClick={() => { this.renameCase(c); }} />
                                         </Whisper>
                                     </div>
+                                    )}
                                 </FlexboxGridItem>
                                 {/* Update Time */}
                                 <FlexboxGridItem style={{ color: '#5A5A5B', flex: 1 }} className="case-item-col">
                                     {this.getTime(c.lastUpdate)}
-                                    <i className={`jx3icon jx3icon-${this.getIcon(c.kungfu)} school-icon`} />
+                                    {!isMobile && <i className={`jx3icon jx3icon-${this.getIcon(c.kungfu)} school-icon`} />}
                                 </FlexboxGridItem>
                             </FlexboxGrid>
                         </List.Item>

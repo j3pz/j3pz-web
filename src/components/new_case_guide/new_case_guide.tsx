@@ -44,7 +44,11 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
     };
 
     newCase = () => {
-        CaseService.create(this.state.kungfu!, this.name).then((res) => {
+        const { kungfu } = this.state;
+        if (this.name === '') {
+            this.name = `${kungfu}配装`;
+        }
+        CaseService.create(kungfu!, this.name).then((res) => {
             if (res) {
                 navigate(`/app#${res.id}`);
             } else {

@@ -1,0 +1,34 @@
+@import './global.less';
+
+.bottom-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    border-top: 1px solid #CCCCCC;
+    background-color: #F7F7FA;
+    z-index: 999;
+
+    .new-case {
+        position: relative;
+        top: -30px;
+        width: 60px !important;
+        height: 60px !important;
+        box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.7);
+    }
+
+    .bottom-bar-item {
+        height: 60px;
+        text-align: center;
+        padding: 6px 0;
+
+        &.active {
+            color: @base-color;
+        }
+
+        span {
+            display: block;
+        }
+    }
+}

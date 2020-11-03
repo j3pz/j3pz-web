@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Input, Modal } from 'rsuite';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 interface ChangePasswordProps {
     show: boolean;
@@ -18,6 +19,7 @@ export class ChangePassword extends Component<ChangePasswordProps> {
 
     render() {
         const { show, onClose = () => {} } = this.props;
+        const isMobile = PlatformUtil.isMobile();
         return (
             <Modal
                 show={show}
@@ -25,7 +27,7 @@ export class ChangePassword extends Component<ChangePasswordProps> {
                     height: '100%',
                     margin: '0 auto',
                 }}
-                size="sm"
+                size={isMobile ? 'xs' : 'sm'}
                 onHide={onClose}
                 dialogStyle={{
                     height: '100%',
@@ -44,8 +46,8 @@ export class ChangePassword extends Component<ChangePasswordProps> {
                     <Input type="password" onChange={(val) => { this.password = val; }} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button appearance="default" onClick={onClose}>取消</Button>
-                    <Button appearance="primary" onClick={this.onConfirm}>确认</Button>
+                    {!isMobile && <Button appearance="default" onClick={onClose}>取消</Button>}
+                    <Button appearance="primary" block={isMobile} onClick={this.onConfirm}>确认</Button>
                 </Modal.Footer>
             </Modal>
         );

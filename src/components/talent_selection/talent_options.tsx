@@ -3,6 +3,7 @@ import {
     Nav, Popover, Tooltip, Whisper,
 } from 'rsuite';
 import { Talent } from '../../model/talent';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 interface TalentOptionsProps {
     talents: Talent[];
@@ -12,9 +13,10 @@ interface TalentOptionsProps {
 
 function TalentOptions({ idx, talents, onChange = () => {} }: TalentOptionsProps) {
     const selected = talents[idx];
+    const isMobile = PlatformUtil.isMobile();
     return (
         <Whisper
-            trigger={['hover', 'focus']}
+            trigger={isMobile ? 'click' : ['hover', 'focus']}
             enterable
             speaker={(
                 <Popover>

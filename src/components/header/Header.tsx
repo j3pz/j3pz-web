@@ -1,6 +1,7 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import { Navbar, Nav, Button } from 'rsuite';
+import { PlatformUtil } from '../../utils/platform_utils';
 import './Header.css';
 
 interface HeaderProps {
@@ -9,6 +10,7 @@ interface HeaderProps {
 }
 
 const Header = ({ type = 'border', mode = 'acrylic' } : HeaderProps) => {
+    const isMobile = PlatformUtil.isMobile();
     if (mode === 'simple') {
         return (
             <Navbar componentClass="header" className={`header header-${type}`} style={{ display: 'block', height: 'auto' }}>
@@ -26,7 +28,7 @@ const Header = ({ type = 'border', mode = 'acrylic' } : HeaderProps) => {
                             <Nav.Item componentClass="button">反馈</Nav.Item>
                         </a>
                     </Nav>
-                    <Nav pullRight>
+                    <Nav pullRight={!isMobile}>
                         <Link to="/dashboard"><Nav.Item>方案列表</Nav.Item></Link>
                     </Nav>
                 </Navbar.Body>
