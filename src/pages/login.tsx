@@ -18,6 +18,7 @@ import { UserService } from '../service/user_service';
 import { User } from '../model/user';
 import { $store } from '../store';
 import { ResetPassword } from '../components/reset_password/reset_password';
+import { PlatformUtil } from '../utils/platform_utils';
 
 const { StringType } = Schema.Types;
 
@@ -60,7 +61,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
     constructor(props) {
         super(props);
         this.state = {
-            mode: 'signup',
+            mode: PlatformUtil.isMobile() ? 'signin' : 'signup',
             requesting: false,
             forget: false,
         };
@@ -132,11 +133,23 @@ export default class LoginPage extends Component<{}, LoginPageState> {
 
     render() {
         const { mode, requesting, forget } = this.state;
+        const isMobile = PlatformUtil.isMobile();
         return (
             <>
                 <SEO title="登录" />
                 <Container className="login" fluid style={{ padding: 0 }}>
                     <img src="https://images.j3pz.com/imgs/icon.png" alt="Logo" className="logo" />
+
+                    {isMobile && mode === 'signup' && (
+                        <div className="mobile-guide">
+                            <Button appearance="ghost" onClick={this.goSignIn} size="lg">登录</Button>
+                        </div>
+                    )}
+                    {isMobile && mode === 'signin' && (
+                        <div className="mobile-guide">
+                            <Button appearance="ghost" onClick={this.goSignUp} size="lg">注册</Button>
+                        </div>
+                    )}
 
                     <Row nowrap nogutter style={{ width: '100%', height: '100%' }}>
                         { mode === 'signin' && (
@@ -195,6 +208,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                             </div>
                         </Col>
                         )}
+                        { !isMobile && (
                         <Col className="login-guide" sm={5}>
                             { mode === 'signup' && (
                             <div className="guide-tips">
@@ -237,6 +251,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                             </div>
                             )}
                         </Col>
+                        )}
                         {mode === 'signup' && (
                         <Col className="form" sm={7}>
                             <div className="sign-up-form">
