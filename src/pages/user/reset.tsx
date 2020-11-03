@@ -34,11 +34,11 @@ export default class ResetPage extends Component<{}, { pending: boolean; valid: 
         }
     }
 
-    reset = (password) => {
+    reset = () => {
         const permalink = getUrlParameter('permalink');
         const token = getUrlParameter('token');
         if (permalink && token) {
-            UserService.resetPassword(permalink, token, password, false).then((res) => {
+            UserService.resetPassword(permalink, token, this.password, false).then((res) => {
                 if (res) {
                     navigate('/login');
                 } else {
