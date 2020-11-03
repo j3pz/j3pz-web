@@ -1,15 +1,18 @@
 import React, { Component, CSSProperties } from 'react';
 import { observer } from 'mobx-react';
 import {
-    Button, Nav, Sidenav,
+    Button, FlexboxGrid, IconButton, Nav, Sidenav,
 } from 'rsuite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
-import { faCogs, faGripVertical } from '@fortawesome/pro-regular-svg-icons';
+import { faCogs, faGripHorizontal, faGripVertical } from '@fortawesome/pro-regular-svg-icons';
+import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
 import { $store, StoreProps } from '../../store';
 import { NewCaseGuide } from '../new_case_guide/new_case_guide';
 import { CaseList } from './case_list';
 import { UserSettings } from './user_settings';
+import { PlatformUtil } from '../../utils/platform_utils';
+import './dashboard.less';
 
 const iconStyle: CSSProperties = {
     position: 'absolute',
@@ -49,6 +52,7 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
     render() {
         const { active, create } = this.state;
         const { logged, store } = this.props;
+        const isMobile = PlatformUtil.isMobile();
         return (
             <main
                 style={{
@@ -60,6 +64,7 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                     display: 'flex',
                 }}
             >
+                { !isMobile && (
                 <Sidenav
                     appearance="default"
                     style={{ width: 240, height: '100%', borderRight: '1px solid #cccccc' }}
@@ -105,7 +110,41 @@ export class Dashboard extends Component<StoreProps & DashboardProps, DashboardS
                         </Nav>
                     </Sidenav.Body>
                 </Sidenav>
-                <div style={{ paddingTop: 120, flex: 1 }}>
+                )}
+
+                { isMobile && (
+                    <FlexboxGrid className="bottom-bar" justify="space-around">
+                        <FlexboxGridItem>
+                            <div
+                                className={`bottom-bar-item ${active === 'cases' ? 'active' : ''}`}
+                                onClick={() => { this.setState({ active: 'cases' }); }}
+                            >
+                                <FontAwesomeIcon icon={faGripHorizontal} size="2x" />
+                                <span>配装方案</span>
+                            </div>
+                        </FlexboxGridItem>
+                        <FlexboxGridItem>
+                            <IconButton
+                                icon={<FontAwesomeIcon icon={faPlus} size="2x" />}
+                                circle
+                                size="lg"
+                                appearance="primary"
+                                className="new-case"
+                                onClick={this.showNewCaseGuide}
+                            />
+                        </FlexboxGridItem>
+                        <FlexboxGridItem>
+                            <div
+                                className={`bottom-bar-item ${active === 'settings' ? 'active' : ''}`}
+                                onClick={() => { this.setState({ active: 'settings' }); }}
+                            >
+                                <FontAwesomeIcon icon={faCogs} size="2x" />
+                                <span>个人设置</span>
+                            </div>
+                        </FlexboxGridItem>
+                    </FlexboxGrid>
+                )}
+                <div style={{ paddingTop: isMobile ? 64 : 120, flex: 1 }}>
                     { logged && active === 'cases' && <CaseList store={$store} /> }
                     { logged && active === 'settings' && <UserSettings store={$store} /> }
                 </div>

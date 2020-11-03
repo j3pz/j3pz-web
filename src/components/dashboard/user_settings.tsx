@@ -10,6 +10,7 @@ import {
 import { UserService } from '../../service/user_service';
 import { $store, StoreProps } from '../../store';
 import { ChangePassword } from './change_password';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 interface UserSettingsState {
     passwordModal: boolean;
@@ -62,6 +63,7 @@ export class UserSettings extends Component<StoreProps, UserSettingsState> {
     render() {
         const { store } = this.props;
         const { passwordModal } = this.state;
+        const isMobile = PlatformUtil.isMobile();
         return (
             <div style={{ paddingLeft: 24, maxWidth: 400 }}>
                 <div className="label">邮箱</div>
@@ -79,11 +81,12 @@ export class UserSettings extends Component<StoreProps, UserSettingsState> {
                     <InputGroup.Addon><FontAwesomeIcon icon={faUser} /></InputGroup.Addon>
                     <Input defaultValue={store.user?.name} onChange={(value) => { this.name = value; }} />
                 </InputGroup>
-                <Button size="sm" style={{ marginTop: 6 }} onClick={this.updateName}>保存</Button>
+                <Button size={isMobile ? 'md' : 'sm'} block={isMobile} style={{ marginTop: 6 }} onClick={this.updateName}>保存</Button>
                 <div className="label" style={{ marginTop: 12 }}>密码</div>
                 <Button
                     appearance="primary"
                     style={{ marginTop: 6 }}
+                    block={isMobile}
                     onClick={() => { this.setState({ passwordModal: true }); }}
                 >
                     修改密码
@@ -97,6 +100,7 @@ export class UserSettings extends Component<StoreProps, UserSettingsState> {
                 <Button
                     appearance="primary"
                     style={{ marginTop: 6 }}
+                    block={isMobile}
                     onClick={this.logout}
                 >
                     退出登录
