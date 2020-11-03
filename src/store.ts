@@ -6,6 +6,7 @@ import { KungFuMeta } from './model/kungfu';
 import { Stone } from './model/stone';
 import { Talent } from './model/talent';
 import { User } from './model/user';
+import { PlatformUtil } from './utils/platform_utils';
 
 export enum AppTab { EQUIP, CASE }
 
@@ -38,7 +39,7 @@ export interface EditState {
 
 export const $store = observable<EditState>({
     tab: AppTab.EQUIP,
-    equipNavExpanded: true,
+    equipNavExpanded: !PlatformUtil.isMobile(),
     showShare: false,
     showAllAttributes: false,
     activeEquipNav: Position.HAT,

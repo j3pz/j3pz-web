@@ -19,6 +19,7 @@ import { User } from '../../model/user';
 import { EmbedService } from '../../service/embed_service';
 import { ShareModal } from '../share/share_modal';
 import { SettingsService } from '../../service/settings_service';
+import { PlatformUtil } from '../../utils/platform_utils';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -89,6 +90,7 @@ export class CoreEdit extends Component<StoreProps> {
 
     render() {
         const { store } = this.props;
+        const isMobile = PlatformUtil.isMobile();
         return (
             <main
                 style={{
@@ -101,15 +103,18 @@ export class CoreEdit extends Component<StoreProps> {
                 }}
             >
                 <FlexboxGrid style={{ height: '100%', flexWrap: 'nowrap' }}>
-                    <FlexboxGrid.Item colspan={18} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <FlexboxGrid.Item colspan={isMobile ? 24 : 18} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                        { !isMobile && (
                         <Nav activeKey={store.tab} appearance="subtle" onSelect={this.switchTab}>
                             <SchoolDropdown store={$store} />
                             <Nav.Item eventKey={AppTab.CASE} style={{ float: 'right' }}>方案设置</Nav.Item>
                             <Nav.Item eventKey={AppTab.EQUIP} style={{ float: 'right' }}>装备设置</Nav.Item>
                         </Nav>
+                        )}
                         { store.tab === AppTab.EQUIP && <EquipTab store={$store} />}
                         { store.tab === AppTab.CASE && <CaseTab />}
                     </FlexboxGrid.Item>
+                    {!isMobile && (
                     <FlexboxGrid.Item
                         style={{
                             borderLeft: '1px solid #CCCCCC',
@@ -139,6 +144,7 @@ export class CoreEdit extends Component<StoreProps> {
                         </Nav>
                         { store.kungfuMeta && <EditorViewer store={$store} />}
                     </FlexboxGrid.Item>
+                    )}
                 </FlexboxGrid>
                 <ShareModal store={$store} />
             </main>
