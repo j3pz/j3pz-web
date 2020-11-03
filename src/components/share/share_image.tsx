@@ -47,7 +47,7 @@ export class ShareImage extends Component<StoreProps> {
             // 破防
             attributes.push(['overcomeRate', 'overcome']);
             // 破防
-            attributes.push(['surplus', 'surplusDamage']);
+            attributes.push(['surplus', null]);
         }
 
         // 急速
