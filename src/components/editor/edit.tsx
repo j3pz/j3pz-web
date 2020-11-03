@@ -193,6 +193,23 @@ export class CoreEdit extends Component<StoreProps> {
                         </FlexboxGrid.Item>
                     </FlexboxGrid>
                 )}
+
+                { isMobile && (
+                    <IconButton
+                        appearance="primary"
+                        size="lg"
+                        icon={<FontAwesomeIcon icon={faSave} size="lg" />}
+                        onClick={() => this.onCaseEvent('save')}
+                        circle
+                        style={{
+                            position: 'absolute',
+                            right: 12,
+                            bottom: 72,
+                            zIndex: 9,
+                            boxShadow: '0 0 4px 0 rgba(0, 0, 0, 0.7)',
+                        }}
+                    />
+                )}
             </main>
         );
     }
