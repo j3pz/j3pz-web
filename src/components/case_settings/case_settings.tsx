@@ -95,13 +95,13 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
                     />
                     <Button
                         onClick={this.setStrenthenForAll}
-                        style={{ marginLeft: 12 }}
+                        style={{ marginTop: 12, display: 'block' }}
                         appearance="ghost"
                         size="sm"
                     >
                         全部满精炼
                     </Button>
-                    <div className="label">自动镶嵌</div>
+                    <div className="label" style={{ marginTop: 24 }}>自动镶嵌</div>
                     <Whisper
                         trigger="click"
                         placement="right"
@@ -132,7 +132,7 @@ export class CaseSettings extends Component<StoreProps, CaseSettingsState> {
                     </Whisper>
                     <Button
                         onClick={this.embedAll}
-                        style={{ marginLeft: 12 }}
+                        style={{ marginTop: 12, display: 'block' }}
                         appearance="ghost"
                         size="sm"
                     >

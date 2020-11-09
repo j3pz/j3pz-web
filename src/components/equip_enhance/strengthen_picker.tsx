@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStarHalfAlt, faSlash, faStar as faLightStar } from '@fortawesome/pro-light-svg-icons';
 import { faStar as faSolidStar } from '@fortawesome/pro-solid-svg-icons';
+import { Alert, Button } from 'rsuite';
+import { transaction } from 'mobx';
 import { StoreProps } from '../../store';
 import './equip_enhance.less';
 
@@ -53,6 +55,17 @@ export class StrengthenPicker extends Component<StoreProps, StrengthenPickerStat
         this.handleMouseIn(level);
     };
 
+    setStrenthenForAll = () => {
+        const { store } = this.props;
+        const currentEquip = store.equips[store.activeEquipNav];
+        transaction(() => {
+            Object.entries(store.equips).forEach(([key, equip]) => {
+                store.equips[key] = equip?.setStrengthLevel(currentEquip?.strengthLevel ?? 6);
+            });
+            Alert.success('精炼已完成');
+        });
+    };
+
     render() {
         const { store } = this.props;
         const currentEquip = store.equips[store.activeEquipNav];
@@ -82,6 +95,12 @@ export class StrengthenPicker extends Component<StoreProps, StrengthenPickerStat
                         }
                         return <FontAwesomeIcon icon={faLightStar} size="2x" {...handlers} />;
                     })}
+                <div style={{ margin: 6 }} />
+                <Button appearance="ghost" disabled={!currentEquip} size="sm" onClick={this.setStrenthenForAll}>
+                    全身精炼至
+                    {currentEquip?.strengthLevel ?? 6}
+                    级
+                </Button>
             </>
         );
     }
