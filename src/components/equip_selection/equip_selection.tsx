@@ -26,6 +26,7 @@ interface EquipSelectionState {
     range: [number, number];
     selectOnly: 'pve' | 'pvp' | 'all';
     custom: boolean;
+    ignoreMinified: boolean;
 }
 
 const TAG_BY_ROLE: {[k in GamingRole]: AttributeTag[]} = {
@@ -48,6 +49,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             range: [4000, 5300],
             selectOnly: 'all',
             custom: false,
+            ignoreMinified: true,
         };
         this.cache = new Map();
     }
@@ -58,7 +60,6 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             this.setState({ minQuality: min, maxQuality: max });
         });
     }
-
 
     handleUpdate = () => {
         const { store } = this.props;
@@ -117,7 +118,9 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
 
     getFilteredEquips = () => {
         const { store } = this.props;
-        const { range, tags, selectOnly } = this.state;
+        const {
+            range, tags, selectOnly, ignoreMinified,
+        } = this.state;
         let hitCurrentEquip = false;
         const currentEquip = store.equips[store.activeEquipNav];
         const equips = (this.cache.get(store.activeEquipNav) ?? []).filter((equip) => {
@@ -129,6 +132,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             if (tags.length > 0 && tags.filter((t) => equip.tags.includes(t)).length < tags.length) return false;
             if (selectOnly === 'pve' && equip.tags.includes('huajing')) return false;
             if (selectOnly === 'pvp' && !equip.tags.includes('huajing')) return false;
+            if (ignoreMinified && equip.name.startsWith('无皇')) return false;
             return true;
         });
         if (!hitCurrentEquip && currentEquip) {
@@ -139,7 +143,7 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
 
     render() {
         const {
-            tags, minQuality, maxQuality, range, selectOnly, custom,
+            tags, minQuality, maxQuality, range, selectOnly, custom, ignoreMinified,
         } = this.state;
         const { store } = this.props;
         const raw = this.cache.get(store.activeEquipNav) ?? [];
@@ -175,6 +179,18 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
                             unCheckedChildren="PVP"
                             checked={selectOnly === 'pvp'}
                             onChange={(checked) => { this.setState({ selectOnly: checked ? 'pvp' : 'all' }); }}
+                        />
+                    </div>
+                </div>
+                <div style={{ margin: 12 }} />
+                <div>
+                    <span>不看</span>
+                    <div style={{ display: 'inline-block', padding: 8 }}>
+                        <Toggle
+                            checkedChildren="精简"
+                            unCheckedChildren="精简"
+                            checked={ignoreMinified}
+                            onChange={(checked) => { this.setState({ ignoreMinified: checked }); }}
                         />
                     </div>
                 </div>
