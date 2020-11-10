@@ -86,10 +86,12 @@ export default class LoginPage extends Component<{}, LoginPageState> {
 
     goSignIn = () => {
         this.setState({ mode: 'signin' });
+        gtag('event', 'auth.go_sign_in');
     };
 
     goSignUp = () => {
         this.setState({ mode: 'signup' });
+        gtag('event', 'auth.go_sign_up');
     };
 
     update = (value) => {
@@ -105,6 +107,7 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                 $store.user = user;
                 localStorage.setItem('token', user.token);
                 navigate('/dashboard');
+                gtag('event', 'login', { method: 'local' });
             }
         });
     };
@@ -118,11 +121,13 @@ export default class LoginPage extends Component<{}, LoginPageState> {
                 $store.user = user;
                 localStorage.setItem('token', user.token);
                 navigate('/dashboard');
+                gtag('event', 'sign_up', { method: 'local' });
             }
         });
     };
 
     doReset = (email: string) => {
+        gtag('event', 'auth.request_reset');
         UserService.requestReset(email).then((res) => {
             if (res) {
                 Alert.info('该邮箱会收到关于重置密码的进一步指引说明，请登录邮箱查看');
