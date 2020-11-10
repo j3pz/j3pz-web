@@ -55,6 +55,7 @@ export default class NewCasePage extends Component<{}, NewCasePageState> {
                 navigate(`/app#${res.id}`);
             }
         });
+        gtag('event', 'case.new', { kungfu, platform: 'web_mobile' });
     };
 
     render() {

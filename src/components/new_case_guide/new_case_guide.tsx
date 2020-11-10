@@ -55,6 +55,7 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
                 this.onConfirm();
             }
         });
+        gtag('event', 'case.new', { kungfu, platform: 'web_pc' });
     };
 
     render() {

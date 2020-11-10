@@ -85,6 +85,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
             name: caseInfo.name,
             id: caseInfo.id,
         });
+        gtag('event', 'case.delete', { kungfu: caseInfo.kungfu });
     };
 
     private doDelete = () => {
@@ -96,6 +97,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                 this.closeModal();
             }
         });
+        gtag('event', 'case.delet_confirm');
     };
 
     private renameCase = (caseInfo: CaseInfo) => {
@@ -104,6 +106,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
             name: caseInfo.name,
             id: caseInfo.id,
         });
+        gtag('event', 'case.rename', { kungfu: caseInfo.kungfu });
     };
 
     private doRename = (name: string) => {
@@ -115,6 +118,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                 this.closeModal();
             }
         });
+        gtag('event', 'case.rename_confirm');
     };
 
     private closeModal = () => {
