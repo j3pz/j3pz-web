@@ -3,6 +3,7 @@ import { Resource } from '../model/resource';
 import { User } from '../model/user';
 import { $store } from '../store';
 import { directError, ENDPOINT, errorHandler } from './base';
+import { GA_MEASUREMENT_ID } from './report_service';
 
 export class UserService {
     static async login(email: string, password: string): Promise<Resource<User> | false> {
@@ -39,6 +40,9 @@ export class UserService {
         });
         try {
             localStorage.setItem('token', res?.data.data.attributes.token);
+            gtag('config', GA_MEASUREMENT_ID, {
+                user_id: res?.data.data.id,
+            });
         } catch (e) { /* do nothing */ }
         return res?.data.data;
     }
