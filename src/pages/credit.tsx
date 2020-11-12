@@ -8,7 +8,7 @@ import '../css/text.less';
 const CreditPage = () => (
     <Main>
         <SEO title="致谢" />
-        <Container component="section" style={{ paddingTop: 120 }}>
+        <Container component="section" style={{ width: '100%' }}>
             <Row>
                 <Col sm={12} md={8}>
                     <h3 className="label">致谢</h3>
