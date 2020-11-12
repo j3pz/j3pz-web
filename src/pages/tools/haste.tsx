@@ -117,6 +117,7 @@ export default class HastePage extends Component<{}, HastePageState> {
                                     <Radio value={31 * 3}>心剑两忘【纯阳】</Radio>
                                     <Radio value={30 * 2}>梦歌【万花】</Radio>
                                     <Radio value={10 * 5}>枕上【七秀】</Radio>
+                                    <Radio value={31 * 3}>冰丝【五毒】</Radio>
                                     <Radio value={21 * 5}>妙镜惊寂【明教】</Radio>
                                     <Radio value={51}>凝绝【长歌】</Radio>
                                     <Radio value={82}>如风【藏剑】</Radio>
