@@ -16,7 +16,7 @@ export class ShareModal extends Component<StoreProps, ShareModalState> {
     constructor(props) {
         super(props);
         this.state = {
-            activeKey: 'data',
+            activeKey: 'image',
         };
     }
 
