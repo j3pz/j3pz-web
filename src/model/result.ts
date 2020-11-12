@@ -261,13 +261,14 @@ export class Result {
 
     public applyEquip(equip?: Equip): Result {
         if (equip) {
-            if (this.kungfu === KungFu.问水诀 && equip.category === Category.TERTIARY_WEAPON) {
+            const isCangjian = this.kungfu === KungFu.问水诀 || this.kungfu === KungFu.山居剑意;
+            const isWeapon = equip.category === Category.TERTIARY_WEAPON || equip.category === Category.PRIMARY_WEAPON;
+            if (isCangjian && isWeapon) {
                 this.core.score += (equip.score + equip.getStrengthValue(equip.score) + equip.embedScore) / 2;
-                return this;
-            }
-            if (this.kungfu === KungFu.山居剑意 && equip.category === Category.PRIMARY_WEAPON) {
-                this.core.score += (equip.score + equip.getStrengthValue(equip.score) + equip.embedScore) / 2;
-                return this;
+                if ((this.kungfu === KungFu.问水诀 && equip.category === Category.TERTIARY_WEAPON)
+                    || (this.kungfu === KungFu.山居剑意 && equip.category === Category.PRIMARY_WEAPON)) {
+                    return this;
+                }
             }
             PrimaryAttribute.forEach((key) => {
                 this.add(key, equip[key] ?? 0);
@@ -310,6 +311,7 @@ export class Result {
                 const value = equip.enhance!.value[i] ?? equip.enhance!.value[0];
                 this.add(key, +value, equip.enhance!.decorator);
             });
+            if (isCangjian && isWeapon) return this;
             this.core.score += equip.score + equip.getStrengthValue(equip.score) + equip.embedScore;
         }
         return this;
