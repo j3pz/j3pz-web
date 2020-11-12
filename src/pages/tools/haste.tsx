@@ -15,6 +15,7 @@ interface HastePageState {
 
 interface HasteResult {
     duration: string;
+    surplus: string;
     percentage: string;
     level: number;
 }
@@ -45,29 +46,44 @@ export default class HastePage extends Component<{}, HastePageState> {
         const results: HasteResult[] = [];
         const { skillTime, hitTimes, extra } = this.state;
         const skillFrame = Math.ceil(skillTime / 0.0625);
+        const surplusFrame = Math.ceil(2 / 0.0625);
+
         let hastePercent = 0;
         let hastePercentLimit = 0;
-        let level = 0;
         let lastTime = (Number(skillTime) + 0.1).toFixed(2);
+        let lastSurplusTime = '2.10';
         const hasteCof = 438.5625;
         for (let i = 0; hastePercentLimit < 25; i += 1) {
             const baseHaste = (i / hasteCof) * 10.24;
             const totalHaste = Math.floor(baseHaste) + Math.floor(extra);
+
             const nowFrame = Math.floor((skillFrame * 1024) / (totalHaste + 1024));
+            const surplusNowFrame = Math.floor((surplusFrame * 1024) / (totalHaste + 1024));
+
             hastePercent = i / hasteCof;
             hastePercentLimit = i / hasteCof + extra / 10.24;
-            if (nowFrame <= skillFrame - level) {
-                const nowTime = (nowFrame * 0.0625 * Number(hitTimes)).toFixed(2);
-                if (nowTime !== lastTime) {
-                    lastTime = nowTime;
-                    const result = {
-                        duration: nowTime,
-                        percentage: hastePercent.toFixed(2),
-                        level: i,
-                    };
-                    results.push(result);
-                    level += 1;
-                }
+
+            const nowTime = (nowFrame * 0.0625 * Number(hitTimes)).toFixed(2);
+            const nowSurplusTime = (surplusNowFrame * 0.0625 * 5).toFixed(2);
+            const result = {
+                duration: '',
+                percentage: hastePercent.toFixed(2),
+                surplus: '',
+                level: i,
+            };
+            let shouldAdd = false;
+            if (nowTime !== lastTime) {
+                lastTime = nowTime;
+                result.duration = nowTime;
+                shouldAdd = true;
+            }
+            if (nowSurplusTime !== lastSurplusTime) {
+                lastSurplusTime = nowSurplusTime;
+                result.surplus = nowSurplusTime;
+                shouldAdd = true;
+            }
+            if (shouldAdd) {
+                results.push(result);
             }
         }
         return results;
@@ -130,23 +146,28 @@ export default class HastePage extends Component<{}, HastePageState> {
                                 <List hover style={{ marginTop: 12 }}>
                                     <List.Item>
                                         <FlexboxGrid style={{ fontWeight: 700 }}>
-                                            <FlexboxGrid.Item colspan={8}>读条时间(秒)</FlexboxGrid.Item>
-                                            <FlexboxGrid.Item colspan={8}>所需加速率</FlexboxGrid.Item>
-                                            <FlexboxGrid.Item colspan={8} style={{ textAlign: 'right' }}>
+                                            <FlexboxGrid.Item colspan={6}>读条时间(秒)</FlexboxGrid.Item>
+                                            <FlexboxGrid.Item colspan={6}>破招伤害时间(秒)</FlexboxGrid.Item>
+                                            <FlexboxGrid.Item colspan={6}>所需加速率</FlexboxGrid.Item>
+                                            <FlexboxGrid.Item colspan={6} style={{ textAlign: 'right' }}>
                                                 所需加速等级
                                             </FlexboxGrid.Item>
                                         </FlexboxGrid>
                                     </List.Item>
-                                    {results.map((step) => (
-                                        <List.Item key={step.duration}>
+                                    {results.map((step, i) => (
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        <List.Item key={`haste-${i}`}>
                                             <FlexboxGrid>
-                                                <FlexboxGrid.Item colspan={8}>
+                                                <FlexboxGrid.Item colspan={6}>
                                                     {step.duration}
                                                 </FlexboxGrid.Item>
-                                                <FlexboxGrid.Item colspan={8}>
+                                                <FlexboxGrid.Item colspan={6}>
+                                                    {step.surplus}
+                                                </FlexboxGrid.Item>
+                                                <FlexboxGrid.Item colspan={6}>
                                                     {step.percentage}
                                                 </FlexboxGrid.Item>
-                                                <FlexboxGrid.Item colspan={8} style={{ textAlign: 'right' }}>
+                                                <FlexboxGrid.Item colspan={6} style={{ textAlign: 'right' }}>
                                                     {step.level}
                                                 </FlexboxGrid.Item>
                                             </FlexboxGrid>
