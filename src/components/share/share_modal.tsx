@@ -1,15 +1,32 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { Button, Modal, Nav } from 'rsuite';
+import { Modal, Nav } from 'rsuite';
 import { $store, StoreProps } from '../../store';
 import { ShareImage } from './share_image';
+import { ShareResult } from './share_result';
+
+interface ShareModalState {
+    activeKey: string;
+}
 
 @observer
-export class ShareModal extends Component<StoreProps> {
+export class ShareModal extends Component<StoreProps, ShareModalState> {
     private img: ShareImage;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeKey: 'data',
+        };
+    }
+
+    switchTab = (key: string) => {
+        this.setState({ activeKey: key });
+    };
 
     render() {
         const { store } = this.props;
+        const { activeKey } = this.state;
         return (
             <Modal
                 show={store.showShare}
@@ -27,9 +44,12 @@ export class ShareModal extends Component<StoreProps> {
                 onHide={() => { store.showShare = false; }}
             >
                 <Modal.Header>
-                    <Nav appearance="subtle" activeKey="image">
+                    <Nav appearance="subtle" activeKey={activeKey} onSelect={this.switchTab}>
                         <Nav.Item eventKey="image">
                             分享为图片
+                        </Nav.Item>
+                        <Nav.Item eventKey="data">
+                            导出属性数据
                         </Nav.Item>
                         <Nav.Item eventKey="iframe" disabled>
                             嵌入到网页 (Coming Soon)
@@ -39,12 +59,8 @@ export class ShareModal extends Component<StoreProps> {
                         </Nav.Item>
                     </Nav>
                 </Modal.Header>
-                <Modal.Body>
-                    <ShareImage store={$store} ref={(node) => { this.img = node!; }} />
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={() => { this.img.saveImage(); }} appearance="primary">下载图片</Button>
-                </Modal.Footer>
+                {activeKey === 'image' && <ShareImage store={$store} />}
+                {activeKey === 'data' && <ShareResult store={$store} />}
             </Modal>
         );
     }
