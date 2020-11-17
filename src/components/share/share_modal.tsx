@@ -11,8 +11,6 @@ interface ShareModalState {
 
 @observer
 export class ShareModal extends Component<StoreProps, ShareModalState> {
-    private img: ShareImage;
-
     constructor(props) {
         super(props);
         this.state = {

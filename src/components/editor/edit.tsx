@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { transaction } from 'mobx';
 import { navigate } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faShareAlt } from '@fortawesome/pro-light-svg-icons';
+import { faFileExport, faSave, faShareAlt } from '@fortawesome/pro-light-svg-icons';
 import { faDrawCircle, faListUl, faSwords } from '@fortawesome/pro-regular-svg-icons';
 import { $store, StoreProps, AppTab } from '../../store';
 import { EquipTab } from '../equip_tab/equip_tab';
@@ -22,6 +22,7 @@ import { ShareModal } from '../share/share_modal';
 import { SettingsService } from '../../service/settings_service';
 import { PlatformUtil } from '../../utils/platform_utils';
 import '../../css/bottom-bar.less';
+import { SaveAsModal } from '../save_as/save_as_modal';
 
 @observer
 export class CoreEdit extends Component<StoreProps> {
@@ -83,6 +84,9 @@ export class CoreEdit extends Component<StoreProps> {
                     }
                 });
                 break;
+            case 'save-as':
+                store.showSaveAs = true;
+                break;
             case 'share':
                 store.showShare = true;
                 break;
@@ -129,10 +133,8 @@ export class CoreEdit extends Component<StoreProps> {
                         colspan={6}
                     >
                         <Nav appearance="subtle" style={{ height: 36 }} onSelect={this.onCaseEvent}>
-                            {/* <Nav.Item icon={<FontAwesomeIcon icon={faUndo} />} />
-                            <Nav.Item icon={<FontAwesomeIcon icon={faRedo} />} /> */}
                             <Nav.Item icon={<FontAwesomeIcon icon={faSave} size="lg" />} eventKey="save"> 保存</Nav.Item>
-                            {/* <Nav.Item icon={<FontAwesomeIcon icon={faFolderOpen} />} /> */}
+                            <Nav.Item icon={<FontAwesomeIcon icon={faFileExport} size="lg" />} eventKey="save-as"> 另存</Nav.Item>
                             <Nav.Item icon={<FontAwesomeIcon icon={faShareAlt} size="lg" />} eventKey="share"> 导出</Nav.Item>
                             <Nav.Item style={{ float: 'right' }}>
                                 <Toggle
@@ -150,6 +152,7 @@ export class CoreEdit extends Component<StoreProps> {
                     )}
                 </FlexboxGrid>
                 <ShareModal store={$store} />
+                <SaveAsModal store={$store} />
                 { isMobile && (
                     <FlexboxGrid className="bottom-bar" justify="space-around">
                         <FlexboxGrid.Item>
