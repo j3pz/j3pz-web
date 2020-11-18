@@ -78,7 +78,7 @@ export class CoreEdit extends Component<StoreProps> {
         const { store } = this.props;
         switch (key) {
             case 'save':
-                CaseService.save($store).then((res) => {
+                CaseService.save($store, $store.caseInfo.id).then((res) => {
                     if (res) {
                         Alert.success('保存成功');
                     }

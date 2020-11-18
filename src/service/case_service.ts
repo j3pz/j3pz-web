@@ -97,15 +97,15 @@ export class CaseService {
         return true;
     }
 
-    static async save(store: EditState) {
+    static async save(store: EditState, id: string, name: string = '') {
         const token = $store.user?.token ?? localStorage.getItem('token');
         if (!token) {
             directError('尚未登录');
             return false;
         }
 
-        const caseModel = new CaseModel(store.caseInfo.id);
-        caseModel.name = store.caseInfo.name;
+        const caseModel = new CaseModel(id);
+        caseModel.name = name || store.caseInfo.name;
         caseModel.kungfu = store.kungfu;
         caseModel.published = false;
 
@@ -130,10 +130,16 @@ export class CaseService {
         caseModel.talent = store.talents.map((t) => t.id);
         caseModel.effect = [];
 
-        const res = await axios.put(`${ENDPOINT}/case/${caseModel.id}`, caseModel, {
+        if (id !== '') {
+            const res = await axios.put(`${ENDPOINT}/case/${caseModel.id}`, caseModel, {
+                headers: { Authorization: `Bearer ${token}` },
+            }).catch(errorHandler);
+            return res?.data.data.status === 'success';
+        }
+        const res = await axios.post(`${ENDPOINT}/case`, caseModel, {
             headers: { Authorization: `Bearer ${token}` },
         }).catch(errorHandler);
-        return res?.data.data.status === 'success';
+        return res?.data.data ?? false;
     }
 
     static async create(kungfu: KungFu, name: string): Promise<Resource<CaseInfo> | false> {

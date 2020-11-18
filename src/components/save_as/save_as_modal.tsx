@@ -3,11 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import {
+    Alert,
     Button, Input, InputGroup, List, Modal,
 } from 'rsuite';
 import { CaseInfo } from '../../model/case_info';
 import { CaseService } from '../../service/case_service';
-import { StoreProps } from '../../store';
+import { $store, StoreProps } from '../../store';
 
 interface SaveAsModalState {
     list: CaseInfo[];
@@ -48,9 +49,20 @@ export class SaveAsModal extends Component<StoreProps, SaveAsModalState> {
 
     onConfirm = () => {
         if (this.state.isNew) {
-            // CaseService.create()
+            CaseService.save($store, '', this.name).then((res) => {
+                if (res) {
+                    Alert.success('保存成功');
+                    this.close();
+                }
+            });
+        } else {
+            CaseService.save($store, this.state.active).then((res) => {
+                if (res) {
+                    Alert.success('保存成功');
+                    this.close();
+                }
+            });
         }
-        this.close();
     };
 
     close = () => {
@@ -114,10 +126,16 @@ export class SaveAsModal extends Component<StoreProps, SaveAsModalState> {
                                     }}
                                 >
                                     <InputGroup.Addon><FontAwesomeIcon icon={faPlusSquare} style={{ marginRight: 8 }} /></InputGroup.Addon>
-                                    <Input defaultValue={`${store.caseInfo.name} - copy`} />
+                                    <Input defaultValue={`${store.caseInfo.name} - copy`} autoFocus onChange={(v) => { this.name = v; }} />
                                 </InputGroup>
                             ) : (
-                                <List.Item style={{ cursor: 'pointer' }} onClick={() => { this.setState({ isNew: true }); }}>
+                                <List.Item
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={() => {
+                                        this.setState({ isNew: true });
+                                        this.name = `${store.caseInfo.name} - copy`;
+                                    }}
+                                >
                                     <FontAwesomeIcon icon={faPlusSquare} style={{ marginRight: 8 }} />
                                     另存为新方案
                                 </List.Item>
@@ -139,8 +157,13 @@ export class SaveAsModal extends Component<StoreProps, SaveAsModalState> {
                     <Button onClick={this.close} appearance="subtle">
                         取消
                     </Button>
-                    <Button onClick={this.onConfirm} appearance="primary">
-                        {isNew ? '保存为新方案' : '覆盖已有方案'}
+                    <Button onClick={this.onConfirm} appearance="primary" disabled={active === '' && !isNew}>
+                        {
+                        // eslint-disable-next-line no-nested-ternary
+                        active === '' && !isNew
+                            ? '另存为...'
+                            : isNew ? '保存为新方案' : '覆盖已有方案'
+                        }
                     </Button>
                 </Modal.Footer>
             </Modal>
