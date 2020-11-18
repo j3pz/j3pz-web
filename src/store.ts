@@ -14,6 +14,7 @@ export interface EditState {
     tab: AppTab;
     equipNavExpanded: boolean;
     showShare: boolean;
+    showSaveAs: boolean;
     showAllAttributes: boolean;
     activeEquipNav: Position;
     kungfu: KungFu;
@@ -41,6 +42,7 @@ export const $store = observable<EditState>({
     tab: AppTab.EQUIP,
     equipNavExpanded: !PlatformUtil.isMobile(),
     showShare: false,
+    showSaveAs: false,
     showAllAttributes: false,
     activeEquipNav: Position.HAT,
     kungfu: KungFu.花间游,
