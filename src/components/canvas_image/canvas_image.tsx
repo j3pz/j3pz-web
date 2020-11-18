@@ -13,6 +13,7 @@ interface CanvasImageProps {
 
 export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 'image'>, CanvasImageState> {
     private image: HTMLImageElement;
+    public imageRef;
 
     constructor(props) {
         super(props);
@@ -27,6 +28,8 @@ export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 
     componentDidUpdate(oldProps) {
         if (oldProps.src !== this.props.src) {
             this.loadImage();
+        } else {
+            this.applyCache();
         }
     }
     componentWillUnmount() {
@@ -42,7 +45,16 @@ export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 
         this.setState({
             image: this.image,
         });
+        this.applyCache();
     };
+
+    applyCache() {
+        if (this.props.filters) {
+            this.imageRef.cache();
+            this.imageRef.getLayer().batchDraw();
+        }
+    }
+
     render() {
         if (!this.state.image) {
             return null;
@@ -53,6 +65,9 @@ export class CanvasImage extends Component<CanvasImageProps & Omit<ImageConfig, 
         } = rest;
         const image = (
             <KonvaImage
+                ref={(node) => {
+                    this.imageRef = node;
+                }}
                 image={this.state.image}
                 {...rest}
             />
