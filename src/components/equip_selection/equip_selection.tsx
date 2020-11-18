@@ -88,11 +88,10 @@ export class EquipSelection extends Component<StoreProps, EquipSelectionState> {
             transaction(() => {
                 let finalEquip = equip;
                 const oldEquip = store.equips[currentPosition];
-                if (!oldEquip && store.settings.autoStrengthen) {
-                    finalEquip = finalEquip.setStrengthLevel(equip.strengthen);
-                }
-                if (oldEquip) {
+                if (oldEquip && oldEquip.strengthLevel < oldEquip.strengthen) {
                     finalEquip = finalEquip.setStrengthLevel(oldEquip.strengthLevel);
+                } else if (store.settings.autoStrengthen) {
+                    finalEquip = finalEquip.setStrengthLevel(equip.strengthen);
                 }
                 if (oldEquip?.enhance) {
                     finalEquip = finalEquip.setEnhance(oldEquip.enhance);
