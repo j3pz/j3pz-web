@@ -8,6 +8,7 @@ import { CaseService } from '../service/case_service';
 import { schoolIcons } from '../utils/school_icon';
 import '../components/new_case_guide/new_case_guide.less';
 import '../css/icon.less';
+import { report } from '../service/report_service';
 
 interface NewCasePageState {
     step: number;
@@ -55,7 +56,7 @@ export default class NewCasePage extends Component<{}, NewCasePageState> {
                 navigate(`/app#${res.id}`);
             }
         });
-        gtag('event', 'case.new', { kungfu, platform: 'web_mobile' });
+        report('case.new', { kungfu, platform: 'web_mobile' });
     };
 
     render() {

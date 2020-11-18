@@ -22,6 +22,7 @@ import { schoolIcons } from '../../utils/school_icon';
 import { DeleteConfirm } from './delete_confirm';
 import { RenameCase } from './rename_case';
 import { PlatformUtil } from '../../utils/platform_utils';
+import { report } from '../../service/report_service';
 
 interface CaseListState {
     del: boolean;
@@ -85,7 +86,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
             name: caseInfo.name,
             id: caseInfo.id,
         });
-        gtag('event', 'case.delete', { kungfu: caseInfo.kungfu });
+        report('case.delete', { kungfu: caseInfo.kungfu });
     };
 
     private doDelete = () => {
@@ -97,7 +98,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                 this.closeModal();
             }
         });
-        gtag('event', 'case.delet_confirm');
+        report('case.delet_confirm');
     };
 
     private renameCase = (caseInfo: CaseInfo) => {
@@ -106,7 +107,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
             name: caseInfo.name,
             id: caseInfo.id,
         });
-        gtag('event', 'case.rename', { kungfu: caseInfo.kungfu });
+        report('case.rename', { kungfu: caseInfo.kungfu });
     };
 
     private doRename = (name: string) => {
@@ -118,7 +119,7 @@ export class CaseList extends Component<StoreProps, CaseListState> {
                 this.closeModal();
             }
         });
-        gtag('event', 'case.rename_confirm');
+        report('case.rename_confirm');
     };
 
     private closeModal = () => {

@@ -8,6 +8,7 @@ import { schoolIcons } from '../../utils/school_icon';
 import './new_case_guide.less';
 import '../../css/icon.less';
 import { CaseService } from '../../service/case_service';
+import { report } from '../../service/report_service';
 
 interface NewCaseGuideProps {
     show: boolean;
@@ -55,7 +56,7 @@ export class NewCaseGuide extends Component<NewCaseGuideProps, NewCaseGuideState
                 this.onConfirm();
             }
         });
-        gtag('event', 'case.new', { kungfu, platform: 'web_pc' });
+        report('case.new', { kungfu, platform: 'web_pc' });
     };
 
     render() {
