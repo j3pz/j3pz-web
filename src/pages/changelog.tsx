@@ -13,6 +13,11 @@ const NotFoundPage = () => (
                 <Col sm={12} md={10} offset={{ md: 1 }}>
                     <h3 className="label">更新记录</h3>
                     <div className="changelog-item">
+                        <h4>2020-11-19 v4.0.3</h4>
+                        <p>1、增加另存为功能</p>
+                        <p>2、修复输出心法看不到体质附魔的问题</p>
+                    </div>
+                    <div className="changelog-item">
                         <h4>2020-11-12 v4.0.2</h4>
                         <p>1、增加导出为 JSON/CSV 的功能</p>
                         <p>2、修复部分心法属性计算错误问题</p>
