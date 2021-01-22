@@ -123,7 +123,7 @@ export class Result {
     }
     public get toughnessRate(): string {
         const cof = 9.530 * this.globalCof;
-        return `${((this.toughness / (this.toughness + cof)) * 100).toFixed(2)}%`;
+        return `${((this.toughness / cof) * 100).toFixed(2)}%`;
     }
 
     private get rawAttack(): number {
