@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-grid-system';
+import { Footer } from '../components/footer/Footer';
 import { Main } from '../components/layouts/Main';
 import { SEO } from '../components/seo';
 
@@ -13,6 +14,8 @@ const IntroPage = () => (
                 </Col>
             </Row>
         </Container>
+        <div style={{ margin: 48 }} />
+        <Footer />
     </Main>
 );
 

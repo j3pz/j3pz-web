@@ -62,7 +62,7 @@ function Footer({ background = '#FAFAFA' }: FooterProps) {
                         {' '}
                         剑网3配装器
                     </span>
-                    <a href="https://beian.mit.gov.cn/" target="_blank" rel="noopener noreferrer">滇ICP备14005270号-1</a>
+                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">滇ICP备14005270号-1</a>
                 </div>
             </div>
         </Container>
