@@ -1,12 +1,7 @@
 import React from 'react';
 
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCouch, faGem, faRibbon, faTachometerAlt,
-} from '@fortawesome/pro-duotone-svg-icons';
-import { Button } from 'rsuite';
 import { SEO } from '../components/seo';
 import { Card } from '../components/ui/Card';
 import { Footer } from '../components/footer/Footer';
@@ -79,61 +74,25 @@ const IndexPage = () => {
                             {' '}
                         </p>
 
-                        <p>
+                        <p style={{ textAlign: 'right', fontStyle: 'italic' }}>
+                            胖叔叔于 2021 年 8 月 26 日
+                        </p>
+
+                        <p style={{ fontSize: 20, color: '#757575', marginTop: 60 }}>
                             PS. 配装器所有代码已在
                             {' '}
                             <a href="https://github.com/j3pz">https://github.com/j3pz</a>
                             {' '}
                             开源。
-                            在线服务将于 2021 年 9 月 30 日关停。
+                            在线服务于 2021 年 9 月 30 日关停。
                         </p>
                     </div>
                 </Card>
-                <div className="guide">
-                    <div className="content">
-                        <div className="title">自由搭配</div>
-                        <div className="text">支持各种常规和非常规的配装方式，混搭装，大旗装，挖掘配装新思路</div>
-                        <div className="title right">战斗属性</div>
-                        <div className="text right">设置阵眼、小药、战斗属性，避免属性溢出，最大化装备收益</div>
-                        {/* <div className="title">全平台支持</div>
-                        <div className="text">可在 Android、iOS、网页和微信小程序中使用，随时随地，不错过任何一次灵感</div> */}
-                    </div>
-                </div>
-                <div className="tools">
-                    <div className="content black">
-                        <div className="title">小工具</div>
-                    </div>
-                    <div className="tools-row">
-                        <Link to="/tools/haste">
-                            <Card className="tools-item">
-                                <FontAwesomeIcon icon={faTachometerAlt} size="4x" className="icon" />
-                                <div className="text">加速宝典</div>
-                            </Card>
-                        </Link>
-                        <Link to="/tools/prediction" className="disabled">
-                            <Card className="tools-item">
-                                <FontAwesomeIcon icon={faGem} size="4x" className="icon" color="#CCC" />
-                                <div className="text">瑰石列表</div>
-                            </Card>
-                        </Link>
-                        <Link to="/tools/furniture" className="disabled">
-                            <Card className="tools-item">
-                                <FontAwesomeIcon icon={faCouch} size="4x" className="icon" color="#CCC" />
-                                <div className="text">家具图鉴</div>
-                            </Card>
-                        </Link>
-                        <Link to="/tools/achivement" className="disabled">
-                            <Card className="tools-item">
-                                <FontAwesomeIcon icon={faRibbon} size="4x" className="icon" color="#CCC" />
-                                <div className="text">成就百科</div>
-                            </Card>
-                        </Link>
-                    </div>
-                </div>
                 <div className="getstart">
                     <div className="content">
                         <div className="title center">由玩家设计，为玩家创造</div>
-                        <Link to="/dashboard"><Button className="getstart-btn" appearance="primary">江湖必备，点此开始</Button></Link>
+                        <div className="title center">2013 - 2021</div>
+                        {/* <Link to="/dashboard"><Button className="getstart-btn" appearance="primary">江湖必备，点此开始</Button></Link> */}
                     </div>
                     <Img fluid={data.getstart.childImageSharp.fluid} alt="" className="getstart-img" />
                 </div>
